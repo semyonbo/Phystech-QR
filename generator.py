@@ -1,30 +1,59 @@
 import qrcode
 from PIL import Image
-import math
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPM
+import qrcode.image.svg
+from qrcode.image.styledpil import StyledPilImage
+from qrcode.image.styles.moduledrawers import RoundedModuleDrawer
+from qrcode.image.styles.colormasks import RadialGradiantColorMask
+
+#settings
+distor_amount=0.3
+code_pixel_size=20
+qr_border_size=1
+code_color='black'
+backgroud_color='white'
+
+#Рендер логотипа
+def render_logo(code_with,code_height):
+    width_logo = int(code_with * distor_amount)
+    height_logo = int(code_height * distor_amount)
+    drawing = svg2rlg("logophysics.svg")
+    drawing.scale(width_logo / drawing.width, height_logo / drawing.height)
+    drawing.height = height_logo+code_pixel_size//10
+    drawing.width = width_logo+code_pixel_size//10
+    renderPM.drawToFile(drawing, "logo_rastr.png", fmt="PNG")
+
 inp=input()
-# qr = qrcode.QRCode(
-#     error_correction=qrcode.constants.ERROR_CORRECT_Q,
-#     version=None,
-#     box_size=1,
-#     border=2,
-# )
-# qr.add_data(inp)
-# qr.make(fit=True)
-# img = qr.make_image(fill_color="black",back_color="white")
-# type(img)
-# img.save('qrtest.png')
 
-logo=Image.open("logo.jpg")
-qr_big = qrcode.QRCode(
-    error_correction=qrcode.constants.ERROR_CORRECT_H
+#Creating QR
+PhyQR = qrcode.QRCode(
+    error_correction=qrcode.constants.ERROR_CORRECT_H,
+    border=qr_border_size,
+    box_size=code_pixel_size
 )
-qr_big.add_data(inp)
-qr_big.make()
-img_qr_big = qr_big.make_image(fill_color="black",back_color="white").convert('RGB')
-new_width  = int(img_qr_big.size[0]*0.3)
-new_height = int(img_qr_big.size[1]*0.3)
-logo = logo.resize((new_width, new_height), Image.ANTIALIAS)
-pos = ((img_qr_big.size[0] - logo.size[0]) // 2, (img_qr_big.size[1] - logo.size[1]) // 2)
+PhyQR.add_data(inp)
+PhyQR.make()
+img_PhyQR = PhyQR.make_image(image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer()).convert('RGB')
+render_logo(img_PhyQR.size[0],img_PhyQR.size[1])
 
-img_qr_big.paste(logo, pos)
-img_qr_big.save('qr_red.png')
+#Pasting logo to QR
+logo=Image.open("logo_rastr.png")
+pos = ((img_PhyQR.size[0] - logo.size[0]) // 2, (img_PhyQR.size[1] - logo.size[1]) // 2)
+img_PhyQR.paste(logo, pos)
+
+img_PhyQR.save('QR.png')
+
+
+
+#Метод создания svg QR-кода
+# qrvec=qrcode.QRCode(
+#     error_correction=qrcode.constants.ERROR_CORRECT_H,
+#     border=1
+#
+# )
+# qrvec.add_data(inp)
+# qrvec.make(fit=True)
+# svgqr=qrvec.make_image(image_factory=qrcode.image.svg.SvgImage)
+# svgqr.save('testing.svg')
+
