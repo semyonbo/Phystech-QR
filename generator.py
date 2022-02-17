@@ -5,7 +5,6 @@ from reportlab.graphics import renderPM
 import qrcode.image.svg
 from qrcode.image.styledpil import StyledPilImage
 from qrcode.image.styles.moduledrawers import RoundedModuleDrawer
-from qrcode.image.styles.colormasks import RadialGradiantColorMask
 
 #settings
 distor_amount=0.3
