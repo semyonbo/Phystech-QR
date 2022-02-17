@@ -1,14 +1,19 @@
 # Phystech-QR
 
 Страница проекта по программированию (1 курс, 2 семестр). 
+
 ID команды: 11
+
 Название проекта: Генератор QR кодов
+
 Цель:   Сделать кастомный генератор QR кодов в стилистике физтеха на тот же сайт.
 
 # Команда
 
 Бородулин Семен: [@semyonbo](https://github.com/semyonbo)
+
 Пильщикова Эллина: [@apathell](https://github.com/apathell)
+
 Павлов Дмитрий: [@dimunezvali](https://github.com/dimunezvali)
 
 
