@@ -1,0 +1,8 @@
+{% extends "bootstrap/base.html" %}
+{% block metas %}
+<link rel="shortcut icon" href="{{ url_for('static', filename='/img/logophysics.ico') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/class.css') }}">
+{% endblock %}
+{% block navbar %}
+{{nav.top.render()}}
+{% endblock %}

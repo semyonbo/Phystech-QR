@@ -1,0 +1,22 @@
+h1{
+    text-align: center;
+    font-family: Roboto;
+    font-weight: lighter;
+
+}
+h2{
+    text-align: center;
+    font-family: Roboto;
+    font-weight: lighter;
+}
+body {
+    background-color: #dfdfdf;
+}
+header{
+    background-color: #ffffff;
+    position: relative;
+    margin-top: -10px;
+    margin-left: -10px;
+    margin-right: -10px;
+
+}
