@@ -13,13 +13,25 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.css') }}"/>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/class.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='/img/logophysics.ico') }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script defer>
+        $(function(){
+        var current = location.pathname;
+        $('#nav li a').each(function(){
+            var $this = $(this);
+        // if the current path is like this link, make it active
+            if($this.attr('href').indexOf(current) !== -1){
+                $this.addClass('active');
+        }
+    })
+})</script>
 </head>
 <body>
  <header>
-<!--     <img class="logo" src="../static/img/logophysics.svg" height="4%" width="4%" alt="logo">-->
      <nav>
-        <ul class="nav_links">
-            <li><a href="/">Новый физтех</a></li>
+<!--         <img class="logo" src="../static/img/logophysics.svg" height="4%" width="4%" alt="logo">-->
+        <ul class="nav_links" id="nav">
+            <li><a href="/main">Новый физтех</a></li>
             <li><a href="/code">Генератор</a></li>
             <li><a href="/stats">Статистика</a></li>
             <li><a href="/telegram">Телеграм-бот</a></li>
