@@ -1,8 +1,32 @@
-{% extends "bootstrap/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 {% block metas %}
-<link rel="shortcut icon" href="{{ url_for('static', filename='/img/logophysics.ico') }}">
-<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/class.css') }}">
 {% endblock %}
-{% block navbar %}
-{{nav.top.render()}}
-{% endblock %}
+  <title>Pystech-QR</title>
+
+<!-- Custom styles for this template -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.css') }}"/>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/class.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/img/logophysics.ico') }}">
+</head>
+<body>
+ <header>
+<!--     <img class="logo" src="../static/img/logophysics.svg" height="4%" width="4%" alt="logo">-->
+     <nav>
+        <ul class="nav_links">
+            <li><a href="/">Новый физтех</a></li>
+            <li><a href="/code">Генератор</a></li>
+            <li><a href="/stats">Статистика</a></li>
+            <li><a href="/telegram">Телеграм-бот</a></li>
+            <li><a href="/contact">Контакты</a> </li>
+        </ul>
+     </nav>
+ </header>
+    {% block content %}
+    {% endblock %}
+</body>

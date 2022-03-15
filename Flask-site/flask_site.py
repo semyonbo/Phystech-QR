@@ -1,24 +1,13 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
-from flask_nav import Nav
-from flask_nav.elements import *
-from dominate.tags import img
 
-logo=img(scr='/static/img/logophysics.svg', height="3%", width="3%", style="margin-top:-15px")
-topbar = Navbar(logo,
-                View('Новый физтех', 'get_main'),
-                View('Генератор', 'get_code'),
-                View('Телеграм бот', 'get_telegram'),
-                View('Статистика', 'get_stats'),
-                View('Контакты', 'get_contact'),
-                )
+
 
 # registers the "top" menubar
-nav = Nav()
-nav.register_element('top', topbar)
 
 app = Flask(__name__)
 Bootstrap(app)
+app.config['BOOTSTRAP_SERVE_LOCAL']=True
 
 @app.route('/contact', methods=['GET'])
 def get_contact():
@@ -40,7 +29,6 @@ def get_code():
 def get_stats():
     return(render_template('stats.html'))
 
-nav.init_app(app)
 # @app.route('/')
 # def index():
 #     return render_template('index.html')
