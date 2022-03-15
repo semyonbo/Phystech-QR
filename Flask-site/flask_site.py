@@ -1,13 +1,16 @@
+import base64
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
-
-
+from PIL import Image
+from generator import qr_gen
+import io
 
 # registers the "top" menubar
+import generator
 
 app = Flask(__name__)
 Bootstrap(app)
-app.config['BOOTSTRAP_SERVE_LOCAL']=True
+app.config['BOOTSTRAP_SERVE_LOCAL']=False
 
 @app.route('/contact', methods=['GET'])
 def get_contact():
@@ -17,7 +20,7 @@ def get_contact():
 def get_telegram():
     return(render_template('telegram.html'))
 
-@app.route('/', methods=['GET'])
+@app.route('/main', methods=['GET'])
 def get_main():
     return(render_template('main.html'))
 
@@ -28,6 +31,14 @@ def get_code():
 @app.route('/stats', methods=['GET'])
 def get_stats():
     return(render_template('stats.html'))
+# @app.route('/img')
+# def serve_img():
+#     imag=qr_gen(str("Pepega"))
+#     data=io.BytesIO()
+#     imag.save(data,'JPEG')
+#     encoded_img_data=base64.b64encode(data.getvalue())
+#     return render_template('test_img.html', img_data=encoded_img_data.decode('utf-8'))
+
 
 # @app.route('/')
 # def index():
