@@ -1,12 +1,8 @@
 import base64
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
-from PIL import Image
 from generator import qr_gen
 import io
-
-# registers the "top" menubar
-import generator
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -31,13 +27,14 @@ def get_code():
 @app.route('/stats', methods=['GET'])
 def get_stats():
     return(render_template('stats.html'))
-# @app.route('/img')
-# def serve_img():
-#     imag=qr_gen(str("Pepega"))
-#     data=io.BytesIO()
-#     imag.save(data,'JPEG')
-#     encoded_img_data=base64.b64encode(data.getvalue())
-#     return render_template('test_img.html', img_data=encoded_img_data.decode('utf-8'))
+@app.route('/img', methods=['POST'])
+def serve_img():
+    inp=request.form.get('QR_inp')
+    imag=qr_gen(inp)
+    data=io.BytesIO()
+    imag.save(data,'PNG')
+    encoded_img_data=base64.b64encode(data.getvalue())
+    return render_template('test_img.html', img_data=encoded_img_data.decode('utf-8'))
 
 
 # @app.route('/')

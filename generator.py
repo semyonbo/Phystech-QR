@@ -59,8 +59,8 @@ def qr_gen(inp):
     # Pasting background to QR
     back = render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=1)
     back.paste(img_PhyQR, render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=2))
-    back.save('QR.png')
-
+    # back.save('QR.png')
+    return back
     # Метод создания svg QR-кода
     # qrvec=qrcode.QRCode(
     #     error_correction=qrcode.constants.ERROR_CORRECT_H,
@@ -71,4 +71,3 @@ def qr_gen(inp):
     # qrvec.make(fit=True)
     # svgqr=qrvec.make_image(image_factory=qrcode.image.svg.SvgImage)
     # svgqr.save('testing.svg')
-qr_gen("ueuhfue")

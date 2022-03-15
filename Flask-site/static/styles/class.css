@@ -10,6 +10,30 @@ h2{
     font-family: "Roboto", sans-serif;
     font-weight: lighter;
 }
+.fromtext{
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: lighter;
+    margin-top: 4%;
+}
+input{
+    width: 80%;
+    padding: 10px 10%;
+    margin: 5%;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+button{
+    background-color: #E6E9EB;
+    color: black;
+    font-family: Roboto, sans-serif;
+    font-weight: lighter;
+    border: 1px solid black;
+    padding: 2% 25%;
+}
+button:hover{
+    background-color: #fdd105;
+}
 p{
     text-align: center;
     font-family: "Roboto", sans-serif;
@@ -32,6 +56,12 @@ p{
     margin-right: 20%;
     margin-bottom: 3%;
     height: 35vw;
+}
+.code-box_img{
+    margin-top: 3%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 3%;
 }
 .column{
     display: flex;

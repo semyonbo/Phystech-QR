@@ -1,5 +1,10 @@
-{% extends "index.html" %}
+{% extends "main.html" %}
 {% block content %}
-<h1> Phystec-QR </h1>
-<img id="picture" src="data:image/jpeg;base64,{{ img_data }}">
+<div class="code-blank">
+    <div class="code-box_img">
+        <img id="picture" src="data:image/jpeg;base64,{{ img_data }}" height="70%" width="70%">
+    </div>
+
+</div>
+
 {% endblock %}
