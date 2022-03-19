@@ -3,16 +3,22 @@
 {% block content %}
 <div class="code-blank">
     <div>
-        <div style="display: inline-block;width: 30%;height: 5%;background-color: #dfdfdf;margin-top: 1%;border: solid black 1px;">
+        <div style="display: inline-block;width: 25%;height: 5%;background-color: #ffffff;margin-top: 1%;border: solid black 1px;">
             <h1> Генератор QR</h1>
         </div>
         <div class="code-box">
             <div class="column">
             <div class="column-item">
-                <p>1</p>
+                <form action="#" method="POST">
+                    <div class="fromtext">
+                        <label for="QR_inp">enter some text</label>
+                        <input type="text" class="form-control" id="QR_inp"  placeholder="Enter text" name="QR_inp">
+                    </div>
+                    <button type="submit" class="button">отправить</button>
+                </form>
             </div>
             <div class="column-item">
-                <p>2</p>
+                <img class="code" style="visibility: {{ hidden }}" src="data:image/jpeg;base64,{{ img_data }}">
             </div>
             </div>
         </div>
