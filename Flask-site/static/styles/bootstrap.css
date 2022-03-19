@@ -46,7 +46,7 @@ body{
 .nav_links li a.active{
     border-bottom: 2px solid #fdd105;
     border-radius: 0px;
-    transition: border-bottom-width 0.05s ease 0s;
+    transition: border-bottom-width 0.2s ease 0s;
 }
 .nav_links li a{
     color: white;
