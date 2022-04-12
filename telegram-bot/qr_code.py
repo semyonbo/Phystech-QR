@@ -1,6 +1,6 @@
 import telebot
-from generator import qr_gen
 from telebot import types
+from generator import qr_gen
 my_id=259969071
 TOKEN = '5203819376:AAGyk1tIh1XoEag5xmSofxlK2noM5JQvqC8'
 
