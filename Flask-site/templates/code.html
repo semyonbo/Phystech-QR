@@ -9,13 +9,59 @@
         <div class="code-box">
             <div class="column">
             <div class="column-item">
+                <div class="form_radio_group">
+	                <div class="form_radio_group-item">
+                        <input id="link" type="radio" name="radio" value="1" checked>
+                        <label for="link">Link Input</label>
+	                </div>
+	                <div class="form_radio_group-item">
+                        <input id="wifi" type="radio" name="radio" value="2">
+		                <label for="wifi">WiFi Input</label>
+	                </div>
+	                <div class="form_radio_group-item">
+		                <input id="contact" type="radio" name="radio" value="3">
+		                <label for="contact">Contact Input</label>
+	                </div>
+	                <div class="form_radio_group-item">
+		                <input id="text" type="radio" name="radio" value="4">
+		                <label for="text">Text Input</label>
+	                </div>
+                    <div class="form_radio_group-item">
+		                <input id="geo" type="radio" name="radio" value="5">
+		                <label for="geo">Geo Input</label>
+	                </div>
+                </div>
+                <div>
                 <form action="#" method="POST">
+                    <div id="link_form" style="visibility: hidden">
+                        <p>Link input</p>
+                    </div>
+                    <div class="wifi_form">
+                        <p>WiFi input</p>
+                    </div>
+                    <div class="contact_form">
+                        <p>Contact input</p>
+                    </div>
+                    <div class="geo_form">
+                        <p>Geo input</p>
+                    </div>
                     <div class="fromtext">
-                        <label for="QR_inp">enter some text</label>
+                        <label for="QR_inp">Enter some text</label>
                         <input type="text" class="form-control" id="QR_inp"  placeholder="Enter text" name="QR_inp">
+                        <div class="form_radio_group">
+                            <div class="form_radio_group-item">
+                                <input type="radio" class="check_box" id="type_default" name="type" value="default">
+                                <label for="type_default"> Default type</label>
+                            </div>
+                            <div class="form_radio_group-item">
+                                <input type="radio" class="check_box" id="type_noback" name="type" value="noback">
+                                <label for="type_noback">Without back</label>
+                            </div>
+                        </div>
                     </div>
                     <button type="submit" class="button">отправить</button>
                 </form>
+                </div>
             </div>
             <div class="column-item">
                 <img class="code" style="visibility: {{ hidden }}" src="data:image/jpeg;base64,{{ img_data }}">

@@ -1,4 +1,4 @@
-def qr_gen(inp):
+def qr_gen(inp, type):
     from PIL import Image
     import qrcode.image.svg
     from qrcode.image.styledpil import StyledPilImage
@@ -60,7 +60,12 @@ def qr_gen(inp):
     back = render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=1)
     back.paste(img_PhyQR, render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=2))
     # back.save('QR.png')
-    return back
+    if type == 'default':
+        return back
+    elif type == 'noback':
+        return img_PhyQR
+    else:
+        return back
     # Метод создания svg QR-кода
     # qrvec=qrcode.QRCode(
     #     error_correction=qrcode.constants.ERROR_CORRECT_H,
