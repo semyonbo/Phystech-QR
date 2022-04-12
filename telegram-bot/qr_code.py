@@ -38,21 +38,21 @@ def help(message):
 @bot.message_handler(content_types=['text','image'])
 def hope(message):
     if message.text == 'Ссылка 🔗':
-        bot.send_message(message.chat.id, 'Введите текст для создания QR-кода')
-        msg = bot.reply_to(message, """\
-        Hi there, I am Example bot.
-        What's your name?
-        """)
+        msg = bot.reply_to(message, "Введите текст для создания QR-кода")
         bot.register_next_step_handler(msg, req_info)
-        # img=qr_gen(message.text,type='default')
-        # bio = BytesIO()
-        # bio.name = 'image.png'
-        # img.save(bio, 'PNG')
-        # bio.seek(0)
-        # bot.send_photo(message.chat.id, photo=bio)
     if message.text == 'другое':
         bot.send_message(message.chat.id, get_ye())
 
+def req_info(msg):
+    try:
+        img = qr_gen(msg.text, type='default')
+        bio = BytesIO()
+        bio.name = 'image.png'
+        img.save(bio, 'PNG')
+        bio.seek(0)
+        bot.send_photo(msg.chat.id, photo=bio)
+    except Exception as e:
+        bot.reply_to(message, 'oooops')
 
 
 #RUN

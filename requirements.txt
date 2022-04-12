@@ -3,3 +3,4 @@ qrcode
 cairosvg
 flask
 flask_bootstrap
+pyTelegramBotApi
