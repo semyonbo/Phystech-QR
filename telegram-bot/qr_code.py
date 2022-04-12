@@ -3,16 +3,17 @@ from telebot import types
 from generator import qr_gen
 from io import BytesIO
 import requests
+
 my_id=259969071
-TOKEN = '5203819376:AAGyk1tIh1XoEag5xmSofxlK2noM5JQvqC8'
+with open("token.txt", mode='r') as tok:
+    TOK=str(tok.read(46))
 
-
-bot = telebot.TeleBot(TOKEN)
+bot = telebot.TeleBot(TOK)
 telebot.ENABLE_MIDDLEWARE = True
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
-    bot.send_message(message.chat.id, 'Привет! Выберите среди команд, что именно вам нужно.')
+    bot.send_message(message.chat.id, 'Привет! Тут ты можешь создать QR-код в стиле Нового Физтеха.')
 
 @bot.message_handler(commands=['command2'])
 def start(message):
