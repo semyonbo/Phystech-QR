@@ -11,7 +11,7 @@
             <div class="column-item">
                 <div class="form_radio_group">
 	                <div class="form_radio_group-item">
-                        <input id="link" type="radio" name="radio" value="1">
+                        <input id="link" type="radio" name="radio" value="1" checked>
                         <label for="link">Link Input</label>
 	                </div>
 	                <div class="form_radio_group-item">
@@ -42,8 +42,6 @@
                         }
                         if (this.value == '1') {
                             document.getElementById("link_form").style.display= '';
-
-
                             }
                         else if (this.value == '2') {
                             document.getElementById("wifi_form").style.display= '';
@@ -59,83 +57,24 @@
                             }
                         });
                 </script>
-                    <div class = "content">
+                <div>
                 <form action="#" method="POST">
-                    <div id="link_form" class="form_inputs" style="display: none">
+                    <div id="link_form" class="form_inputs">
                         <p>Link input</p>
-                        <div class="fromtext">
-                        <label for="QR_inp">Enter some text</label>
-                        <input type="text" id="QR_inp"  placeholder="Enter text" name="QR_inp" required>
-                        <div class="form_radio_group">
-                            <div class="form_radio_group-item">
-                                <input type="radio" class="check_box" id="type_default" name="type" value="default" checked>
-                                <label for="type_default"> Default type</label>
-                            </div>
-                            <div class="form_radio_group-item">
-                                <input type="radio" class="check_box" id="type_noback" name="type" value="noback">
-                                <label for="type_noback">Without back</label>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="button">отправить</button>
                     </div>
                     <div id="wifi_form" class="form_inputs" style="display: none">
                         <p>WiFi input</p>
-                        <div class="fromtext">
-                        <label for="QR_inp">Enter some text</label>
-                        <input type="text" id="QR_inp"  placeholder="Enter text" name="QR_inp" required>
-                        <div class="form_radio_group">
-                            <div class="form_radio_group-item">
-                                <input type="radio" class="check_box" id="type_default" name="type" value="default" checked>
-                                <label for="type_default"> Default type</label>
-                            </div>
-                            <div class="form_radio_group-item">
-                                <input type="radio" class="check_box" id="type_noback" name="type" value="noback">
-                                <label for="type_noback">Without back</label>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="button">отправить</button>
                     </div>
                     <div id="contact_form" class="form_inputs" style="display: none">
                         <p>Contact input</p>
-                        <div class="fromtext">
-                        <label for="QR_inp">Enter some text</label>
-                        <input type="text" id="QR_inp"  placeholder="Enter text" name="QR_inp" required>
-                        <div class="form_radio_group">
-                            <div class="form_radio_group-item">
-                                <input type="radio" class="check_box" id="type_default" name="type" value="default" checked>
-                                <label for="type_default"> Default type</label>
-                            </div>
-                            <div class="form_radio_group-item">
-                                <input type="radio" class="check_box" id="type_noback" name="type" value="noback">
-                                <label for="type_noback">Without back</label>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="button">отправить</button>
                     </div>
                     <div id="text_form" class="form_inputs" style="display: none">
                         <p>Text input</p>
-                        <div class="fromtext">
-                        <label for="QR_inp">Enter some text</label>
-                        <input type="text" id="QR_inp"  placeholder="Enter text" name="QR_inp" required>
-                        <div class="form_radio_group">
-                            <div class="form_radio_group-item">
-                                <input type="radio" class="check_box" id="type_default" name="type" value="default" checked>
-                                <label for="type_default"> Default type</label>
-                            </div>
-                            <div class="form_radio_group-item">
-                                <input type="radio" class="check_box" id="type_noback" name="type" value="noback">
-                                <label for="type_noback">Without back</label>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="button">отправить</button>
                     </div>
                     <div id="geo_form" class="form_inputs" style="display: none">
                         <p>Geo input</p>
-                        <div class="fromtext">
+                    </div>
+                    <div class="fromtext">
                         <label for="QR_inp">Enter some text</label>
                         <input type="text" id="QR_inp"  placeholder="Enter text" name="QR_inp" required>
                         <div class="form_radio_group">
@@ -150,8 +89,6 @@
                         </div>
                     </div>
                     <button type="submit" class="button">отправить</button>
-                    </div>
-
                 </form>
                 </div>
             </div>

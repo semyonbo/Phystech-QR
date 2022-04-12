@@ -3,16 +3,17 @@ from telebot import types
 from generator import qr_gen
 from io import BytesIO
 import requests
+
 my_id=259969071
-TOKEN = '5203819376:AAGyk1tIh1XoEag5xmSofxlK2noM5JQvqC8'
+with open("token.txt", mode='r') as tok:
+    TOK=str(tok.read(46))
 
-
-bot = telebot.TeleBot(TOKEN)
+bot = telebot.TeleBot(TOK)
 telebot.ENABLE_MIDDLEWARE = True
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
-    bot.send_message(message.chat.id, 'Привет! Выберите среди команд, что именно вам нужно.')
+    bot.send_message(message.chat.id, 'Привет! Тут ты можешь создать QR-код в стиле Нового Физтеха.')
 
 @bot.message_handler(commands=['command2'])
 def start(message):
@@ -38,21 +39,21 @@ def help(message):
 @bot.message_handler(content_types=['text','image'])
 def hope(message):
     if message.text == 'Ссылка 🔗':
-        bot.send_message(message.chat.id, 'Введите текст для создания QR-кода')
-        msg = bot.reply_to(message, """\
-        Hi there, I am Example bot.
-        What's your name?
-        """)
+        msg = bot.reply_to(message, "Введите текст для создания QR-кода")
         bot.register_next_step_handler(msg, req_info)
-        # img=qr_gen(message.text,type='default')
-        # bio = BytesIO()
-        # bio.name = 'image.png'
-        # img.save(bio, 'PNG')
-        # bio.seek(0)
-        # bot.send_photo(message.chat.id, photo=bio)
     if message.text == 'другое':
         bot.send_message(message.chat.id, get_ye())
 
+def req_info(msg):
+    try:
+        img = qr_gen(msg.text, type='default')
+        bio = BytesIO()
+        bio.name = 'image.png'
+        img.save(bio, 'PNG')
+        bio.seek(0)
+        bot.send_photo(msg.chat.id, photo=bio)
+    except Exception as e:
+        bot.reply_to(message, 'oooops')
 
 
 #RUN
