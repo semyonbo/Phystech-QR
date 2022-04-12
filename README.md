@@ -16,7 +16,14 @@ ID команды: 11
 
 Павлов Дмитрий: [@dimunezvali](https://github.com/dimunezvali)
 
-
+## Roadmap
+Для корректной работы нужно установить некоторые библиотеки,
+чтобы это сделать пропишите в консоли это:
+```
+python -m venv venv
+. venv/bin/activate
+pip install -r requirements.txt
+```
 ## Roadmap
 
  - [ ] Сделать QR-генератор в стиле ФТФ

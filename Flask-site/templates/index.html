@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block metas %}
+{% endblock %}
+  <title>Pystech-QR</title>
+
+<!-- Custom styles for this template -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/bootstrap.css') }}"/>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/class.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/img/logophysics.ico') }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script defer>
+        $(function(){
+        var current = location.pathname;
+        $('#nav li a').each(function(){
+            var $this = $(this);
+        // if the current path is like this link, make it active
+            if($this.attr('href').indexOf(current) !== -1){
+                $this.addClass('active');
+        }
+    })
+})</script>
+</head>
+<body>
+ <header>
+     <nav>
+<!--         <img class="logo" src="../static/img/logophysics.svg" height="4%" width="4%" alt="logo">-->
+        <ul class="nav_links" id="nav">
+            <li><a href="/main">Новый физтех</a></li>
+            <li><a href="/code">Генератор</a></li>
+            <li><a href="/stats">Статистика</a></li>
+            <li><a href="/telegram">Телеграм-бот</a></li>
+            <li><a href="/contact">Контакты</a> </li>
+        </ul>
+     </nav>
+ </header>
+    {% block content %}
+    {% endblock %}
+</body>

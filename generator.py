@@ -1,75 +1,78 @@
-import qrcode
-from PIL import Image
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPM
-import qrcode.image.svg
-from qrcode.image.styledpil import StyledPilImage
-from qrcode.image.styles.moduledrawers import RoundedModuleDrawer
+def qr_gen(inp, type):
+    from PIL import Image
+    import qrcode.image.svg
+    from qrcode.image.styledpil import StyledPilImage
+    from qrcode.image.styles.moduledrawers import RoundedModuleDrawer
+    from io import BytesIO
+    import cairosvg
 
-# settings
-dist_amount = 0.3
-code_pixel_size = 20
-qr_border_size = 0
-code_color = 'black'
-backgroud_color = 'white'
-back_const = 1.24
-
-
-# Рендер логотипа
-def render_logo(code_with, code_height):
-    width_logo = int(code_with * dist_amount)
-    height_logo = int(code_height * dist_amount)
-    drawing = svg2rlg("logophysics.svg")
-    drawing.scale(width_logo / drawing.width, height_logo / drawing.height)
-    drawing.height = height_logo + code_pixel_size // 10
-    drawing.width = width_logo + code_pixel_size // 10
-    renderPM.drawToFile(drawing, "temp/logo_rastr.png", fmt="PNG")
+    # settings
+    dist_amount = 0.3
+    code_pixel_size = 20
+    qr_border_size = 0
+    code_color = 'black'
+    backgroud_color = 'white'
+    back_const = 1.24
 
 
-# Рендер задника
-def render_back(code_with, code_height):
-    with_back = int(code_with * back_const)
-    height_back = int(code_height * back_const)
-    backgr = svg2rlg('back.svg')
-    backgr.scale(with_back / backgr.width, height_back / backgr.height)
-    backgr.height = height_back
-    backgr.width = with_back
-    renderPM.drawToFile(backgr, "temp/back_rast.png", fmt='PNG')
+    # Рендер логотипа
+    def render_logo(code_with, code_height, type):
+        width_logo = int(code_with * dist_amount)
+        height_logo = int(code_height * dist_amount)
+        out1=BytesIO()
+        cairosvg.svg2png(url="logophysics.svg", write_to=out1)
+        img_logo=Image.open(out1)
+        img_logo=img_logo.resize((width_logo,height_logo), Image.ANTIALIAS)
+        if type==1:
+            return img_logo
+        if type==2:
+            pos=((code_with - width_logo) // 2, (code_height - height_logo) // 2)
+            return pos
 
+    # Рендер задника
+    def render_back(code_with, code_height,type):
+        with_back = int(code_with * back_const)
+        height_back = int(code_height * back_const)
+        out2 = BytesIO()
+        cairosvg.svg2png(url="back.svg", write_to=out2)
+        img_back = Image.open(out2)
+        img_back = img_back.resize((with_back, height_back), Image.ANTIALIAS)
+        if type==1:
+            return img_back
+        if type==2:
+            pos=((with_back - code_with) // 2, (height_back - code_height) // 2)
+            return pos
 
-inp = input()
+    # Creating QR
+    PhyQR = qrcode.QRCode(
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        border=qr_border_size,
+        box_size=code_pixel_size
+    )
+    PhyQR.add_data(inp)
+    PhyQR.make()
+    img_PhyQR = PhyQR.make_image(image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer()).convert('RGB')
 
-# Creating QR
-PhyQR = qrcode.QRCode(
-    error_correction=qrcode.constants.ERROR_CORRECT_H,
-    border=qr_border_size,
-    box_size=code_pixel_size
-)
-PhyQR.add_data(inp)
-PhyQR.make()
-img_PhyQR = PhyQR.make_image(image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer()).convert('RGB')
-render_logo(img_PhyQR.size[0], img_PhyQR.size[1])
+    # Pasting logo to QR
+    img_PhyQR.paste(render_logo(img_PhyQR.size[0], img_PhyQR.size[1],type=1), render_logo(img_PhyQR.size[0], img_PhyQR.size[1],type=2))
 
-# Pasting logo to QR
-logo = Image.open("temp/logo_rastr.png")
-pos = ((img_PhyQR.size[0] - logo.size[0]) // 2, (img_PhyQR.size[1] - logo.size[1]) // 2)
-img_PhyQR.paste(logo, pos)
-# img_PhyQR.save('QR.png')
-
-# Pasting background to QR
-render_back(img_PhyQR.size[0], img_PhyQR.size[1])
-back = Image.open('temp/back_rast.png')
-pos2 = ((back.size[0] - img_PhyQR.size[0]) // 2, (back.size[1] - img_PhyQR.size[1]) // 2)
-back.paste(img_PhyQR, pos2)
-back.save('QR.png')
-
-# Метод создания svg QR-кода
-# qrvec=qrcode.QRCode(
-#     error_correction=qrcode.constants.ERROR_CORRECT_H,
-#     border=1
-#
-# )
-# qrvec.add_data(inp)
-# qrvec.make(fit=True)
-# svgqr=qrvec.make_image(image_factory=qrcode.image.svg.SvgImage)
-# svgqr.save('testing.svg')
+    # Pasting background to QR
+    back = render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=1)
+    back.paste(img_PhyQR, render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=2))
+    # back.save('QR.png')
+    if type == 'default':
+        return back
+    elif type == 'noback':
+        return img_PhyQR
+    else:
+        return back
+    # Метод создания svg QR-кода
+    # qrvec=qrcode.QRCode(
+    #     error_correction=qrcode.constants.ERROR_CORRECT_H,
+    #     border=1
+    #
+    # )
+    # qrvec.add_data(inp)
+    # qrvec.make(fit=True)
+    # svgqr=qrvec.make_image(image_factory=qrcode.image.svg.SvgImage)
+    # svgqr.save('testing.svg')
