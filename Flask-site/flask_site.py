@@ -1,5 +1,5 @@
 import base64
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap
 from generator import qr_gen
 import io
@@ -24,7 +24,8 @@ def get_main():
 def get_code():
     if request.method == 'POST':
         inp = request.form.get('QR_inp')
-        imag = qr_gen(inp)
+        type=request.form.get('type')
+        imag = qr_gen(inp, type)
         data = io.BytesIO()
         imag.save(data, 'PNG')
         encoded_img_data = base64.b64encode(data.getvalue())
@@ -37,5 +38,10 @@ def get_code():
 def get_stats():
     return(render_template('stats.html'))
 
+@app.route('/')
+def redirecting():
+    return redirect(url_for('get_main'))
+
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port='88', debug=True)
+    app.run(host="0.0.0.0", port='88', debug=True)
