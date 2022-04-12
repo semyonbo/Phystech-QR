@@ -6,7 +6,7 @@ import io
 
 app = Flask(__name__)
 Bootstrap(app)
-app.config['BOOTSTRAP_SERVE_LOCAL']=False
+app.config['BOOTSTRAP_SERVE_LOCAL'] = False
 
 @app.route('/contact', methods=['GET'])
 def get_contact():
