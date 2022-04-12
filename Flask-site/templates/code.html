@@ -31,26 +31,68 @@
 		                <label for="geo">Geo Input</label>
 	                </div>
                 </div>
+                <script>
+                    $('input[type=radio][name=radio]').change(function() {
+                        if (this.value == '1') {
+                            document.getElementById("link_form").style.display= '';
+                            document.getElementById("wifi_form").style.display= 'none';
+                            document.getElementById("contact_form").style.display='none';
+                            document.getElementById("text_form").style.display='none';
+                            document.getElementById("geo_form").style.display='none';
+                            }
+                        else if (this.value == '2') {
+                            document.getElementById("link_form").style.display= 'none';
+                            document.getElementById("wifi_form").style.display= '';
+                            document.getElementById("contact_form").style.display='none';
+                            document.getElementById("text_form").style.display='none';
+                            document.getElementById("geo_form").style.display='none';
+                            }
+                        else if (this.value == '3') {
+                            document.getElementById("link_form").style.display= 'none';
+                            document.getElementById("wifi_form").style.display= 'none';
+                            document.getElementById("contact_form").style.display='';
+                            document.getElementById("text_form").style.display='none';
+                            document.getElementById("geo_form").style.display='none';
+                            }
+                        else if (this.value == '4') {
+                            document.getElementById("link_form").style.display= 'none';
+                            document.getElementById("wifi_form").style.display= 'none';
+                            document.getElementById("contact_form").style.display='none';
+                            document.getElementById("text_form").style.display='';
+                            document.getElementById("geo_form").style.display='none';
+                            }
+                        else if (this.value == '5') {
+                            document.getElementById("link_form").style.display= 'none';
+                            document.getElementById("wifi_form").style.display= 'none';
+                            document.getElementById("contact_form").style.display='none';
+                            document.getElementById("text_form").style.display='none';
+                            document.getElementById("geo_form").style.display='';
+                            }
+                        });
+                </script>
                 <div>
                 <form action="#" method="POST">
-                    <div id="link_form" style="visibility: hidden">
+                    <div id="link_form" class="form_inputs">
                         <p>Link input</p>
                     </div>
-                    <div class="wifi_form">
+                    <div id="wifi_form" class="form_inputs" style="display: none">
                         <p>WiFi input</p>
                     </div>
-                    <div class="contact_form">
+                    <div id="contact_form" class="form_inputs" style="display: none">
                         <p>Contact input</p>
                     </div>
-                    <div class="geo_form">
+                    <div id="text_form" class="form_inputs" style="display: none">
+                        <p>Text input</p>
+                    </div>
+                    <div id="geo_form" class="form_inputs" style="display: none">
                         <p>Geo input</p>
                     </div>
                     <div class="fromtext">
                         <label for="QR_inp">Enter some text</label>
-                        <input type="text" class="form-control" id="QR_inp"  placeholder="Enter text" name="QR_inp">
+                        <input type="text" id="QR_inp"  placeholder="Enter text" name="QR_inp" required>
                         <div class="form_radio_group">
                             <div class="form_radio_group-item">
-                                <input type="radio" class="check_box" id="type_default" name="type" value="default">
+                                <input type="radio" class="check_box" id="type_default" name="type" value="default" checked>
                                 <label for="type_default"> Default type</label>
                             </div>
                             <div class="form_radio_group-item">
