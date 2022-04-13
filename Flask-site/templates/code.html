@@ -6,77 +6,115 @@
         <div style="display: inline-block;width: 25%;height: 5%;background-color: #ffffff;margin-top: 1%;border: solid black 1px;">
             <h1> Генератор QR</h1>
         </div>
+{#        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=55011ecb-50e4-40c8-986e-ddcaa05856ee" type="text/javascript"></script>#}
+{#        <script src="{{url_for('static', filename='js/map.js')}}"></script>#}
         <div class="code-box">
             <div class="column">
             <div class="column-item">
+                <form>
                 <div class="form_radio_group">
 	                <div class="form_radio_group-item">
-                        <input id="link" type="radio" name="radio" value="1" checked>
-                        <label for="link">Link Input</label>
+                        <input id="link" type="radio" autocomplete="off" name="inp_radio" value="1" checked>
+                        <label for="link">Link</label>
 	                </div>
 	                <div class="form_radio_group-item">
-                        <input id="wifi" type="radio" name="radio" value="2">
-		                <label for="wifi">WiFi Input</label>
+                        <input id="wifi" type="radio" autocomplete="off" name="inp_radio" value="2">
+		                <label for="wifi">WiFi</label>
 	                </div>
 	                <div class="form_radio_group-item">
-		                <input id="contact" type="radio" name="radio" value="3">
-		                <label for="contact">Contact Input</label>
+		                <input id="contact" type="radio" autocomplete="off" name="inp_radio" value="3">
+		                <label for="contact">Contact</label>
 	                </div>
 	                <div class="form_radio_group-item">
-		                <input id="text" type="radio" name="radio" value="4">
-		                <label for="text">Text Input</label>
+		                <input id="text" type="radio" autocomplete="off" name="inp_radio" value="4">
+		                <label for="text">Text</label>
 	                </div>
                     <div class="form_radio_group-item">
-		                <input id="geo" type="radio" name="radio" value="5">
-		                <label for="geo">Geo Input</label>
+		                <input id="geo" type="radio" autocomplete="off" name="inp_radio" value="5">
+		                <label for="geo">Geoposition</label>
 	                </div>
                 </div>
                 <script>
-                    $('input[type=radio][name=radio]').change(function() {
+                    $(document).ready ( function(){
+                        document.querySelector('input[name="inp_radio"]:checked').value=1;
+                        data=document.querySelector('input[name="inp_radio"]:checked').value;
+                        document.getElementById('link_inp').setAttribute('required', '');
+                        $.post( "/form_data", {
+                            javascript_data: data
+                        });
+                    });
+
+                    $('input[type=radio][name=inp_radio]').change(function() {
+                        data= this.value
+                        $.post( "/form_data", {
+                            javascript_data: data
+                        });
                         if (this.value) {
-                            document.getElementById("link_form").style.display= 'none';
-                            document.getElementById("wifi_form").style.display= 'none';
-                            document.getElementById("contact_form").style.display='none';
-                            document.getElementById("text_form").style.display='none';
-                            document.getElementById("geo_form").style.display='none';
+                            $('#link_form')[0].style.display= 'none';
+                            $('#wifi_form')[0].style.display= 'none';
+                            $('#contact_form')[0].style.display= 'none';
+                            $('#text_form')[0].style.display= 'none';
+                            $('#geo_form')[0].style.display= 'none';
+                            $('#link_inp').removeAttr('required');
+                            $('#wifi_name_inp').removeAttr('required');
+                            $('#name_inp').removeAttr('required');
+                            $('#text_inp').removeAttr('required');
+                            $('#wifi_pass_inp').removeAttr('required');
                         }
                         if (this.value == '1') {
-                            document.getElementById("link_form").style.display= '';
+                            $('#link_form')[0].style.display= '';
+                            $('#link_inp').attr('required', '');
                             }
                         else if (this.value == '2') {
-                            document.getElementById("wifi_form").style.display= '';
+                            $('#wifi_form')[0].style.display= '';
+                            $('#wifi_name_inp').attr('required','');
+                            $('#wifi_pass_inp').attr('required','');
                             }
                         else if (this.value == '3') {
-                            document.getElementById("contact_form").style.display='';
+                            $('#contact_form')[0].style.display= '';
+                            $('#name_inp').attr('required', '');
                             }
                         else if (this.value == '4') {
-                            document.getElementById("text_form").style.display='';
+                            $('#text_form')[0].style.display= '';
+                            $('#text_inp').attr('required', '');
                             }
                         else if (this.value == '5') {
-                            document.getElementById("geo_form").style.display='';
+                            $('#geo_form')[0].style.display= '';
                             }
-                        });
+                    });
                 </script>
+                </form>
+                <form  action="#" method="POST">
                 <div>
-                <form action="#" method="POST">
                     <div id="link_form" class="form_inputs">
-                        <p>Link input</p>
+                        <label for="link_inp">Enter your link</label>
+                        <input type="text"  placeholder="mylink.com" id="link_inp" name="link_inp">
                     </div>
                     <div id="wifi_form" class="form_inputs" style="display: none">
-                        <p>WiFi input</p>
+                        <label for="wifi_name_inp">Enter name for WiFi (WPA/WPA2 only rn)</label>
+                        <input type="text"  placeholder="my-home-wifi" id="wifi_name_inp" name="wifi_name_inp"><br>
+                        <label for="wifi_pass_inp">Enter password for your WiFi</label>
+                        <input type="password"  placeholder="reAllyHardPa22" id="wifi_pass_inp" name="wifi_pass_inp">
                     </div>
                     <div id="contact_form" class="form_inputs" style="display: none">
-                        <p>Contact input</p>
+                        <label for="name_inp">Enter name for a contact</label>
+                        <input type="text"  placeholder="Andrew" id="name_inp" name="name_inp"><br>
+                        <label for="phone_inp">Enter phone number</label>
+                        <input type="tel"  placeholder="+7 920 831 54 37" id="phone_inp" name="phone_inp"><br>
+                        <label for="email_inp">Enter email</label>
+                        <input type="email"  placeholder="andrew@niuitmo.ru" id="email_inp" name="email_inp">
                     </div>
                     <div id="text_form" class="form_inputs" style="display: none">
-                        <p>Text input</p>
+                        <label for="text_inp">Enter pain text</label>
+                        <input type="text"  placeholder="I love physics" id="text_inp" name="text_inp"><br>
                     </div>
                     <div id="geo_form" class="form_inputs" style="display: none">
                         <p>Geo input</p>
+                        <p>Скоро будет</p>
+{#                        <div id="map" style="width: 100%; height: 80%"></div>#}
+{#                        <div id="marker"></div>#}
                     </div>
-                    <div class="fromtext">
-                        <label for="QR_inp">Enter some text</label>
-                        <input type="text" id="QR_inp"  placeholder="Enter text" name="QR_inp" required>
+                    <div class="from_design_controls">
                         <div class="form_radio_group">
                             <div class="form_radio_group-item">
                                 <input type="radio" class="check_box" id="type_default" name="type" value="default" checked>

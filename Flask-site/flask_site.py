@@ -1,16 +1,14 @@
 import base64
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_bootstrap import Bootstrap
 from generator import qr_gen
 import io
+import secrets
 
 app = Flask(__name__)
 Bootstrap(app)
 app.config['BOOTSTRAP_SERVE_LOCAL'] = False
-
-@app.route('/contact', methods=['GET'])
-def get_contact():
-    return(render_template('contact.html'))
+app.secret_key = secrets.token_hex()
 
 @app.route('/telegram', methods=['GET'])
 def get_telegram():
@@ -20,18 +18,41 @@ def get_telegram():
 def get_main():
     return(render_template('main.html'))
 
+@app.route('/form_data', methods = ['POST'])
+def get_post_javascript_data():
+    jsdata = request.form['javascript_data']
+    session['form_type'] = jsdata
+    return jsdata
+
+
+
 @app.route('/code', methods=['GET','POST'])
 def get_code():
-    if request.method == 'POST':
-        inp = request.form.get('QR_inp')
-        type=request.form.get('type')
+    if request.method== 'POST':
+        form_type=session.get('form_type', None)
+        if form_type=='1':
+            inp = request.form.get('link_inp')
+        elif form_type=='2':
+            wifi_name=request.form.get('wifi_name_inp')
+            wifi_pass=request.form.get('wifi_pass_inp')
+            inp='WIFI:S:'+wifi_name+';T:WPA;P:'+wifi_pass+';;'
+        elif form_type=="3":
+            name=request.form.get('name_inp')
+            phone=request.form.get('phone_inp')
+            email=request.form.get('email_inp')
+            inp='BEGIN:VCARD\nN:'+name+'\nTEL:'+phone+'\nEMAIL:'+email+'\nVERSION:3.0\nEND:VCARD'
+        elif form_type=='4':
+            inp=request.form.get('text_inp')
+        elif form_type=='5':
+            inp='Sorry, geo code not working rn('
+        type = request.form.get('type')
         imag = qr_gen(inp, type)
         data = io.BytesIO()
         imag.save(data, 'PNG')
         encoded_img_data = base64.b64encode(data.getvalue())
         return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'))
     else:
-        return(render_template('code.html', hidden='hidden'))
+        return (render_template('code.html', hidden='hidden'))
 
 
 @app.route('/stats', methods=['GET'])
