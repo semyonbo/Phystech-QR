@@ -11,7 +11,7 @@
         <div class="code-box">
             <div class="column">
             <div class="column-item">
-                <form>
+                <form  action="#" method="POST">
                 <div class="form_radio_group">
 	                <div class="form_radio_group-item">
                         <input id="link" type="radio" autocomplete="off" name="inp_radio" value="1" checked>
@@ -34,57 +34,6 @@
 		                <label for="geo">Geoposition</label>
 	                </div>
                 </div>
-                <script>
-                    $(document).ready ( function(){
-                        document.querySelector('input[name="inp_radio"]:checked').value=1;
-                        data=document.querySelector('input[name="inp_radio"]:checked').value;
-                        document.getElementById('link_inp').setAttribute('required', '');
-                        $.post( "/form_data", {
-                            javascript_data: data
-                        });
-                    });
-
-                    $('input[type=radio][name=inp_radio]').change(function() {
-                        data= this.value
-                        $.post( "/form_data", {
-                            javascript_data: data
-                        });
-                        if (this.value) {
-                            $('#link_form')[0].style.display= 'none';
-                            $('#wifi_form')[0].style.display= 'none';
-                            $('#contact_form')[0].style.display= 'none';
-                            $('#text_form')[0].style.display= 'none';
-                            $('#geo_form')[0].style.display= 'none';
-                            $('#link_inp').removeAttr('required');
-                            $('#wifi_name_inp').removeAttr('required');
-                            $('#name_inp').removeAttr('required');
-                            $('#text_inp').removeAttr('required');
-                            $('#wifi_pass_inp').removeAttr('required');
-                        }
-                        if (this.value == '1') {
-                            $('#link_form')[0].style.display= '';
-                            $('#link_inp').attr('required', '');
-                            }
-                        else if (this.value == '2') {
-                            $('#wifi_form')[0].style.display= '';
-                            $('#wifi_name_inp').attr('required','');
-                            $('#wifi_pass_inp').attr('required','');
-                            }
-                        else if (this.value == '3') {
-                            $('#contact_form')[0].style.display= '';
-                            $('#name_inp').attr('required', '');
-                            }
-                        else if (this.value == '4') {
-                            $('#text_form')[0].style.display= '';
-                            $('#text_inp').attr('required', '');
-                            }
-                        else if (this.value == '5') {
-                            $('#geo_form')[0].style.display= '';
-                            }
-                    });
-                </script>
-                </form>
-                <form  action="#" method="POST">
                 <div>
                     <div id="link_form" class="form_inputs">
                         <label for="link_inp">Enter your link</label>
@@ -134,6 +83,48 @@
                 <img class="code" style="visibility: {{ hidden }}" src="data:image/jpeg;base64,{{ img_data }}">
             </div>
             </div>
+        <script>
+                    $(document).ready ( function(){
+                        document.querySelector('input[name="inp_radio"]:checked').value=1;
+                        data=document.querySelector('input[name="inp_radio"]:checked').value;
+                        document.getElementById('link_inp').setAttribute('required', '');
+                    });
+
+                    $('input[type=radio][name=inp_radio]').change(function() {
+                        if (this.value) {
+                            $('#link_form')[0].style.display= 'none';
+                            $('#wifi_form')[0].style.display= 'none';
+                            $('#contact_form')[0].style.display= 'none';
+                            $('#text_form')[0].style.display= 'none';
+                            $('#geo_form')[0].style.display= 'none';
+                            $('#link_inp').removeAttr('required');
+                            $('#wifi_name_inp').removeAttr('required');
+                            $('#name_inp').removeAttr('required');
+                            $('#text_inp').removeAttr('required');
+                            $('#wifi_pass_inp').removeAttr('required');
+                        }
+                        if (this.value === '1') {
+                            $('#link_form')[0].style.display= '';
+                            $('#link_inp').attr('required', '');
+                            }
+                        else if (this.value === '2') {
+                            $('#wifi_form')[0].style.display= '';
+                            $('#wifi_name_inp').attr('required','');
+                            $('#wifi_pass_inp').attr('required','');
+                            }
+                        else if (this.value === '3') {
+                            $('#contact_form')[0].style.display= '';
+                            $('#name_inp').attr('required', '');
+                            }
+                        else if (this.value === '4') {
+                            $('#text_form')[0].style.display= '';
+                            $('#text_inp').attr('required', '');
+                            }
+                        else if (this.value === '5') {
+                            $('#geo_form')[0].style.display= '';
+                            }
+                    });
+                </script>
         </div>
     </div>
 </div>
