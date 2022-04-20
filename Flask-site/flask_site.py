@@ -1,14 +1,13 @@
 import base64
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap
 from generator import qr_gen
 import io
-import secrets
+
 
 app = Flask(__name__)
 Bootstrap(app)
 app.config['BOOTSTRAP_SERVE_LOCAL'] = False
-app.secret_key = secrets.token_hex()
 
 @app.route('/telegram', methods=['GET'])
 def get_telegram():
@@ -18,18 +17,13 @@ def get_telegram():
 def get_main():
     return(render_template('main.html'))
 
-@app.route('/form_data', methods = ['POST'])
-def get_post_javascript_data():
-    jsdata = request.form['javascript_data']
-    session['form_type'] = jsdata
-    return jsdata
 
 
 
 @app.route('/code', methods=['GET','POST'])
 def get_code():
-    if request.method== 'POST':
-        form_type=session.get('form_type', None)
+    if request.method == 'POST':
+        form_type=request.form.get('inp_radio')
         if form_type=='1':
             inp = request.form.get('link_inp')
         elif form_type=='2':
