@@ -6,10 +6,9 @@
         <div style="display: inline-block;width: 25%;height: 5%;background-color: #ffffff;margin-top: 1%;border: solid black 1px;">
             <h1> Генератор QR</h1>
         </div>
-{#        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=55011ecb-50e4-40c8-986e-ddcaa05856ee" type="text/javascript"></script>#}
-{#        <script src="{{url_for('static', filename='js/map.js')}}"></script>#}
         <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<ваш API-ключ>" type="text/javascript"></script>
-        <script src="map.js" type="text/javascript"></script>
+        <script src="{{url_for('static', filename='js/map.js')}}"></script>
+
         <div class="code-box">
             <div class="column">
             <div class="column-item">
@@ -60,14 +59,9 @@
                         <input type="text"  placeholder="I love physics" id="text_inp" name="text_inp"><br>
                     </div>
                     <div id="geo_form" class="form_inputs" style="display: none">
-                        <p>Geo input</p>
-                        <p>Скоро будет</p>
-                        <div id="map" style="width: 600px; height: 400px"></div>
-                        <script type="text/javascript">
-
-</script>
-{#                        <div id="map" style="width: 100%; height: 80%"></div>#}
-{#                        <div id="marker"></div>#}
+                        <input type="text"  placeholder="59.927301, 30.338456" id="geo_inp" name="geo_inp"><br>
+                        <div id="map" style="width: 500px; height: 300px; margin: auto"></div>
+                        <div id="marker"></div>
                     </div>
                     <div class="from_design_controls">
                         <div class="form_radio_group">

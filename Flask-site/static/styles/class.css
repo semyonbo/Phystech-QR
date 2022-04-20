@@ -58,7 +58,7 @@ p{
     margin-top: 1%;
     margin-left: 10%;
     margin-right: 10%;
-    height: 70vh;
+    height: 80vh;
     width: 80vw;
 }
 .code-box_img{
@@ -125,3 +125,10 @@ p{
 .form_radio_group input[type=radio]:checked + label {
 	background: #fdd105;
 }
+
+#marker {
+            background-image: url('Flask-site/static/img/marker.png');
+            width: 33px;
+            height: 36px;
+            position: absolute;
+        }
