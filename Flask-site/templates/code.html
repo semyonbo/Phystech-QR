@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 
 {% block content %}
-<div class="code-blank">
+<div class="code-blank" style="background: repeat url({{ url_for('static', filename='img/font.svg') }}); background-size: 20%">
     <div>
         <div style="display: inline-block;width: 25%;height: 5%;background-color: #ffffff;margin-top: 1%;border: solid black 1px;">
             <h1> Генератор QR</h1>
@@ -11,7 +11,7 @@
 
         <div class="code-box">
             <div class="column">
-            <div class="column-item">
+            <div class="column-item" style="visibility: {{ disp }}">
                 <form  action="#" method="POST">
                 <div class="form_radio_group">
 	                <div class="form_radio_group-item">
@@ -121,6 +121,7 @@
                             }
                         else if (this.value === '5') {
                             $('#geo_form')[0].style.display= '';
+                            $('#geo_inp').attr('required', '');
                             }
                     });
                 </script>

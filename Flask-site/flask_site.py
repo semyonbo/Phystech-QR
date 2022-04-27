@@ -43,9 +43,9 @@ def get_code():
         data = io.BytesIO()
         imag.save(data, 'PNG')
         encoded_img_data = base64.b64encode(data.getvalue())
-        return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'))
+        return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='')
     else:
-        return (render_template('code.html', hidden='hidden'))
+        return (render_template('code.html', hidden='hidden',disp=''))
 
 
 @app.route('/stats', methods=['GET'])
