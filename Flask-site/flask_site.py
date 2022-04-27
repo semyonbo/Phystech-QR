@@ -18,8 +18,6 @@ def get_main():
     return(render_template('main.html'))
 
 
-
-
 @app.route('/code', methods=['GET','POST'])
 def get_code():
     if request.method == 'POST':
@@ -38,7 +36,8 @@ def get_code():
         elif form_type=='4':
             inp=request.form.get('text_inp')
         elif form_type=='5':
-            inp='Sorry, geo code not working rn('
+            geo=request.form.get('geo_inp')
+            inp='geo:'+geo.split(' ')[0]+''+geo.split(' ')[1]+',100'
         type = request.form.get('type')
         imag = qr_gen(inp, type)
         data = io.BytesIO()
