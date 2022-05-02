@@ -4,7 +4,7 @@
     filter: invert(100%) sepia(0%) saturate(7417%) hue-rotate(20deg) brightness(124%) contrast(101%);
 }
 html {
-	background-color: #dfdfdf;
+	background-color: #000000;
 }
 *{
     box-sizing: border-box;
@@ -16,6 +16,7 @@ ul{
     justify-content: center;
     align-items: center;
     padding-top: 0.5%;
+    flex-wrap: wrap;
 }
 li, a{
     font-family: "Roboto", sans-serif;
@@ -29,10 +30,10 @@ header{
 
 }
 body {
-    background-color: #dfdfdf;
+    background-color: #000000;
 }
 .load{
-    animation: fadeInAnimation ease 500ms;
+    animation: fadeInAnimation ease 0.5s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
@@ -46,7 +47,7 @@ body {
 }
 .nav_links li{
     display: inline-block;
-    padding: 0px 18vw;
+    padding: 0px 12vw;
     color: #000000;
 }
 .nav_links li a.active{
@@ -62,4 +63,25 @@ body {
 
 .nav_links li a:hover{
     filter: brightness(0) saturate(100%) invert(81%) sepia(72%) saturate(848%) hue-rotate(348deg) brightness(96%) contrast(106%);
+}
+h1{
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: lighter;
+
+}
+label{
+    font-family: "Roboto", sans-serif;
+    font-weight: lighter;
+}
+h2{
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: lighter;
+}
+p{
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: lighter;
+    font-size: 14px;
 }

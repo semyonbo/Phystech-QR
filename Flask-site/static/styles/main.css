@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:500');
+
+@media (max-width: 659px){
+  :root{
+      --h1-text-size: 10vw;
+      --big-box-width: 90vw;
+      --second-box-width: 90vw;
+      --second-box-height: auto;
+      --h2-text-size: 8vw;
+      --big-button-margin: 6%;
+      --main-button-case-left: 0;
+      --main-button-width: 80vw;
+      --big-button-align: center;
+      --main-box-text-left: 6vw;
+      --second-button-case-top: 2vh;
+      --second-button-case-bottom: 2vh;
+      --second-box-top-margin: 3%;
+      --second-box-margin-bt: 0;
+  }
+}
+@media (min-width: 640px) and (max-width: 959px){
+  :root{
+      --h1-text-size: 6vw;
+      --big-box-width: 80vw;
+  }
+}
+@media (min-width: 960px) and (max-width: 1400px){
+  :root{
+      --h1-text-size: 6vw;
+      --big-box-width: 80vw;
+
+  }
+}
+@media (min-width: 1401px){
+  :root{
+      --h1-text-size: 4vw;
+      --big-box-width: 60vw;
+      --second-box-width: 29vw;
+      --second-box-height: 40vh;
+      --h2-text-size: 2.5vw;
+      --big-button-margin: 2%;
+      --main-button-case-left: 3vw;
+      --main-button-width: 20vw;
+      --big-button-align: left;
+      --main-box-text-left: 3vw;
+      --second-button-case-top: 5vh;
+      --second-button-case-bottom: 0;
+      --second-box-top-margin: 1%;
+      --second-box-margin-bt: 1vw;
+  }
+}
+.h1-text{
+    font-size:  var(--h1-text-size);
+    text-align: left;
+}
+.h2-text{
+    font-size: var(--h2-text-size);
+    text-align: left
+}
+.p-text{
+    text-align: left;
+    font-size: xx-large;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.mainpg-box-case{
+    padding-left: var(--main-box-text-left);
+    padding-top: 2vh
+}
+
+.mainpg-box{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+}
+.mainpg-bigbutton{
+    margin-top: var(--big-button-margin);
+    border-radius: 30px;
+    width: var(--big-box-width);
+    height: 36vh;
+    background-color: white;
+}
+.mainpg-bigbutton.single{
+    height: 80vh;
+    margin-bottom: 2vh;
+}
+.mainpg-back{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+}
+.mainbutton_case{
+    display: flex;
+    justify-content: var(--big-button-align);
+    padding-left: var(--main-button-case-left);
+    padding-top: 4vh;
+
+}
+.button_main{
+    display: inline-block;
+    border-radius: 10px;
+    background-color: black;
+    padding: 0;
+    border-color: black;
+    border-width: 2px;
+    text-align: center;
+    font-size: 28px;
+    width: var(--main-button-width);
+    height: 80px;
+    transition: all 0.5s;
+    cursor: pointer;
+
+}
+.button_main span {
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.button_main span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button_main:hover span {
+    padding-right: 25px;
+    color: black;
+}
+.button_main:hover{
+    background-color: white;
+}
+.button_main:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.mainpg-cards{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+    flex-wrap: wrap;
+}
+.button_main.sub{
+    width: 260px;
+    height: 60px;
+}
+.mainbutton_case.second{
+    padding-top: var(--second-button-case-top);
+    padding-bottom: var(--second-button-case-bottom);
+}
+.tg-card{
+    margin-top: var(--second-box-top-margin);
+    border-radius: 30px;
+    width: var(--second-box-width);
+    height: var(--second-box-height);
+    margin-right: var(--second-box-margin-bt);
+    background-color: white;
+}
+.h2-textbox{
+    padding-left: var(--main-box-text-left);
+    padding-top: 3vh;
+    padding-right: var(--main-box-text-left);
+}
+.contact-card{
+    margin-top: var(--second-box-top-margin);
+    border-radius: 30px;
+    margin-left: var(--second-box-margin-bt);
+    width: var(--second-box-width);
+    height: var(--second-box-height);
+    background-color: white;
+}
