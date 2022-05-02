@@ -9,9 +9,6 @@ app = Flask(__name__)
 Bootstrap(app)
 app.config['BOOTSTRAP_SERVE_LOCAL'] = False
 
-@app.route('/telegram', methods=['GET'])
-def get_telegram():
-    return(render_template('telegram.html'))
 
 @app.route('/main', methods=['GET'])
 def get_main():
