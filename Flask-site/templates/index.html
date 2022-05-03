@@ -8,8 +8,6 @@
 {% block metas %}
 {% endblock %}
   <title>Phystech-QR</title>
-
-<!-- Custom styles for this template -->
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/global.css') }}"/>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}"/>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/code.css') }}"/>
@@ -22,7 +20,6 @@
         var current = location.pathname;
         $('#nav li a').each(function(){
             var $this = $(this);
-        // if the current path is like this link, make it active
             if($this.attr('href').indexOf(current) !== -1){
                 $this.addClass('active');
                 }
@@ -32,11 +29,10 @@
 <body>
  <header>
      <nav>
-<!--         <img class="logo" src="../static/img/logophysics.svg" height="4%" width="4%" alt="logo">-->
         <ul class="nav_links" id="nav">
-            <li><a href="/code">Генератор</a></li>
-            <li><a href="/main" style="border: none; padding: 0"><img src="{{url_for('static', filename='img/logo.svg')}}" style="width: 240px; height: auto"></a></li>
-            <li><a href="/stats">Статистика</a></li>
+            <li class="sub_nav"><a href="/code">Генератор</a></li>
+            <li class="main_logo"><a href="/main" style="border: none; padding: 0"><img src="{{url_for('static', filename='img/logo.svg')}}" style="width: 240px; height: auto"></a></li>
+            <li class="sub_nav"><a href="/stats">Статистика</a></li>
         </ul>
      </nav>
  </header>
