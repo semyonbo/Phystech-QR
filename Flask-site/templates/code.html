@@ -51,7 +51,17 @@
                 <div>
                     <div id="link_form" class="form_inputs">
                         <label for="link_inp">Enter your link</label>
-                        <input type="text"  placeholder="mylink.com" id="link_inp" name="link_inp">
+                        <input type="url" size="3" placeholder="https://mylink.com" id="link_inp" name="link_inp">
+                        <div class="form_radio_group">
+                            <div class="form_radio_group-item">
+                                <input id="stats_off" type="radio" autocomplete="off" name="stats_option" value="0" checked>
+                                <label for="stats_off">No Statistics</label>
+                            </div>
+                            <div class="form_radio_group-item">
+                                <input id="stats_on" type="radio" autocomplete="off" name="stats_option" value="1">
+                                <label for="stats_on">Enable Statistics</label>
+                            </div>
+                        </div>
                     </div>
                     <div id="wifi_form" class="form_inputs" style="display: none">
                         <label for="wifi_name_inp">Enter name for WiFi (WPA/WPA2 only rn)</label>
@@ -93,12 +103,12 @@
             </div>
             <div class="column-item">
                 <img class="code" style="visibility: {{ hidden }}" src="data:image/jpeg;base64,{{ img_data }}">
+                <p>{{ shorten_url }}</p>
             </div>
             </div>
         <script>
                     $(document).ready ( function(){
                         document.querySelector('input[name="inp_radio"]:checked').value=1;
-                        data=document.querySelector('input[name="inp_radio"]:checked').value;
                         document.getElementById('link_inp').setAttribute('required', '');
                     });
 
