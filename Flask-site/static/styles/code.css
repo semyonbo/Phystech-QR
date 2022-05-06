@@ -121,7 +121,7 @@ button:hover{
 	 position: relative;
 	 width: 32vw;
 	 font-family: Roboto;
-    color: white;
+     color: white;
 }
  .switch:before {
 	 content: ' ';

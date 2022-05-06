@@ -1,9 +1,13 @@
-import base64, sqlite3, io
+import io
+import sqlite3
+from base64 import b64encode
+from datetime import datetime
+
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_bootstrap import Bootstrap
-from generator import qr_gen
 from hashids import Hashids
-from datetime import timedelta, datetime
+
+from generator import qr_gen
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -11,36 +15,39 @@ app.config['BOOTSTRAP_SERVE_LOCAL'] = False
 app.config['SECRET_KEY'] = 'ILOVW_kAn6e_W3sT_BuT_h6Ate_P8ySicZ'
 hashids = Hashids(min_length=4, salt=app.config['SECRET_KEY'])
 
+
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
     return conn
 
+
 @app.route('/main', methods=['GET'])
 def get_main():
-    return (render_template('main.html'))
+    return render_template('main.html')
 
 
 @app.route('/code', methods=['GET', 'POST'])
 def get_code():
-    conn=get_db_connection()
+    conn = get_db_connection()
     if request.method == 'POST':
         form_type = request.form.get('inp_radio')
         if form_type == '1':
             inp = request.form.get('link_inp')
-            type = request.form.get('type')
-            imag = qr_gen(inp, type)
+            code_type = request.form.get('type')
+            imag = qr_gen(inp, code_type)
             data = io.BytesIO()
             imag.save(data, 'PNG')
-            encoded_img_data = base64.b64encode(data.getvalue())
+            encoded_img_data = b64encode(data.getvalue())
             if request.form.get('stats_option') == "1":
-                url_data=conn.execute('INSERT INTO urls (original_url) VALUES (?)',(inp,))
+                url_data = conn.execute('INSERT INTO urls (original_url) VALUES (?)', (inp,))
                 conn.commit()
                 conn.close()
                 url_id = url_data.lastrowid
                 hashid = hashids.encode(url_id)
                 short_url = request.host_url + hashid
-                return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='', shorten_url=short_url)
+                return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='',
+                                       shorten_url=short_url)
             else:
                 return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='')
         if form_type == '2':
@@ -57,29 +64,47 @@ def get_code():
         elif form_type == '5':
             geo = request.form.get('geo_inp')
             inp = 'geo:' + geo.split(' ')[0] + '' + geo.split(' ')[1] + ',100'
-        type = request.form.get('type')
-        imag = qr_gen(inp, type)
+        code_type = request.form.get('type')
+        imag = qr_gen(inp, code_type)
         data = io.BytesIO()
         imag.save(data, 'PNG')
-        encoded_img_data = base64.b64encode(data.getvalue())
+        encoded_img_data = b64encode(data.getvalue())
         return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='')
     else:
         return render_template('code.html', hidden='hidden', disp='')
 
 
-@app.route('/stats', methods=['GET'])
+@app.route('/stats', methods=['GET', 'POST'])
 def get_stats():
-    return (render_template('stats.html'))
+    if request.method == 'POST':
+        conn = get_db_connection()
+        inp_code=request.form.get('stats_code_inp')
+        print(inp_code)
+        link_id = hashids.decode(inp_code)
+        if link_id:
+            link_id = link_id[0]
+            link_data = conn.execute('SELECT original_url, clicks, daily, weekly, monthly, last_use FROM urls'
+                                     ' WHERE id = (?)', (link_id,)
+                                     ).fetchone()
+            clicks = int(link_data['clicks'])
+            conn.commit()
+            conn.close()
+            return render_template('stats.html', vis='', all_clicks=clicks)
+        else:
+            return render_template('stats.html', vis='', all_clicks='Code is incorrect')
+    else:
+        return render_template('stats.html', vis='hidden', all_clicks=0)
 
 
 @app.route('/')
 def redirecting():
     return redirect(url_for('get_main'))
 
-@app.route('/<id>')
-def url_redirect(id):
-    conn=get_db_connection()
-    original_id = hashids.decode(id)
+
+@app.route('/<link>')
+def url_redirect(link):
+    conn = get_db_connection()
+    original_id = hashids.decode(link)
     if original_id:
         original_id = original_id[0]
         url_data = conn.execute('SELECT original_url, clicks, daily, weekly, monthly, last_use FROM urls'
@@ -87,19 +112,23 @@ def url_redirect(id):
                                 ).fetchone()
         original_url = url_data['original_url']
         clicks = url_data['clicks']
-        # daily_clicks=url_data['daily']
-        # weekly_clicks=url_data['weekly']
-        # monthly_clicks=url_data['monthly']
-        # last_use=url_data['last_use']
+        daily_clicks = url_data['daily']
+        # weekly_clicks = url_data['weekly']
+        # monthly_clicks = url_data['monthly']
+        last_use = url_data['last_use']
         conn.execute('UPDATE urls SET clicks = ? WHERE id = ?',
                      (clicks + 1, original_id))
         conn.execute('UPDATE urls SET last_use = ? WHERE id = ?',
                      (datetime.now(), original_id))
+        last_time = datetime.strptime(last_use[:19], '%Y-%m-%d %H:%M:%S')
+        if datetime.date(last_time) <= datetime.date(datetime.now()):
+            daily_clicks = daily_clicks + 1
+        else:
+            daily_clicks = 1
+        conn.execute('UPDATE urls SET daily = ? WHERE id = ?',
+                     (daily_clicks, original_id))
         conn.commit()
         conn.close()
-        # if last_use <= datetime.now() - timedelta(days=1):
-        #     daily_clicks=+1
-        # if last_use <= datetime.now() - timedelta(days=7):
         return redirect(original_url)
     else:
         flash('Invalid URL')

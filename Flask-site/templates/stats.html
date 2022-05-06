@@ -1,4 +1,17 @@
 {% extends "index.html" %}
 {% block content %}
-<h1> stats html page</h1>
+<div class="stats-back" style="background: repeat url({{ url_for('static', filename='img/font.svg') }}); background-size: 20%">
+
+    <div class="stats-bigbox load">
+        <div class="stats-form-box">
+            <form  action="#" method="POST">
+                <label class="h1-text" style="text-align: center" for="stats_code_inp">Введите код!</label>
+                <input type="text" id="stats_code_inp" name="stats_code_inp" required>
+                <button class="button_main" type="submit"> <span>Отправить</span> </button>
+            </form>
+            <h2 style="visibility: {{ vis }}">Всего переходов по ссылке: {{ all_clicks }}</h2>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

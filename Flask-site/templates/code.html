@@ -97,13 +97,13 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="button">отправить</button>
+                        <button type="submit" class="button">отправить</button>
+                    </div>
                 </form>
-                </div>
             </div>
             <div class="column-item">
                 <img class="code" style="visibility: {{ hidden }}" src="data:image/jpeg;base64,{{ img_data }}">
-                <p>{{ shorten_url }}</p>
+                <a href="{{ shorten_url }}">{{ shorten_url }}</a>
             </div>
             </div>
         <script>
