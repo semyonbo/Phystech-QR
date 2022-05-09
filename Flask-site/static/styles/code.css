@@ -9,11 +9,17 @@
 .code-box{
     background-color: white;
     border-radius: 30px;
-    margin-top: 1%;
-    margin-left: 10%;
-    margin-right: 10%;
-    height: 80vh;
-    width: 80vw;
+    height: 85vh;
+    width: 55vw;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+.title_qr {
+    padding-top: 10px;
 }
 .code-box_img{
     margin: 3% 20%;
@@ -29,6 +35,11 @@
     flex-direction: column;
     flex: 1;
     height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
 }
 .code{
     max-width: 100%;
@@ -79,7 +90,7 @@
  #map {
      width: 500px;
      height: 500px;
-     padding: 0;
+     padding: 10px;
      margin: 0;
  }
 

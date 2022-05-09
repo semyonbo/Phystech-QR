@@ -5,7 +5,8 @@ var myPlacemark;
 function init () {
     myMap = new ymaps.Map("map", {
         center: [59.927301, 30.338456],
-        zoom: 16
+        zoom: 16,
+        controls: []
     }, {
         balloonMaxWidth: 200,
         searchControlProvider: 'yandex#search'
@@ -25,11 +26,9 @@ function init () {
         if (myPlacemark) {
             myPlacemark.geometry.setCoordinates(coords);
         }
-        // Если нет – создаем.
         else {
             myPlacemark = createPlacemark(coords);
             myMap.geoObjects.add(myPlacemark);
-            // Слушаем событие окончания перетаскивания на метке.
             myPlacemark.events.add('dragend', function () {
                 getAddress(myPlacemark.geometry.getCoordinates());
             });
@@ -45,7 +44,6 @@ function init () {
         myMap.hint.close();
     });
 
-        // Создание метки.
     function createPlacemark(coords) {
         return new ymaps.Placemark(coords, {
             iconCaption: 'поиск...'
@@ -55,7 +53,6 @@ function init () {
         });
     }
 
-    // Определяем адрес по координатам (обратное геокодирование).
     function getAddress(coords) {
         myPlacemark.properties.set('iconCaption', 'поиск...');
         ymaps.geocode(coords).then(function (res) {
@@ -63,14 +60,10 @@ function init () {
 
             myPlacemark.properties
                 .set({
-                    // Формируем строку с данными об объекте.
                     iconCaption: [
-                        // Название населенного пункта или вышестоящее административно-территориальное образование.
                         firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
-                        // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
                         firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
                     ].filter(Boolean).join(', '),
-                    // В качестве контента балуна задаем строку с адресом объекта.
                     balloonContent: firstGeoObject.getAddressLine()
                 });
         });
