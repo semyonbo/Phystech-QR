@@ -20,8 +20,9 @@ def qr_gen(inp, type):
         width_logo = int(code_with * dist_amount)
         height_logo = int(code_height * dist_amount)
         out1=BytesIO()
-        cairosvg.svg2png(url="logophysics.svg", write_to=out1)
+        cairosvg.svg2png(url="logophysics2.svg", write_to=out1)
         img_logo=Image.open(out1)
+        img_logo.convert("RGBA")
         img_logo=img_logo.resize((width_logo,height_logo), Image.ANTIALIAS)
         if type==1:
             return img_logo
@@ -36,6 +37,7 @@ def qr_gen(inp, type):
         out2 = BytesIO()
         cairosvg.svg2png(url="back.svg", write_to=out2)
         img_back = Image.open(out2)
+        img_back.convert("RGBA")
         img_back = img_back.resize((with_back, height_back), Image.ANTIALIAS)
         if type==1:
             return img_back
@@ -51,15 +53,15 @@ def qr_gen(inp, type):
     )
     PhyQR.add_data(inp)
     PhyQR.make()
-    img_PhyQR = PhyQR.make_image(image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer()).convert('RGB')
+    img_PhyQR = PhyQR.make_image(image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer()).convert('RGBA')
 
     # Pasting logo to QR
-    img_PhyQR.paste(render_logo(img_PhyQR.size[0], img_PhyQR.size[1],type=1), render_logo(img_PhyQR.size[0], img_PhyQR.size[1],type=2))
+    img_PhyQR.paste(render_logo(img_PhyQR.size[0], img_PhyQR.size[1],type=1), render_logo(img_PhyQR.size[0], img_PhyQR.size[1],type=2), render_logo(img_PhyQR.size[0], img_PhyQR.size[1],type=1))
 
     # Pasting background to QR
     back = render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=1)
-    back.paste(img_PhyQR, render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=2))
-    # back.save('QR.png')
+    back.paste(img_PhyQR, render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=2), img_PhyQR)
+    #back.save('QR.png')
     if type == 'default':
         return back
     elif type == 'noback':

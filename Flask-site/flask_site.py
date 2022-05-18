@@ -6,6 +6,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_bootstrap import Bootstrap
 from hashids import Hashids
+import PIL
 
 from generator import qr_gen
 

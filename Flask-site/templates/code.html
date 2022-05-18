@@ -101,7 +101,9 @@
                 </form>
             </div>
             <div class="column-item">
-                <img class="code" style="visibility: {{ hidden }}" src="data:image/jpeg;base64,{{ img_data }}">
+                <div class="img_container">
+                    <img class="code" style="visibility: {{ hidden }}" src="data:image/png;base64,{{ img_data }}">
+                </div>
                 <a href="{{ shorten_url }}">{{ shorten_url }}</a>
             </div>
 
