@@ -1,25 +1,18 @@
 .code-blank{
-    position: fixed;
     padding: 0;
     margin: 0;
     width: 100vw;
-    height: 100vh;
+    height: auto;
     text-align: center;
+    display: flex;
+    justify-content: center;
 }
 .code-box{
     background-color: white;
     border-radius: 30px;
-    height: 85vh;
-    width: 55vw;
-    display: flex;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
-}
-.title_qr {
-    padding-top: 10px;
+    height: 100%;
+    width: 80vw;
+    padding-bottom: 2%;
 }
 .code-box_img{
     margin: 3% 20%;
@@ -28,18 +21,12 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    height: 100%;
 }
 .column-item{
     display: flex;
     flex-direction: column;
     flex: 1;
     height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
 }
 .code{
     max-width: 100%;
@@ -67,9 +54,11 @@
 	cursor: pointer;
 	padding: 0 15px;
 	line-height: 34px;
-	border: 1px solid #999;
+	border: 1px solid black;
 	border-right: none;
 	user-select: none;
+    color: white;
+    background: black;
 }
 
 .form_radio_group .form_radio_group-item:first-child label {
@@ -81,16 +70,19 @@
 }
 /* Hover */
 .form_radio_group label:hover {
-	color: #666;
+	color: #fdd105 ;
 }
 /* Checked */
 .form_radio_group input[type=radio]:checked + label {
-	background: #fdd105;
+	background: white;
+    color: black;
+    transition: all 0.5s;
+
 }
  #map {
      width: 500px;
      height: 500px;
-     padding: 10px;
+     padding: 0;
      margin: 0;
  }
 
@@ -114,15 +106,16 @@ input{
     font-size: 16px;
 }
 button{
-    background-color: #E6E9EB;
-    color: black;
+    background-color: black;
+    color: white;
     font-family: Roboto, sans-serif;
     font-weight: lighter;
-    border: 1px solid black;
+    border: 20px solid black;
     padding: 2% 25%;
 }
 button:hover{
-    background-color: #fdd105;
+    background-color: white;
+    color: black;
 }
 .switch_box{
     display: flex;

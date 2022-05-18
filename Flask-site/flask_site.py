@@ -35,10 +35,6 @@ def get_code():
         if form_type == '1':
             inp = request.form.get('link_inp')
             code_type = request.form.get('type')
-            imag = qr_gen(inp, code_type)
-            data = io.BytesIO()
-            imag.save(data, 'PNG')
-            encoded_img_data = b64encode(data.getvalue())
             if request.form.get('stats_option') == "1":
                 url_data = conn.execute('INSERT INTO urls (original_url) VALUES (?)', (inp,))
                 conn.commit()
@@ -46,9 +42,17 @@ def get_code():
                 url_id = url_data.lastrowid
                 hashid = hashids.encode(url_id)
                 short_url = request.host_url + hashid
+                imag = qr_gen(short_url, code_type)
+                data = io.BytesIO()
+                imag.save(data, 'PNG')
+                encoded_img_data = b64encode(data.getvalue())
                 return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='',
                                        shorten_url=short_url)
             else:
+                imag = qr_gen(inp, code_type)
+                data = io.BytesIO()
+                imag.save(data, 'PNG')
+                encoded_img_data = b64encode(data.getvalue())
                 return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='')
         if form_type == '2':
             wifi_name = request.form.get('wifi_name_inp')
@@ -134,6 +138,15 @@ def url_redirect(link):
         flash('Invalid URL')
         return redirect(url_for('get_main'))
 
+
+
+# conn=get_db_connection()
+# cur=conn.cursor()
+# cur.execute("SELECT * FROM urls")
+# rows = cur.fetchall()
+# conn.close()
+# for row in rows:
+#     print(tuple(row))
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port='88', debug=True)

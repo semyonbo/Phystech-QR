@@ -9,8 +9,8 @@
         <div class="code-box load">
             <div class="column">
             <div class="column-item" style="visibility: {{ disp }}">
-                <h1 class = 'title_qr'>Генератор QR</h1>
-                <form  action="#" method="POST">
+                <p class="p-text" style="text-align: center">Выберите тип QR-кода</p>
+                <form  action="#" method="POST" id="main_form">
                 <div class="form_radio_group">
 	                <div class="form_radio_group-item">
                         <input id="link" type="radio" autocomplete="off" name="inp_radio" value="1" checked>
@@ -97,7 +97,6 @@
                             </div>
                         </div>
                     </div>
-                        <button type="submit" class="button">отправить</button>
                     </div>
                 </form>
             </div>
@@ -105,8 +104,10 @@
                 <img class="code" style="visibility: {{ hidden }}" src="data:image/jpeg;base64,{{ img_data }}">
                 <a href="{{ shorten_url }}">{{ shorten_url }}</a>
             </div>
+
             </div>
-        <script>
+                <button type="submit" form="main_form" class="button_main"><span>Отправить</span></button>
+            <script>
                     $(document).ready ( function(){
                         document.querySelector('input[name="inp_radio"]:checked').value=1;
                         document.getElementById('link_inp').setAttribute('required', '');
