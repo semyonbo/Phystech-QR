@@ -6,11 +6,13 @@
     text-align: center;
     display: flex;
     justify-content: center;
+    position: fixed;
 }
 .code-box{
+    margin-top: 2%;
     background-color: white;
     border-radius: 30px;
-    height: 90vh;
+    height: 80%;
     width: 80vw;
     padding-bottom: 2%;
 }
@@ -19,16 +21,15 @@
 }
 .column{
     display: flex;
+    align-content: center;
+    overflow: auto;
     flex-wrap: wrap;
-    width: 100%;
 }
 .column-item{
+    width: 50%;
+    height: 65vh;
     display: flex;
-    flex-direction: column;
-    flex: 1;
-    height: 70vh;
-    align-items: center;
-
+    justify-content: center;
 }
 .code{
     max-width: 100%;
@@ -119,70 +120,9 @@ button:hover{
     background-color: white;
     color: black;
 }
-.switch_box{
-    display: flex;
-    justify-content: center;
-}
-.switch {
-	 position: relative;
-	 width: 32vw;
-	 font-family: Roboto;
-     color: white;
-}
- .switch:before {
-	 content: ' ';
-	 position: absolute;
-	 left: 0;
-	 z-index: -1;
-	 width: 100%;
-	 height: 3rem;
-	 background: #000;
-	 border-radius: 30px;
-}
- .switch__label {
-	 display: inline-block;
-	 width: 5vw;
-	 padding: 1vw;
-	 text-align: center;
-	 cursor: pointer;
-     font-size: large;
-	 transition: color 200ms ease-out;
-}
- .switch__label:hover {
-	 color: #fdd105;
-}
- .switch__indicator {
-	 width: 4rem;
-	 height: 4rem;
-	 position: absolute;
-	 top: -0.5rem;
-	 left: 0;
-     background-color: white;
-     border: 2px solid #dfdfdf;
-	 border-radius: 50%;
-	 transition: transform 600ms cubic-bezier(0.02, 0.94, 0.09, 0.97), background 300ms cubic-bezier(0.17, 0.67, 0.14, 1.03);
-	 transform: translate3d(1vw, 0, 0);
-}
- .switch input#one:checked ~ .switch__indicator {
-	 transform: translate3d(2.5vw, 0, 0);
-}
- .switch input#two:checked ~ .switch__indicator {
-	 transform: translate3d(8.5vw, 0, 0);
-}
- .switch input#three:checked ~ .switch__indicator {
-	 transform: translate3d(14vw, 0, 0);
-}
- .switch input#four:checked ~ .switch__indicator {
-	 transform: translate3d(19.5vw, 0, 0);
-}
-.switch input#five:checked ~ .switch__indicator {
-    transform: translate3d(24vw, 0, 0);
-}
- .switch input[type="radio"]:not(:checked), .switch input[type="radio"]:checked {
-	 display: none;
-}
 .img_container{
     width: 24vw;
     height: auto;
-    padding-top: 20%;
+    padding-top: 10%;
+    padding-bottom: 10%;
 }
