@@ -149,5 +149,3 @@ def url_redirect(link):
 # for row in rows:
 #     print(tuple(row))
 
-if __name__ == '__main__':
-    app.run()
