@@ -132,18 +132,19 @@
 }
 .button_main{
     display: inline-block;
-    border-radius: 10px;
+    border-radius: 15px;
     background-color: black;
     padding: 0;
-    border-color: black;
-    border-width: 2px;
     text-align: center;
     font-size: 28px;
     width: var(--main-button-width);
     height: 80px;
     transition: all 0.5s;
     cursor: pointer;
-
+    color: white;
+    font-family: Roboto, sans-serif;
+    font-weight: lighter;
+    border: 2px solid black;
 }
 .button_main span {
     color: white;

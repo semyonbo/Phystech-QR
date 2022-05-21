@@ -4,34 +4,29 @@
 <div class="code-blank" style="background: repeat url({{ url_for('static', filename='img/font.svg') }}); background-size: 20%">
         <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=d785b28b-95e2-4091-b750-7b0403fb6abc" type="text/javascript"></script>
         <script src="{{url_for('static', filename='js/map.js')}}"></script>
-
         <div class="code-box load">
             <div class="column">
                 <div class="column-item" style="visibility: {{ disp }}">
                     <div class="get_form">
-                        <p class="p-text" style="text-align: center">Выберите тип QR-кода</p>
+                        <h1 class="h1-code">Выберите тип QR-кода</h1>
                         <form  action="#" method="POST" id="main_form">
-                            <div class="form_radio_group">
-                                <div class="form_radio_group-item">
-                                    <input id="link" type="radio" autocomplete="off" name="inp_radio" value="1" checked>
-                                    <label for="link">Ссылка</label>
-	                            </div>
-                                <div class="form_radio_group-item">
-                                    <input id="wifi" type="radio" autocomplete="off" name="inp_radio" value="2">
-                                    <label for="wifi">Wi-Fi</label>
-                                </div>
-                                <div class="form_radio_group-item">
-                                    <input id="contact" type="radio" autocomplete="off" name="inp_radio" value="3">
-                                    <label for="contact">Контакты</label>
-                                </div>
-	                            <div class="form_radio_group-item">
-		                            <input id="text" type="radio" autocomplete="off" name="inp_radio" value="4">
-		                            <label for="text">Текст</label>
-	                            </div>
-                                <div class="form_radio_group-item">
-		                            <input id="geo" type="radio" autocomplete="off" name="inp_radio" value="5">
-		                            <label for="geo">Геопозиция</label>
-	                            </div>
+                            <div class="segmented-control">
+                                <input  id="link" type="radio" autocomplete="off" name="inp_radio" value="1" checked/>
+                                <label for="link" class= "segmented-control__1">
+                                    <p>Ссылка</p></label>
+                                <input id="wifi" type="radio" autocomplete="off" name="inp_radio" value="2" />
+                                <label for="wifi" class= "segmented-control__2">
+                                    <p>Wi-Fi</p></label>
+                                <input id="contact" type="radio" autocomplete="off" name="inp_radio" value="3" />
+                                <label for="contact" class= "segmented-control__3">
+                                    <p>Контакт</p></label>
+                                <input id="text" type="radio" autocomplete="off" name="inp_radio" value="4" />
+                                <label for="text" class= "segmented-control__4">
+                                    <p>Текст</p></label>
+                                <input id="geo" type="radio" autocomplete="off" name="inp_radio" value="5" />
+                                <label for="geo" class= "segmented-control__5">
+                                    <p>Геопозиция</p></label>
+                                <div class="segmented-control__color"></div>
                             </div>
                             <div id="link_form">
                                 <label for="link_inp">Введите ссылку<br/></label>
@@ -63,6 +58,7 @@
                                 <input type="text" class="form__input" placeholder="I love physics" id="text_inp" name="text_inp"><br>
                             </div>
                             <div id="geo_form" style="display: none">
+                                 <label for="geo_inp">Введите координаты<br/></label>
                                 <input type="text" class="form__input" placeholder="59.927301, 30.338456" id="geo_inp" name="geo_inp"><br>
                                 <div id="map" style="width: 500px; height: 300px; margin: auto"></div>
                             </div>
@@ -72,7 +68,7 @@
                 <div class="column-item">
                     <div class="get_form">
                         <div class="design_options">
-                            <p class="p-text" style="text-align: center">Настройки фона кода</p>
+                            <h1 class="h1-code">Настройки фона кода</h1>
                             <div class="switch">
                                 <div class="switch__1">
                                     <input id="code_back_enable" name="code_back_enable" form="main_form" autocomplete="off" type="checkbox">
@@ -80,28 +76,13 @@
                                 </div>
                                 <p class="p-code">Использовать фон</p>
                             </div>
-                            <div class="segmented-control">
-                                <input type="radio" name="radio2" value="3" id="tab-1" checked/>
-                                <label for="tab-1" class= "segmented-control__1">
-                                    <p>Tab 1</p></label>
-                                <input type="radio" name="radio2" value="4" id="tab-2" />
-                                <label for="tab-2" class= "segmented-control__2">
-                                    <p>Tab 2</p></label>
-                                <input type="radio" name="radio2" value="5" id="tab-3" />
-                                <label for="tab-3" class= "segmented-control__3">
-                                    <p>Tab 3</p></label>
-                                <div class="segmented-control__color"></div>
-                            </div>
-                            <p class="p-text" style="text-align: center">Настройки логотипа</p>
-                            <div class="form_radio_group">
-                                <div class="form_radio_group-item">
-                                    <input type="radio"  id="enable_logo" form="main_form" autocomplete="off" name="logo" value="enable">
-                                    <label for="enable_logo"> Использовать логотип</label>
+                            <h1 class="h1-code">Настройки логотипа</h1>
+                            <div class="switch">
+                                <div class="switch__1">
+                                    <input id="enable_logo" name="logo" form="main_form" autocomplete="off" type="checkbox" value="enable" >
+                                    <label for="enable_logo"></label>
                                 </div>
-                                <div class="form_radio_group-item">
-                                    <input type="radio"  id="disable_logo"  form="main_form" autocomplete="off" name="logo" value="disable">
-                                    <label for="disable_logo">Без логотипа</label>
-                                </div>
+                                <p class="p-code">Использовать логотип</p>
                             </div>
                             <div id="logo_options" style="display: none">
                                 <div class="form_radio_group">
@@ -133,7 +114,9 @@
                     <a href="{{ shorten_url }}">{{ shorten_url }}</a>
                 </div>
             </div>
-            <button type="submit" form="main_form" class="button_main"><span>Отправить</span></button>
+            <div class="btn__box">
+                <button type="submit" form="main_form" class="btn btn__primary"><p>Отправить</p></button>
+            </div>
         </div>
         <script>
             $(document).ready ( function(){
@@ -141,12 +124,12 @@
                 document.getElementById('link_inp').setAttribute('required', '');
             });
 
-            $('input[type=radio][name=logo]').change(function (){
-                if (this.value === 'disable') {
+            const checkbox1 = document.getElementById('enable_logo')
+            checkbox1.addEventListener('change', (event) => {
+                if (event.currentTarget.checked) {
+                    $('#logo_options')[0].style.display= '';
+                } else {
                     $('#logo_options')[0].style.display= 'none';
-                }
-                else if (this.value === 'enable'){
-                    $('#logo_options')[0].style.display= ''
                 }
             })
 

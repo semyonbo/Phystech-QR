@@ -6,6 +6,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_bootstrap import Bootstrap
 from hashids import Hashids
 from generator import qr_gen
+from flask_assets import Environment, Bundle
+
 
 app = Flask(__name__)
 Bootstrap(app)
