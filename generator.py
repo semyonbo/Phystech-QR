@@ -62,12 +62,10 @@ def qr_gen(inp, type):
     back = render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=1)
     back.paste(img_PhyQR, render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=2), img_PhyQR)
     #back.save('QR.png')
-    if type == 'default':
+    if type == 'on':
         return back
-    elif type == 'noback':
-        return img_PhyQR
     else:
-        return back
+        return img_PhyQR
     # Метод создания svg QR-кода
     # qrvec=qrcode.QRCode(
     #     error_correction=qrcode.constants.ERROR_CORRECT_H,

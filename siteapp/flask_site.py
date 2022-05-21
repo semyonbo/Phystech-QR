@@ -2,12 +2,9 @@ import io
 import sqlite3
 from base64 import b64encode
 from datetime import datetime
-
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_bootstrap import Bootstrap
 from hashids import Hashids
-import PIL
-
 from generator import qr_gen
 
 app = Flask(__name__)
@@ -35,8 +32,8 @@ def get_code():
         form_type = request.form.get('inp_radio')
         if form_type == '1':
             inp = request.form.get('link_inp')
-            code_type = request.form.get('type')
-            if request.form.get('stats_option') == "1":
+            code_type = request.form.get('code_back_enable')
+            if request.form.get('stats_option') == "on":
                 url_data = conn.execute('INSERT INTO urls (original_url) VALUES (?)', (inp,))
                 conn.commit()
                 conn.close()
@@ -69,7 +66,8 @@ def get_code():
         elif form_type == '5':
             geo = request.form.get('geo_inp')
             inp = 'geo:' + geo.split(' ')[0] + '' + geo.split(' ')[1] + ',100'
-        code_type = request.form.get('type')
+        code_type = request.form.get('code_back_enable')
+        print(code_type)
         imag = qr_gen(inp, code_type)
         data = io.BytesIO()
         imag.save(data, 'PNG')
@@ -83,7 +81,7 @@ def get_code():
 def get_stats():
     if request.method == 'POST':
         conn = get_db_connection()
-        inp_code=request.form.get('stats_code_inp')
+        inp_code = request.form.get('stats_code_inp')
         print(inp_code)
         link_id = hashids.decode(inp_code)
         if link_id:
@@ -118,8 +116,6 @@ def url_redirect(link):
         original_url = url_data['original_url']
         clicks = url_data['clicks']
         daily_clicks = url_data['daily']
-        # weekly_clicks = url_data['weekly']
-        # monthly_clicks = url_data['monthly']
         last_use = url_data['last_use']
         conn.execute('UPDATE urls SET clicks = ? WHERE id = ?',
                      (clicks + 1, original_id))
@@ -140,7 +136,6 @@ def url_redirect(link):
         return redirect(url_for('get_main'))
 
 
-
 # conn=get_db_connection()
 # cur=conn.cursor()
 # cur.execute("SELECT * FROM urls")
@@ -148,4 +143,3 @@ def url_redirect(link):
 # conn.close()
 # for row in rows:
 #     print(tuple(row))
-

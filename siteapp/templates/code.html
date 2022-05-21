@@ -14,59 +14,56 @@
                             <div class="form_radio_group">
                                 <div class="form_radio_group-item">
                                     <input id="link" type="radio" autocomplete="off" name="inp_radio" value="1" checked>
-                                    <label for="link">Link</label>
+                                    <label for="link">Ссылка</label>
 	                            </div>
                                 <div class="form_radio_group-item">
                                     <input id="wifi" type="radio" autocomplete="off" name="inp_radio" value="2">
-                                    <label for="wifi">WiFi</label>
+                                    <label for="wifi">Wi-Fi</label>
                                 </div>
                                 <div class="form_radio_group-item">
                                     <input id="contact" type="radio" autocomplete="off" name="inp_radio" value="3">
-                                    <label for="contact">Contact</label>
+                                    <label for="contact">Контакты</label>
                                 </div>
 	                            <div class="form_radio_group-item">
 		                            <input id="text" type="radio" autocomplete="off" name="inp_radio" value="4">
-		                            <label for="text">Text</label>
+		                            <label for="text">Текст</label>
 	                            </div>
                                 <div class="form_radio_group-item">
 		                            <input id="geo" type="radio" autocomplete="off" name="inp_radio" value="5">
-		                            <label for="geo">Geoposition</label>
+		                            <label for="geo">Геопозиция</label>
 	                            </div>
                             </div>
-                            <div id="link_form" class="form_inputs">
-                                <label for="link_inp">Enter your link</label>
-                                <input type="url" size="3" placeholder="https://mylink.com" id="link_inp" name="link_inp">
-                                <div class="form_radio_group">
-                                    <div class="form_radio_group-item">
-                                        <input id="stats_off" type="radio" autocomplete="off" name="stats_option" value="0" checked>
-                                        <label for="stats_off">No Statistics</label>
+                            <div id="link_form">
+                                <label for="link_inp">Введите ссылку<br/></label>
+                                <input class="form__input" type="url" size="3" placeholder="https://mylink.com" id="link_inp" name="link_inp">
+                                    <div class="switch">
+                                    <div class="switch__2">
+                                        <input id="stats_option" name="stats_option" form="main_form" autocomplete="off" type="checkbox">
+                                        <label for="stats_option"></label>
                                     </div>
-                                    <div class="form_radio_group-item">
-                                        <input id="stats_on" type="radio" autocomplete="off" name="stats_option" value="1">
-                                        <label for="stats_on">Enable Statistics</label>
-                                    </div>
+                                    <p class="p-code">Сбор статистики</p>
                                 </div>
                             </div>
-                            <div id="wifi_form" class="form_inputs" style="display: none">
-                                <label for="wifi_name_inp">Enter name for WiFi (WPA/WPA2 only rn)</label>
-                                <input type="text"  placeholder="my-home-wifi" id="wifi_name_inp" name="wifi_name_inp"><br>
-                                <label for="wifi_pass_inp">Enter password for your WiFi</label>
-                                <input type="password"  placeholder="reAllyHardPa22" id="wifi_pass_inp" name="wifi_pass_inp">
+                            <div id="wifi_form" style="display: none">
+                                <label for="wifi_name_inp">Введите имя сети Wi-Fi (WPA/WPA2)<br/></label>
+                                <input type="text" class="form__input" placeholder="my-home-wifi" id="wifi_name_inp" name="wifi_name_inp"><br>
+                                <label for="wifi_pass_inp">Введите пароль к вашей сети WiFi<br/></label>
+                                <input type="password" class="form__input" placeholder="reAllyHardPa22" id="wifi_pass_inp" name="wifi_pass_inp">
                             </div>
-                            <div id="contact_form" class="form_inputs" style="display: none">
-                                <label for="name_inp">Enter name for a contact</label>
-                                <input type="text"  placeholder="Andrew" id="name_inp" name="name_inp"><br>
-                                <label for="phone_inp">Enter phone number</label>
-                                <input type="tel"  placeholder="+7 920 831 54 37" id="phone_inp" name="phone_inp"><br>
-                                <label for="email_inp">Enter email</label>
-                                <input type="email"  placeholder="andrew@niuitmo.ru" id="email_inp" name="email_inp">
+                            <div id="contact_form" style="display: none">
+                                <label for="name_inp">Введите имя контакта<br/></label>
+                                <input type="text" class="form__input" placeholder="Andrew" id="name_inp" name="name_inp"><br>
+                                <label for="phone_inp">Введите номер телефона<br/></label>
+                                <input type="tel" class="form__input" placeholder="+7 920 831 54 37" id="phone_inp" name="phone_inp"><br>
+                                <label for="email_inp">Введите Email<br/></label>
+                                <input type="email" class="form__input" placeholder="andrew@niuitmo.ru" id="email_inp" name="email_inp">
                             </div>
-                            <div id="text_form" class="form_inputs" style="display: none">
-                                <label for="text_inp">Enter pain text</label>
-                                <input type="text"  placeholder="I love physics" id="text_inp" name="text_inp"><br>
+                            <div id="text_form" style="display: none">
+                                <label for="text_inp">Введите текст<br/></label>
+                                <input type="text" class="form__input" placeholder="I love physics" id="text_inp" name="text_inp"><br>
                             </div>
-                            <div id="geo_form" class="form_inputs" style="display: none">
-                                <input type="text"  placeholder="59.927301, 30.338456" id="geo_inp" name="geo_inp"><br>
+                            <div id="geo_form" style="display: none">
+                                <input type="text" class="form__input" placeholder="59.927301, 30.338456" id="geo_inp" name="geo_inp"><br>
                                 <div id="map" style="width: 500px; height: 300px; margin: auto"></div>
                             </div>
                         </form>
@@ -75,16 +72,27 @@
                 <div class="column-item">
                     <div class="get_form">
                         <div class="design_options">
-                            <div class="form_radio_group">
-                                <div class="form_radio_group-item">
-                                    <input type="radio"  id="type_default" form="main_form" autocomplete="off" name="type" value="default">
-                                    <label for="type_default"> Default type</label>
+                            <p class="p-text" style="text-align: center">Настройки фона кода</p>
+                            <div class="switch">
+                                <div class="switch__1">
+                                    <input id="code_back_enable" name="code_back_enable" form="main_form" autocomplete="off" type="checkbox">
+                                    <label for="code_back_enable"></label>
                                 </div>
-                                <div class="form_radio_group-item">
-                                    <input type="radio"  id="type_noback"  form="main_form" autocomplete="off" name="type" value="noback">
-                                    <label for="type_noback">Without back</label>
-                                </div>
+                                <p class="p-code">Использовать фон</p>
                             </div>
+                            <div class="segmented-control">
+                                <input type="radio" name="radio2" value="3" id="tab-1" checked/>
+                                <label for="tab-1" class= "segmented-control__1">
+                                    <p>Tab 1</p></label>
+                                <input type="radio" name="radio2" value="4" id="tab-2" />
+                                <label for="tab-2" class= "segmented-control__2">
+                                    <p>Tab 2</p></label>
+                                <input type="radio" name="radio2" value="5" id="tab-3" />
+                                <label for="tab-3" class= "segmented-control__3">
+                                    <p>Tab 3</p></label>
+                                <div class="segmented-control__color"></div>
+                            </div>
+                            <p class="p-text" style="text-align: center">Настройки логотипа</p>
                             <div class="form_radio_group">
                                 <div class="form_radio_group-item">
                                     <input type="radio"  id="enable_logo" form="main_form" autocomplete="off" name="logo" value="enable">
