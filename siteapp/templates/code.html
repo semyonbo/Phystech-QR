@@ -4,10 +4,21 @@
 <div class="code-blank" style="background: repeat url({{ url_for('static', filename='img/font.svg') }}); background-size: 20%">
         <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=d785b28b-95e2-4091-b750-7b0403fb6abc" type="text/javascript"></script>
         <script src="{{url_for('static', filename='js/map.js')}}"></script>
+        <script src="{{url_for('static', filename='js/color_style.js')}}"></script>
         <div class="code-box load">
+
             <div class="column">
-                <div class="column-item" style="visibility: {{ disp }}">
-                    <div class="get_form">
+                <div class="column-item">
+                    <div class="get_code" style="display: {{ hidden }};">
+                        <div class="back_but_box">
+                            <button onclick="window.location.href='/code';" class=" btn btn__secondary back_but"><p>&laquo; Назад</p></button>
+                        </div>
+                        <div class="buttons_case">
+                            <button class="btn btn__primary" onclick="downloadBase64File('png', '{{ img_data }}', 'code.png')" ><p>Скачать PNG</p></button>
+                            <button class="btn btn__primary"><p>Скачать SVG</p></button>
+                        </div>
+                    </div>
+                    <div class="get_form" style="display: {{ disp }}">
                         <h1 class="h1-code">Выберите тип QR-кода</h1>
                         <form  action="#" method="POST" id="main_form">
                             <div class="segmented-control">
@@ -31,8 +42,8 @@
                             <div id="link_form">
                                 <label for="link_inp">Введите ссылку<br/></label>
                                 <input class="form__input" type="url" size="3" placeholder="https://mylink.com" id="link_inp" name="link_inp">
-                                    <div class="switch">
-                                    <div class="switch__2">
+                                    <div class="switch" style="justify-content: center">
+                                    <div class="switch__1">
                                         <input id="stats_option" name="stats_option" form="main_form" autocomplete="off" type="checkbox">
                                         <label for="stats_option"></label>
                                     </div>
@@ -60,15 +71,16 @@
                             <div id="geo_form" style="display: none">
                                  <label for="geo_inp">Введите координаты<br/></label>
                                 <input type="text" class="form__input" placeholder="59.927301, 30.338456" id="geo_inp" name="geo_inp"><br>
-                                <div id="map" style="width: 500px; height: 300px; margin: auto"></div>
+                                <div id="map" ></div>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="column-item">
-                    <div class="get_form">
+                    <div class="get_form" style="display: {{ disp }}">
                         <div class="design_options">
                             <h1 class="h1-code">Настройки фона кода</h1>
+                            <div class="line"></div>
                             <div class="switch">
                                 <div class="switch__1">
                                     <input id="code_back_enable" name="code_back_enable" form="main_form" autocomplete="off" type="checkbox">
@@ -76,7 +88,20 @@
                                 </div>
                                 <p class="p-code">Использовать фон</p>
                             </div>
+                            <div class="segmented-control sub" id="back_style" style="display: none">
+                                <input  id="variant_1" type="radio" autocomplete="off" form="main_form" name="back_type" value="var1" checked/>
+                                <label for="variant_1" class= "segmented-control__1">
+                                    <p>Вариант 1</p></label>
+                                <input id="variant_2" type="radio" autocomplete="off" form="main_form" name="back_type" value="var2"/>
+                                <label for="variant_2" class= "segmented-control__2">
+                                    <p>Вариант 2</p></label>
+                                <input id="variant_3" type="radio" autocomplete="off" form="main_form" name="back_type" value="var3" />
+                                <label for="variant_3" class= "segmented-control__3">
+                                    <p>Вариант 3</p></label>
+                                <div class="segmented-control__color"></div>
+                            </div>
                             <h1 class="h1-code">Настройки логотипа</h1>
+                            <div class="line"></div>
                             <div class="switch">
                                 <div class="switch__1">
                                     <input id="enable_logo" name="logo" form="main_form" autocomplete="off" type="checkbox" value="enable" >
@@ -85,36 +110,36 @@
                                 <p class="p-code">Использовать логотип</p>
                             </div>
                             <div id="logo_options" style="display: none">
-                                <div class="form_radio_group">
-                                    <div class="form_radio_group-item">
-                                        <input type="radio" id="square_logo" form="main_form" autocomplete="off" name="logo_form" value="square">
-                                        <label for="square_logo">Квадратный логотип</label>
+                                <div class="radio">
+                                    <div class="radio__1">
+                                        <input id="square_logo" type="radio" form="main_form" autocomplete="off" name="logo_form" value="round">
+                                        <label for="square_logo"></label>
+                                        <p class="p-code">Круглый логотип</p>
                                     </div>
-                                    <div class="form_radio_group-item">
-                                        <input type="radio" id="round_logo" form="main_form" autocomplete="off" name="logo_form" value="round">
-                                        <label for="round_logo">Круглый логотип</label>
-                                    </div>
-                                </div>
-                                <div class="form_radio_group" id="square_colour" style="display: none">
-                                    <div class="form_radio_group-item">
-                                        <input type="radio" id="yellow_square" form="main_form" autocomplete="off" name="square_colour" value="yellow" checked>
-                                        <label for="yellow_square">Желтая обводка</label>
-                                    </div>
-                                    <div class="form_radio_group-item">
-                                        <input type="radio" id="black_square" form="main_form" autocomplete="off" name="square_colour" value="black">
-                                        <label for="black_square">Черная обводка</label>
+                                    <div class="radio__1">
+                                        <input id="round_logo" type="radio" form="main_form" autocomplete="off" name="logo_form" value="square">
+                                        <label for="round_logo"></label>
+                                        <p class="p-code">Квадратный логотип</p>
+                                        <div class="color_picker" id="color_picker">
+                                            <input type="radio" name="color" id="yellow" />
+                                            <label for="yellow"><span class="yellow"></span></label>
+                                            <input type="radio" name="color" id="black" />
+                                            <label for="black"><span class="black"></span></label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="img_container">
-                        <img class="code" style="visibility: {{ hidden }}" src="data:image/png;base64,{{ img_data }}">
+                    <div class="get_code" style="display: {{ hidden }}">
+                        <div class="img_container">
+                            <img class="code" src="data:image/png;base64,{{ img_data }}" alt="QR Code">
+                        </div>
+                        <a href="{{ shorten_url }}">{{ shorten_url }}</a>
                     </div>
-                    <a href="{{ shorten_url }}">{{ shorten_url }}</a>
                 </div>
             </div>
-            <div class="btn__box">
+            <div class="btn__box" style="display: {{ disp }}">
                 <button type="submit" form="main_form" class="btn btn__primary"><p>Отправить</p></button>
             </div>
         </div>
@@ -124,8 +149,24 @@
                 document.getElementById('link_inp').setAttribute('required', '');
             });
 
-            const checkbox1 = document.getElementById('enable_logo')
+            function downloadBase64File(contentType, base64Data, fileName) {
+                const linkSource = `data:${contentType};base64,${base64Data}`;
+                const downloadLink = document.createElement("a");
+                downloadLink.href = linkSource;
+                downloadLink.download = fileName;
+                downloadLink.click();
+            }
+
+            const checkbox1 = document.getElementById('code_back_enable')
             checkbox1.addEventListener('change', (event) => {
+                if (event.currentTarget.checked) {
+                    $('#back_style')[0].style.display= '';
+                } else {
+                    $('#back_style')[0].style.display= 'none';
+                }
+            })
+            const checkbox2 = document.getElementById('enable_logo')
+            checkbox2.addEventListener('change', (event) => {
                 if (event.currentTarget.checked) {
                     $('#logo_options')[0].style.display= '';
                 } else {
@@ -135,10 +176,10 @@
 
             $('input[type=radio][name=logo_form]').change(function (){
                 if (this.value === 'round') {
-                    $('#square_colour')[0].style.display= 'none';
+                    $('#color_picker')[0].style.display= 'none';
                 }
                 else if (this.value === 'square'){
-                    $('#square_colour')[0].style.display= ''
+                    $('#color_picker')[0].style.display= 'flex'
                 }
             })
 

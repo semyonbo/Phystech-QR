@@ -3,15 +3,18 @@ var myMap;
 var myPlacemark;
 
 function init () {
+
     myMap = new ymaps.Map("map", {
         center: [59.927301, 30.338456],
         zoom: 16,
-        controls: []
-    }, {
-        balloonMaxWidth: 200,
-        searchControlProvider: 'yandex#search'
-    });
+        controls: [],
 
+    }, {
+        yandexMapDisablePoiInteractivity: true,
+        suppressMapOpenBlock: true,
+        suppressObsoleteBrowserNotifier:true,
+        balloonMaxWidth: 200,
+    });
     myMap.events.add('click', function (e) {
         if (!myMap.balloon.isOpen()) {
             var coords = e.get('coords');
@@ -34,15 +37,16 @@ function init () {
             });
         }
         getAddress(coords);
+        myPlacemark.events.add('dragend', function () {
+                getAddress(myPlacemark.geometry.getCoordinates());
+                console.log(myPlacemark.geometry.getCoordinates());
+                document.getElementById('geo_inp').value = [
+                    myPlacemark.geometry.getCoordinates()[0].toPrecision(6),
+                    myPlacemark.geometry.getCoordinates()[1].toPrecision(6)
+                ].join(', ');
+        });
     });
 
-    myMap.events.add('contextmenu', function (e) {
-        myMap.hint.open(e.get('coords'), 'Кто-то щелкнул правой кнопкой');
-    });
-
-    myMap.events.add('balloonopen', function (e) {
-        myMap.hint.close();
-    });
 
     function createPlacemark(coords) {
         return new ymaps.Placemark(coords, {

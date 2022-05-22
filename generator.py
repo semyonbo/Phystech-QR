@@ -66,6 +66,7 @@ def qr_gen(inp, type):
         return back
     else:
         return img_PhyQR
+
     # Метод создания svg QR-кода
     # qrvec=qrcode.QRCode(
     #     error_correction=qrcode.constants.ERROR_CORRECT_H,

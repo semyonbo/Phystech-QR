@@ -44,16 +44,16 @@ def get_code():
                 short_url = request.host_url + hashid
                 imag = qr_gen(short_url, code_type)
                 data = io.BytesIO()
-                imag.save(data, 'PNG')
+                imag.save(data, 'png')
                 encoded_img_data = b64encode(data.getvalue())
-                return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='',
+                return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none',
                                        shorten_url=short_url)
             else:
                 imag = qr_gen(inp, code_type)
                 data = io.BytesIO()
                 imag.save(data, 'PNG')
                 encoded_img_data = b64encode(data.getvalue())
-                return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='')
+                return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none')
         if form_type == '2':
             wifi_name = request.form.get('wifi_name_inp')
             wifi_pass = request.form.get('wifi_pass_inp')
@@ -71,12 +71,13 @@ def get_code():
         code_type = request.form.get('code_back_enable')
         print(code_type)
         imag = qr_gen(inp, code_type)
+        imag.convert("RGBA")
         data = io.BytesIO()
-        imag.save(data, 'PNG')
+        imag.save(data, 'png')
         encoded_img_data = b64encode(data.getvalue())
-        return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='')
+        return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none')
     else:
-        return render_template('code.html', hidden='hidden', disp='')
+        return render_template('code.html', hidden='none', disp='')
 
 
 @app.route('/stats', methods=['GET', 'POST'])
