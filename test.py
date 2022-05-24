@@ -1,4 +1,9 @@
 from generator import  qr_gen
+from PIL import Image
+import cairosvg
+import io
 
-t='ABOBAФБОБА4573БобаОБОБОЛЯшативрар твааваы'
-qr_gen(t,logo_type=None,logo_colour=None,back_type="var1")
+t='Обновленная версия вопросов по 2-му семестру. Напоминаю, что первые 23 вопроса - это вопросы коллоквиума. Для тех, кто не сдал коллоквиум будет доп. вопрос в билете. Красным выделены вопросы на "отлично".  Если вы не претендуете на "отлично", то вы можете не отвечать на этот вопрос в билете в развернутом виде, но должны знать на уровне формулировки.'
+qr=qr_gen(t,logo_type="round",logo_colour="black",back_type='var1')
+qr.save('QR.png')
+

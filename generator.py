@@ -5,14 +5,15 @@ def qr_gen(inp, logo_type, logo_colour, back_type):
     from qrcode.image.styles.moduledrawers import RoundedModuleDrawer
     from io import BytesIO
     import cairosvg
+    import os
 
     # settings
-    dist_amount = 0.3
+    dist_amount = 0.38
     code_pixel_size = 20
     qr_border_size = 0
     code_color = 'black'
     backgroud_color = 'white'
-    back_const = 1.24
+    back_const = 1.18
 
     # Рендер
     def render(QR_rastr, type_of_render, logo_type_func, logo_colour_func, back_type_func):
@@ -23,29 +24,31 @@ def qr_gen(inp, logo_type, logo_colour, back_type):
             width = int(code_with * dist_amount)
             height = int(code_height * dist_amount)
             if logo_type_func == 'round':
-                cairosvg.svg2png(file_obj=open(r"logophysics2.svg", "rb"), write_to=out)
+                cairosvg.svg2png(url="logophysics2.svg", write_to=out)
             elif logo_type_func == 'square':
                 if logo_colour_func == 'yellow':
-                    cairosvg.svg2png(file_obj=open(r"logophysics.svg", "rb"), write_to=out)
+                    cairosvg.svg2png(url="logophysics.svg", write_to=out)
                 elif logo_colour_func == 'black':
-                    cairosvg.svg2png(file_obj=open(r"logophysics3.svg", "rb"), write_to=out)
+                    cairosvg.svg2png(url="logophysics3.svg", write_to=out)
             pos = ((code_with - width) // 2, (code_height - height) // 2)
         elif type_of_render == 'back':
             width = int(code_with * back_const)
             height = int(code_height * back_const)
             if back_type_func == 'var1':
-                cairosvg.svg2png(file_obj=open(r"back_1.svg", "rb"), write_to=out)
+                cairosvg.svg2png(url="back_1.svg", write_to=out)
             elif back_type_func == 'var2':
-                cairosvg.svg2png(file_obj=open(r"back_2.svg", "rb"), write_to=out)
+                cairosvg.svg2png(url="back_2.svg", write_to=out)
             elif back_type_func == 'var3':
-                cairosvg.svg2png(file_obj=open(r"back_3.svg", "rb"), write_to=out)
+                cairosvg.svg2png(url="back_3.svg", write_to=out)
             pos = ((width - code_with) // 2, (height - code_height) // 2)
         part_img = Image.open(out).convert("RGBA")
         part_img = part_img.resize((width, height), Image.ANTIALIAS)
         if type_of_render == 'logo':
-            return QR_rastr.paste(part_img, pos, part_img)
+            QR_rastr.paste(part_img, pos, part_img)
+            return QR_rastr
         elif type_of_render == 'back':
-            return part_img.paste(QR_rastr, pos, QR_rastr)
+            part_img.paste(QR_rastr, pos, QR_rastr)
+            return part_img
 
     # Creating rastr QR
     def create_qr(inp):
@@ -61,12 +64,12 @@ def qr_gen(inp, logo_type, logo_colour, back_type):
 
     Pure_qr = create_qr(inp)
     if logo_type is None:
-        return render(Pure_qr, logo_type_func=None, logo_colour_func=None , type_of_render='back', back_type_func=back_type)
+        return render(QR_rastr=Pure_qr, logo_type_func=None, logo_colour_func=None , type_of_render='back', back_type_func=back_type)
     elif logo_type is not None:
         if back_type is None:
-            return render(Pure_qr, type_of_render='logo', logo_type_func=logo_type, logo_colour_func=logo_colour, back_type_func=None)
+            return render(QR_rastr=Pure_qr, type_of_render='logo', logo_type_func=logo_type, logo_colour_func=logo_colour, back_type_func=None)
         if back_type is not None:
-            Qr_width_logo = render(Pure_qr, type_of_render='logo', logo_type_func=logo_type, logo_colour_func=logo_colour, back_type_func=None)
+            Qr_width_logo = render(QR_rastr=Pure_qr, type_of_render='logo', logo_type_func=logo_type, logo_colour_func=logo_colour, back_type_func=None)
             return render(Qr_width_logo, type_of_render='back', back_type_func=back_type, logo_type_func=None, logo_colour_func=None)
 
 
