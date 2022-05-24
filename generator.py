@@ -64,7 +64,10 @@ def qr_gen(inp, logo_type, logo_colour, back_type):
 
     Pure_qr = create_qr(inp)
     if logo_type is None:
-        return render(QR_rastr=Pure_qr, logo_type_func=None, logo_colour_func=None , type_of_render='back', back_type_func=back_type)
+        if back_type is None:
+            return Pure_qr
+        else:
+            return render(QR_rastr=Pure_qr, logo_type_func=None, logo_colour_func=None , type_of_render='back', back_type_func=back_type)
     elif logo_type is not None:
         if back_type is None:
             return render(QR_rastr=Pure_qr, type_of_render='logo', logo_type_func=logo_type, logo_colour_func=logo_colour, back_type_func=None)

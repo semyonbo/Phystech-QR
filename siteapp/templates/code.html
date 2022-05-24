@@ -42,7 +42,7 @@
                             <div id="link_form">
                                 <label for="link_inp">Введите ссылку<br/></label>
                                 <input class="form__input" type="url" size="3" placeholder="https://mylink.com" id="link_inp" name="link_inp">
-                                    <div class="switch" style="justify-content: center">
+                                <div class="switch" style="justify-content: center">
                                     <div class="switch__1">
                                         <input id="stats_option" name="stats_option" form="main_form" autocomplete="off" type="checkbox">
                                         <label for="stats_option"></label>
@@ -83,7 +83,7 @@
                             <div class="line"></div>
                             <div class="switch">
                                 <div class="switch__1">
-                                    <input id="code_back_enable" name="code_back_enable" form="main_form" autocomplete="off" type="checkbox">
+                                    <input id="code_back_enable" name="code_back_enable" form="main_form" autocomplete="off" type="checkbox" value="on">
                                     <label for="code_back_enable"></label>
                                 </div>
                                 <p class="p-code">Использовать фон</p>
@@ -104,7 +104,7 @@
                             <div class="line"></div>
                             <div class="switch">
                                 <div class="switch__1">
-                                    <input id="enable_logo" name="logo" form="main_form" autocomplete="off" type="checkbox" value="enable" >
+                                    <input id="enable_logo" name="logo" form="main_form" autocomplete="off" type="checkbox" value="on" >
                                     <label for="enable_logo"></label>
                                 </div>
                                 <p class="p-code">Использовать логотип</p>
@@ -112,7 +112,7 @@
                             <div id="logo_options" style="display: none">
                                 <div class="radio">
                                     <div class="radio__1">
-                                        <input id="square_logo" type="radio" form="main_form" autocomplete="off" name="logo_form" value="round">
+                                        <input id="square_logo" type="radio" form="main_form" autocomplete="off" name="logo_form" value="round" checked>
                                         <label for="square_logo"></label>
                                         <p class="p-code">Круглый логотип</p>
                                     </div>
@@ -121,9 +121,9 @@
                                         <label for="round_logo"></label>
                                         <p class="p-code">Квадратный логотип</p>
                                         <div class="color_picker" id="color_picker">
-                                            <input type="radio" name="color" id="yellow" />
+                                            <input type="radio" form="main_form" name="color" id="yellow" checked value="yellow" />
                                             <label for="yellow"><span class="yellow"></span></label>
-                                            <input type="radio" name="color" id="black" />
+                                            <input type="radio" form="main_form" name="color" id="black" value="black"/>
                                             <label for="black"><span class="black"></span></label>
                                         </div>
                                     </div>
