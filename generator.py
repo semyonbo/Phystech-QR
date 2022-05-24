@@ -1,4 +1,4 @@
-def qr_gen(inp, type):
+def qr_gen(inp, logo_type, logo_colour, back_type):
     from PIL import Image
     import qrcode.image.svg
     from qrcode.image.styledpil import StyledPilImage
@@ -14,58 +14,66 @@ def qr_gen(inp, type):
     backgroud_color = 'white'
     back_const = 1.24
 
+    # Рендер
+    def render(QR_rastr, type_of_render, logo_type_func, logo_colour_func, back_type_func):
+        code_with = QR_rastr.size[0]
+        code_height = QR_rastr.size[1]
+        out = BytesIO()
+        if type_of_render == 'logo':
+            width = int(code_with * dist_amount)
+            height = int(code_height * dist_amount)
+            if logo_type_func == 'round':
+                cairosvg.svg2png(file_obj=open(r"logophysics2.svg", "rb"), write_to=out)
+            elif logo_type_func == 'square':
+                if logo_colour_func == 'yellow':
+                    cairosvg.svg2png(file_obj=open(r"logophysics.svg", "rb"), write_to=out)
+                elif logo_colour_func == 'black':
+                    cairosvg.svg2png(file_obj=open(r"logophysics3.svg", "rb"), write_to=out)
+            pos = ((code_with - width) // 2, (code_height - height) // 2)
+        elif type_of_render == 'back':
+            width = int(code_with * back_const)
+            height = int(code_height * back_const)
+            if back_type_func == 'var1':
+                cairosvg.svg2png(file_obj=open(r"back_1.svg", "rb"), write_to=out)
+            elif back_type_func == 'var2':
+                cairosvg.svg2png(file_obj=open(r"back_2.svg", "rb"), write_to=out)
+            elif back_type_func == 'var3':
+                cairosvg.svg2png(file_obj=open(r"back_3.svg", "rb"), write_to=out)
+            pos = ((width - code_with) // 2, (height - code_height) // 2)
+        part_img = Image.open(out).convert("RGBA")
+        part_img = part_img.resize((width, height), Image.ANTIALIAS)
+        if type_of_render == 'logo':
+            return QR_rastr.paste(part_img, pos, part_img)
+        elif type_of_render == 'back':
+            return part_img.paste(QR_rastr, pos, QR_rastr)
 
-    # Рендер логотипа
-    def render_logo(code_with, code_height, type):
-        width_logo = int(code_with * dist_amount)
-        height_logo = int(code_height * dist_amount)
-        out1=BytesIO()
-        cairosvg.svg2png(url="logophysics2.svg", write_to=out1)
-        img_logo=Image.open(out1)
-        img_logo.convert("RGBA")
-        img_logo=img_logo.resize((width_logo,height_logo), Image.ANTIALIAS)
-        if type==1:
-            return img_logo
-        if type==2:
-            pos=((code_with - width_logo) // 2, (code_height - height_logo) // 2)
-            return pos
-
-    # Рендер задника
-    def render_back(code_with, code_height,type):
-        with_back = int(code_with * back_const)
-        height_back = int(code_height * back_const)
-        out2 = BytesIO()
-        cairosvg.svg2png(url="back.svg", write_to=out2)
-        img_back = Image.open(out2)
-        img_back.convert("RGBA")
-        img_back = img_back.resize((with_back, height_back), Image.ANTIALIAS)
-        if type==1:
-            return img_back
-        if type==2:
-            pos=((with_back - code_with) // 2, (height_back - code_height) // 2)
-            return pos
-
-    # Creating QR
-    PhyQR = qrcode.QRCode(
-        error_correction=qrcode.constants.ERROR_CORRECT_H,
-        border=qr_border_size,
-        box_size=code_pixel_size
-    )
-    PhyQR.add_data(inp)
-    PhyQR.make()
-    img_PhyQR = PhyQR.make_image(image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer()).convert('RGBA')
-
-    # Pasting logo to QR
-    img_PhyQR.paste(render_logo(img_PhyQR.size[0], img_PhyQR.size[1],type=1), render_logo(img_PhyQR.size[0], img_PhyQR.size[1],type=2), render_logo(img_PhyQR.size[0], img_PhyQR.size[1],type=1))
-
-    # Pasting background to QR
-    back = render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=1)
-    back.paste(img_PhyQR, render_back(img_PhyQR.size[0], img_PhyQR.size[1],type=2), img_PhyQR)
-    #back.save('QR.png')
-    if type == 'on':
-        return back
-    else:
+    # Creating rastr QR
+    def create_qr(inp):
+        PhyQR = qrcode.QRCode(
+            error_correction=qrcode.constants.ERROR_CORRECT_H,
+            border=qr_border_size,
+            box_size=code_pixel_size
+        )
+        PhyQR.add_data(inp)
+        PhyQR.make()
+        img_PhyQR = PhyQR.make_image(image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer()).convert('RGBA')
         return img_PhyQR
+
+    Pure_qr = create_qr(inp)
+    if logo_type is None:
+        return render(Pure_qr, logo_type_func=None, logo_colour_func=None , type_of_render='back', back_type_func=back_type)
+    elif logo_type is not None:
+        if back_type is None:
+            return render(Pure_qr, type_of_render='logo', logo_type_func=logo_type, logo_colour_func=logo_colour, back_type_func=None)
+        if back_type is not None:
+            Qr_width_logo = render(Pure_qr, type_of_render='logo', logo_type_func=logo_type, logo_colour_func=logo_colour, back_type_func=None)
+            return render(Qr_width_logo, type_of_render='back', back_type_func=back_type, logo_type_func=None, logo_colour_func=None)
+
+
+    # if type == 'on':
+    #     return back
+    # else:
+    #     return img_PhyQR
 
     # Метод создания svg QR-кода
     # qrvec=qrcode.QRCode(
