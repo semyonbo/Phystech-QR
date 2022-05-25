@@ -1,3 +1,40 @@
+@media (max-width: 640px){
+  :root{
+
+  }
+}
+@media (min-width: 641px) and (max-width: 1199px){
+  :root{
+	  --code-box-height: 55vw;
+      --code-box-width: 85vw;
+	  --code-box-topmargin: 1%;
+	  --one-tab-len: 5.4rem;
+	  --one-tab-margin: 0.2rem;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1500px){
+  :root{
+      --code-box-height: 55vw;
+      --code-box-width: 85vw;
+      --code-box-topmargin: 2%;
+      --design-opts-width: 30vw;
+	  --one-tab-len: 6.2rem;
+	  --one-tab-margin: 0.6rem;
+	  --code-blank-possition: none;
+  }
+}
+@media (min-width: 1501px){
+  :root{
+      --code-box-height: 45rem;
+      --code-box-width: 85rem;
+      --code-box-topmargin: 4%;
+      --design-opts-width: 20vw;
+	  --one-tab-len: 6.8rem;
+	  --one-tab-margin: 0.8rem;
+	  --code-blank-possition: fixed;
+  }
+}
+
 :root {
   --primary-light: #FDDD51;
   --primary: #FDD105;
@@ -41,7 +78,7 @@
 	margin: 1rem
 }
 .design_options{
-	width: 20vw;
+	width: var(--design-opts-width);
 }
 .p-code{
 	width: auto;
@@ -56,14 +93,14 @@
     text-align: center;
     display: flex;
     justify-content: center;
-	position: fixed;
+	position: var(--code-blank-possition);
 }
 .code-box{
 	background: var(--greyLight-1);
     border-radius: 3rem;
-    height: 45rem;
-    width: 85rem;
-	margin-top: 4%;
+    height: var(--code-box-height);
+    width: var(--code-box-width);
+	margin-top: var(--code-box-topmargin);
 	box-sizing: border-box;
 }
 .column{
@@ -149,7 +186,7 @@
 }
 
  .segmented-control {
-	 width: 34rem;
+	 width: calc(5*var(--one-tab-len));
 	 height: 2.8rem;
 	 box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
 	 border-radius: 1rem;
@@ -160,7 +197,7 @@
 	 margin-bottom: 4%;
 }
 .segmented-control.sub{
-    width: 20.4rem;
+    width: calc(3*var(--one-tab-len));
 }
 
  .segmented-control input {
@@ -171,7 +208,7 @@
 	 color: var(--primary-dark);
 }
  .segmented-control__1, .segmented-control__2, .segmented-control__3, .segmented-control__4, .segmented-control__5 {
-	 width: 6.8rem;
+	 width: var(--one-tab-len);
 	 height: 2.6rem;
 	 display: flex;
 	 justify-content: center;
@@ -187,9 +224,9 @@
  .segmented-control__color {
 	 position: absolute;
 	 height: 2.4rem;
-	 width: 6.2rem;
-	 margin-left: 0.3rem;
-	 border-radius: 0.8rem;
+	 width: calc(31*var(--one-tab-len)/34);
+	 margin-left: var(--one-tab-margin);
+	 border-radius: 0.6rem;
 	 box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
 	 pointer-events: none;
 }
@@ -198,19 +235,19 @@
 	 transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 #wifi:checked ~ .segmented-control__color {
-	 transform: translateX(6.8rem);
+	 transform: translateX(var(--one-tab-len));
 	 transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 #contact:checked ~ .segmented-control__color {
-	 transform: translateX(13.6rem);
+	 transform: translateX(calc(2*var(--one-tab-len)));
 	 transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 #text:checked ~ .segmented-control__color {
-	 transform: translateX(20.4rem);
+	 transform: translateX(calc(3*var(--one-tab-len)));
 	 transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 #geo:checked ~ .segmented-control__color {
-	 transform: translateX(27.2rem);
+	 transform: translateX(calc(4*var(--one-tab-len)));
 	 transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 #variant_1:checked ~ .segmented-control__color {
@@ -218,11 +255,11 @@
 	 transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 #variant_2:checked ~ .segmented-control__color {
-	 transform: translateX(6.8rem);
+	 transform: translateX(var(--one-tab-len));
 	 transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 #variant_3:checked ~ .segmented-control__color {
-	 transform: translateX(13.6rem);
+	 transform: translateX(calc(2*var(--one-tab-len)));
 	 transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
