@@ -6,13 +6,13 @@
         <div class="stats-form-box">
             <form  action="#" method="POST">
                 <label class="h1-text" style="text-align: center" for="stats_code_inp">Введите код!</label>
-                <input type="text" id="stats_code_inp" name="stats_code_inp" required>
+                <input type="text" class="stat-inp" id="stats_code_inp" name="stats_code_inp" required>
                 <button class="button_main" type="submit"> <span>Отправить</span> </button>
             </form>
             <h2 style="visibility: {{ vis }}">Всего переходов по ссылке: {{ all_clicks }}</h2>
-            <h2 style="visibility: {{ vis }}">Всего переходов по ссылке за последний день: {{ daily }}</h2>
-            <h2 style="visibility: {{ vis }}">Всего переходов по ссылке за последнюю неделю: {{ weekly }}</h2>
-            <h2 style="visibility: {{ vis }}">Всего переходов по ссылке за последний месяц: {{ mounthly }}</h2>
+            <h2 style="visibility: {{ vis }}">За последний день: {{ daily }}</h2>
+            <h2 style="visibility: {{ vis }}">За последнюю неделю: {{ weekly }}</h2>
+            <h2 style="visibility: {{ vis }}">ВЗа последний месяц: {{ mounthly }}</h2>
         </div>
     </div>
 </div>

@@ -6,6 +6,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap
 from hashids import Hashids
 from generator import qr_gen
+import requests as get_ip
 
 
 app = Flask(__name__)
@@ -92,10 +93,10 @@ def get_stats():
             daily_timedelta=str(dat.datetime.now() - dat.timedelta(days=1))[:19]
             weekly_timedelta=str(dat.datetime.now() - dat.timedelta(days=7))[:19]
             mounthly_timedelta=str(dat.datetime.now() - dat.timedelta(days=30))[:19]
-            weekly= conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))', (link_id, daily_timedelta)).fetchone()[0]
-            mounthly = conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))',
+            daily = conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))', (link_id, daily_timedelta)).fetchone()[0]
+            weekly = conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))',
                                  (link_id, weekly_timedelta)).fetchone()[0]
-            daily = conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))',
+            mounthly = conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))',
                                  (link_id, mounthly_timedelta)).fetchone()[0]
             conn.close()
             return render_template('stats.html', vis='', all_clicks=clicks, daily=daily, weekly=weekly, mounthly=mounthly)
@@ -127,10 +128,14 @@ def url_redirect(link):
                      (str(dat.datetime.now())[:19], original_id))
         now=str(dat.datetime.now())[:19]
         conn.execute('INSERT INTO stats (id,time_use) VALUES (?, ?)', (original_id, now))
-
+        location_info=get_ip.get(f'http://ip-api.com/csv/{request.remote_addr}?fields=country,countryCode,city,query').text
+        locat=location_info.split(",")
+        City=locat[2]
+        Counrty=locat[1]
+        User_ip=locat[3]
+        #request.remote_addr
         conn.commit()
         conn.close()
-
         return redirect(original_url)
     else:
         return redirect(url_for('get_main'))

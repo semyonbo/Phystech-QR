@@ -9,18 +9,20 @@
       --code-box-width: 85vw;
 	  --code-box-topmargin: 1%;
 	  --one-tab-len: 5.4rem;
+	  --design-opts-width: 30vw;
 	  --one-tab-margin: 0.2rem;
+	  --code-blank-possition: none;
   }
 }
 @media (min-width: 1200px) and (max-width: 1500px){
   :root{
-      --code-box-height: 55vw;
+      --code-box-height: 80vh;
       --code-box-width: 85vw;
       --code-box-topmargin: 2%;
       --design-opts-width: 30vw;
 	  --one-tab-len: 6.2rem;
-	  --one-tab-margin: 0.6rem;
-	  --code-blank-possition: none;
+	  --one-tab-margin: 0.3rem;
+	  --code-blank-possition: fixed;
   }
 }
 @media (min-width: 1501px){
