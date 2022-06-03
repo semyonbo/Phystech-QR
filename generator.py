@@ -24,22 +24,22 @@ def qr_gen(inp, logo_type, logo_colour, back_type):
             width = int(code_with * dist_amount)
             height = int(code_height * dist_amount)
             if logo_type_func == 'round':
-                cairosvg.svg2png(url="logophysics2.svg", write_to=out)
+                cairosvg.svg2png(file_obj=open("code_templates/logophysics2.svg", "rb"), write_to=out)
             elif logo_type_func == 'square':
                 if logo_colour_func == 'yellow':
-                    cairosvg.svg2png(url="logophysics.svg", write_to=out)
+                    cairosvg.svg2png(file_obj=open("code_templates/logophysics.svg", "rb"), write_to=out)
                 elif logo_colour_func == 'black':
-                    cairosvg.svg2png(url="logophysics3.svg", write_to=out)
+                    cairosvg.svg2png(file_obj=open("code_templates/logophysics3.svg", "rb"), write_to=out)
             pos = ((code_with - width) // 2, (code_height - height) // 2)
         elif type_of_render == 'back':
             width = int(code_with * back_const)
             height = int(code_height * back_const)
             if back_type_func == 'var1':
-                cairosvg.svg2png(url="back_1.svg", write_to=out)
+                cairosvg.svg2png(file_obj=open("code_templates/back_1.svg", "rb"), write_to=out)
             elif back_type_func == 'var2':
-                cairosvg.svg2png(url="back_2.svg", write_to=out)
+                cairosvg.svg2png(file_obj=open("code_templates/back_2.svg", "rb"), write_to=out)
             elif back_type_func == 'var3':
-                cairosvg.svg2png(url="back_3.svg", write_to=out)
+                cairosvg.svg2png(file_obj=open("code_templates/back_3.svg", "rb"), write_to=out)
             pos = ((width - code_with) // 2, (height - code_height) // 2)
         part_img = Image.open(out).convert("RGBA")
         part_img = part_img.resize((width, height), Image.ANTIALIAS)
@@ -76,18 +76,12 @@ def qr_gen(inp, logo_type, logo_colour, back_type):
             return render(Qr_width_logo, type_of_render='back', back_type_func=back_type, logo_type_func=None, logo_colour_func=None)
 
 
-    # if type == 'on':
-    #     return back
-    # else:
-    #     return img_PhyQR
-
     # Метод создания svg QR-кода
-    # qrvec=qrcode.QRCode(
-    #     error_correction=qrcode.constants.ERROR_CORRECT_H,
-    #     border=1
-    #
-    # )
-    # qrvec.add_data(inp)
-    # qrvec.make(fit=True)
-    # svgqr=qrvec.make_image(image_factory=qrcode.image.svg.SvgImage)
-    # svgqr.save('testing.svg')
+    qrvec=qrcode.QRCode(
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        border=1
+    )
+    qrvec.add_data(inp)
+    qrvec.make(fit=True)
+    svgqr=qrvec.make_image(image_factory=qrcode.image.svg.SvgImage)
+    svgqr.save('testing.svg')
