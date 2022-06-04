@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 26.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 1200 1200" style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
 <style type="text/css">
-	.st0{display:none;fill:#FFFFFF;}
-	.st1{fill:#FFFFFF;}
-	.st2{display:none;fill:none;stroke:#FDD105;stroke-width:15;stroke-miterlimit:10;}
+	.st30{fill:#FFFFFF;}
 </style>
-<rect y="3.5" class="st0" width="1200" height="1196.5"/>
-<circle class="st1" cx="600" cy="600" r="600"/>
+<circle class="st30" cx="600" cy="600" r="600"/>
 <g>
 	<path d="M1098.9,670l-112.8-0.9c-33,182.9-194,321.2-386.9,319.7c-215.7-1.6-389.2-177-387.5-391.8
 		c1.6-214.7,177.8-387.5,393.5-385.8c192.9,1.5,351.8,142.2,381.9,325.5l112.8,0.9C1069.2,292.6,860.8,102,606.1,100
@@ -20,5 +17,4 @@
 		C367.5,512.7,319,553.4,319,602.3c0,74.4,112,130.6,260.7,130.6c0.3,0,0.5,0,0.8,0c0.3,0,0.5,0,0.8,0c17,0,33.3-0.8,49.1-2.2
 		l-0.1-0.1c31.9-2.9,61.3-8.6,87.5-16.4l0.4,0.3C793.5,692,842,651.2,842,602.4C841.9,531.6,740.9,477.6,603.6,472.3"/>
 </g>
-<rect x="7.5" y="7.5" class="st2" width="1185" height="1185"/>
 </svg>

@@ -1,3 +1,4 @@
+import base64
 import io
 import sqlite3
 from base64 import b64encode
@@ -5,7 +6,7 @@ import datetime as dat
 from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap
 from hashids import Hashids
-from generator import qr_gen
+from generator import qr_gen, qr_gen_vecotr
 import requests as get_ip
 
 
@@ -14,14 +15,17 @@ Bootstrap(app)
 app.config['SECRET_KEY'] = 'ILOVW_kAn6e_W3sT_BuT_h6Ate_P8ySicZ'
 hashids = Hashids(min_length=4, salt=app.config['SECRET_KEY'])
 
-def make_code(inp, enable_back, back_type, enable_logo, logo_type, logo_colour):
+def make_code(inp, enable_back, back_type, enable_logo, logo_type, logo_colour, code_type):
     if enable_back is None:
         back_type = None
     if enable_logo is None:
         logo_type = None
     if logo_type == 'round':
         logo_colour = None
-    return qr_gen(inp, logo_type, logo_colour, back_type)
+    if code_type == 'rastr':
+        return qr_gen(inp, logo_type, logo_colour, back_type)
+    elif code_type == 'vector':
+        return  qr_gen_vecotr(inp, logo_type, logo_colour, back_type)
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
@@ -65,15 +69,17 @@ def get_code():
         elif form_type == '5':
             geo = request.form.get('geo_inp')
             inp = 'geo:' + geo.split(' ')[0] + '' + geo.split(' ')[1] + ',100'
-        imag = make_code(inp, request.form.get('code_back_enable'), request.form.get('back_type'), request.form.get('logo'), request.form.get('logo_form'), request.form.get('color'))
+        imag = make_code(inp, request.form.get('code_back_enable'), request.form.get('back_type'), request.form.get('logo'), request.form.get('logo_form'), request.form.get('color'), 'rastr')
         imag.convert("RGBA")
         data = io.BytesIO()
+        svg_str=make_code(inp, request.form.get('code_back_enable'), request.form.get('back_type'), request.form.get('logo'), request.form.get('logo_form'), request.form.get('color'), 'vector')
         imag.save(data, 'png')
         encoded_img_data = b64encode(data.getvalue())
+        encoded_svg_data=base64.b64encode(svg_str)
         if short_url is not None:
-            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none', shorten_url=short_url)
+            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none', shorten_url=short_url, svg_data=encoded_svg_data.decode('utf-8'))
         else:
-            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none')
+            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none', svg_data=encoded_svg_data.decode('utf-8'))
     else:
         return render_template('code.html', hidden='none', disp='')
 

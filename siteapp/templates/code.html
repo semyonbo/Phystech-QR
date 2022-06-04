@@ -15,7 +15,7 @@
                         </div>
                         <div class="buttons_case">
                             <button class="btn btn__primary" onclick="downloadBase64File('png', '{{ img_data }}', 'code.png')" ><p>Скачать PNG</p></button>
-                            <button class="btn btn__primary"><p>Скачать SVG</p></button>
+                            <button class="btn btn__primary" onclick="downloadBase64File('image/svg+xml', '{{ svg_data }}', 'code.svg')"><p>Скачать SVG</p></button>
                         </div>
                     </div>
                     <div class="get_form" style="display: {{ disp }}">
