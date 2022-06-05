@@ -5,8 +5,12 @@
 <style type="text/css">
 	.st0{fill:#FED103;}
 	.st1{fill:#FFFFFF;stroke:#000000;stroke-width:15;stroke-miterlimit:10;}
+	.st200{fill:#000000;}
+	.st300{font-family:'Arial';}
+	.st400{font-size:40px;}
 </style>
 <path class="st0" d="M100,0h1000c55,0,100,45,100,100v1000c0,55-45,100-100,100H100c-55,0-100-45-100-100V100C0,45,45,0,100,0z"/>
 <path class="st1" d="M149.7,45h900.6c57.6,0,104.7,47.1,104.7,104.7v900.6c0,57.6-47.1,104.7-104.7,104.7H149.7
 	C92.1,1155,45,1107.9,45,1050.3V149.7C45,92.1,92.1,45,149.7,45z"/>
+<text transform="matrix(1 0 0 1 540 1192)" class="st200 st300 st400">CODE</text>
 </svg>

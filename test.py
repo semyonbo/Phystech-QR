@@ -4,12 +4,13 @@ import PIL
 import qrcode.image.svg
 import io
 import svgutils.transform as st
-inp='лоплтглшрьбщшт  ьнт90п0ьб 9ь бщшьватрь0х вы9абрпв трг лб рапрапр апрапрар апр апр апр а пр вапрвапрапрапрапр984949 48па4р98авп4р ва4пр9 849ап8р4 в9пар ьтвыапшнвпорвапвал-п двапдвап швап ва пвап '
+from cairosvg import svg2png
+inp='0'
 
 def qr_gen_vecotr(inp, logo_type, logo_colour, back_type):
     global back, back_width, logo
     back_const = 0.85
-    code_distor = 0.0235
+    code_distor = 0.28
 
     def create_vect(inp):
         qrvec = qrcode.QRCode(
@@ -62,8 +63,16 @@ def qr_gen_vecotr(inp, logo_type, logo_colour, back_type):
         logo.moveto((back_width*(1 - scale_logo)) // 2, (back_width *(1 - scale_logo)) // 2, scale_logo)
         back.append(logo)
 
+    back.save('test.svg')
+    stra=back.to_str()
+    stra=stra.decode('utf-8')
+    stra=stra.replace("CODE","ZPKD")
+    print(stra)
+    stra.encode('utf-8')
+
+    svg2png(bytestring=stra, write_to='wow.png')
 
 
+qr_gen_vecotr(inp,'square','yellow','var1')
 
-
-
+stat='ZKLP'

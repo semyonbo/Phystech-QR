@@ -108,24 +108,11 @@ body {
 .nav_links li a:hover{
     filter: brightness(0) saturate(100%) invert(81%) sepia(72%) saturate(848%) hue-rotate(348deg) brightness(96%) contrast(106%);
 }
-h1{
-    text-align: center;
-    font-family: "Roboto", sans-serif;
-    font-weight: lighter;
-
-}
-label{
-    font-family: "Roboto", sans-serif;
-    font-weight: lighter;
-}
-h2{
+h1,h2,label,p,h3{
     text-align: center;
     font-family: "Roboto", sans-serif;
     font-weight: lighter;
 }
 p{
-    text-align: center;
-    font-family: "Roboto", sans-serif;
-    font-weight: lighter;
     font-size: 14px;
 }

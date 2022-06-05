@@ -14,8 +14,16 @@
                             <button onclick="window.location.href='/code';" class=" btn btn__secondary back_but"><p>&laquo; Назад</p></button>
                         </div>
                         <div class="buttons_case">
-                            <button class="btn btn__primary" onclick="downloadBase64File('png', '{{ img_data }}', 'code.png')" ><p>Скачать PNG</p></button>
-                            <button class="btn btn__primary" onclick="downloadBase64File('image/svg+xml', '{{ svg_data }}', 'code.svg')"><p>Скачать SVG</p></button>
+                            <button class="btn btn__primary" onclick="downloadBase64File('png', '{{ img_data }}', 'code'+'{{stats_code}}'+'.png')" ><p>Скачать PNG</p></button>
+                            <button class="btn btn__primary" onclick="downloadBase64File('image/svg+xml', '{{ svg_data }}', 'code'+'{{stats_code}}'+'.svg')"><p>Скачать SVG</p></button>
+                        </div>
+                        <div class="stats_box" style="display: {{stats_hidden}}">
+                            <h3 style="font-size: 2rem">Код, для сбора статистики:</h3>
+                            <div class="stats_code_box">
+                                <div class="stats_code">
+                                    <h2 class="code_text">{{stats_code}}</h2>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="get_form" style="display: {{ disp }}">
@@ -41,7 +49,7 @@
                             </div>
                             <div id="link_form">
                                 <label for="link_inp">Введите ссылку<br/></label>
-                                <input class="form__input" type="url" placeholder="https://mylink.com" id="link_inp" name="link_inp">
+                                <input class="form__input" type="url" maxlength="600" placeholder="https://mylink.com" id="link_inp" name="link_inp">
                                 <div class="switch" style="justify-content: center">
                                     <div class="switch__1">
                                         <input id="stats_option" name="stats_option" form="main_form" autocomplete="off" type="checkbox">
@@ -52,25 +60,25 @@
                             </div>
                             <div id="wifi_form" style="display: none">
                                 <label for="wifi_name_inp">Введите имя сети Wi-Fi (WPA/WPA2)<br/></label>
-                                <input type="text" class="form__input" placeholder="my-home-wifi" id="wifi_name_inp" name="wifi_name_inp"><br>
+                                <input type="text" class="form__input" maxlength="600" placeholder="my-home-wifi" id="wifi_name_inp" name="wifi_name_inp"><br>
                                 <label for="wifi_pass_inp">Введите пароль к вашей сети WiFi<br/></label>
-                                <input type="password" class="form__input" placeholder="reAllyHardPa22" id="wifi_pass_inp" name="wifi_pass_inp">
+                                <input type="password" class="form__input" maxlength="600" placeholder="reAllyHardPa22" id="wifi_pass_inp" name="wifi_pass_inp">
                             </div>
                             <div id="contact_form" style="display: none">
                                 <label for="name_inp">Введите имя контакта<br/></label>
-                                <input type="text" class="form__input" placeholder="Andrew" id="name_inp" name="name_inp"><br>
+                                <input type="text" class="form__input" maxlength="600" placeholder="Andrew" id="name_inp" name="name_inp"><br>
                                 <label for="phone_inp">Введите номер телефона<br/></label>
-                                <input type="tel" class="form__input" placeholder="+7 920 831 54 37" id="phone_inp" name="phone_inp"><br>
+                                <input type="tel" class="form__input" maxlength="600" placeholder="+7 920 831 54 37" id="phone_inp" name="phone_inp"><br>
                                 <label for="email_inp">Введите Email<br/></label>
-                                <input type="email" class="form__input" placeholder="andrew@niuitmo.ru" id="email_inp" name="email_inp">
+                                <input type="email" class="form__input" maxlength="600" placeholder="andrew@niuitmo.ru" id="email_inp" name="email_inp">
                             </div>
                             <div id="text_form" style="display: none">
                                 <label for="text_inp">Введите текст<br/></label>
-                                <input type="text" class="form__input" placeholder="I love physics" id="text_inp" name="text_inp"><br>
+                                <input type="text" class="form__input" maxlength="600" placeholder="I love physics" id="text_inp" name="text_inp"><br>
                             </div>
                             <div id="geo_form" style="display: none">
                                  <label for="geo_inp">Введите координаты<br/></label>
-                                <input type="text" class="form__input" placeholder="59.927301, 30.338456" id="geo_inp" name="geo_inp"><br>
+                                <input type="text" class="form__input" maxlength="600" placeholder="59.927301, 30.338456" id="geo_inp" name="geo_inp"><br>
                                 <div style="display: flex; justify-content: center">
                                     <div id="map" ></div>
                                 </div>
