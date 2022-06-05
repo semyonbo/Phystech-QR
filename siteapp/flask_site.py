@@ -76,9 +76,9 @@ def get_code():
         encoded_img_data = b64encode(data.getvalue())
         encoded_svg_data=base64.b64encode(svg_str.encode('utf-8'))
         if short_url is not None:
-            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none', shorten_url=short_url, svg_data=encoded_svg_data.decode('utf-8'), stats_code=stats_code)
+            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none', shorten_url=short_url, svg_data=encoded_svg_data.decode('utf-8'), stats_code=stats_code, stats_hidden='')
         else:
-            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none', svg_data=encoded_svg_data.decode('utf-8'))
+            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none', svg_data=encoded_svg_data.decode('utf-8'), stats_hidden='none')
     else:
         return render_template('code.html', hidden='none', disp='')
 
@@ -103,12 +103,26 @@ def get_stats():
                                  (link_id, weekly_timedelta)).fetchone()[0]
             mounthly = conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))',
                                  (link_id, mounthly_timedelta)).fetchone()[0]
+
+            cities=conn.execute('SELECT DISTINCT(city) FROM stats WHERE id=(?)', (link_id,)).fetchall()
+            data=[]
+            for city in cities:
+                nu=conn.execute('SELECT COUNT(*) FROM stats WHERE id=(?) and city=(?)', (link_id,city[0])).fetchone()[0]
+                country=conn.execute('SELECT country FROM stats WHERE id=(?) and city=(?)', (link_id,city[0])).fetchone()[0]
+                data.append([city[0],country,nu])
+            dates=conn.execute('SELECT DISTINCT DATE(time_use) FROM stats WHERE id=(?) and DATETIME(time_use) >= DATETIME(?)', (link_id, mounthly_timedelta)).fetchall()
+            plot_data=[]
+            for date in dates:
+                numb=conn.execute('SELECT COUNT(*) FROM stats WHERE id=(?) and DATE(time_use)=(?)', (link_id, date[0])).fetchone()[0]
+                plot_data.append([date[0],numb])
+            labels = [row[0] for row in plot_data]
+            values = [row[1] for row in plot_data]
             conn.close()
-            return render_template('stats.html', vis='', all_clicks=clicks, daily=daily, weekly=weekly, mounthly=mounthly)
+            return render_template('stats.html', all_clicks=clicks, daily=daily, weekly=weekly, mounthly=mounthly, data=data, labels=labels, values=values, get='', post='none')
         else:
-            return render_template('stats.html', vis='', all_clicks='Code is incorrect')
+            return render_template('stats_error.html')
     else:
-        return render_template('stats.html', vis='hidden', all_clicks=0)
+        return render_template('stats.html', post='', get='none')
 
 
 @app.route('/')
@@ -132,18 +146,24 @@ def url_redirect(link):
         conn.execute('UPDATE urls SET last_use = ? WHERE id = ?',
                      (str(dat.datetime.now())[:19], original_id))
         now=str(dat.datetime.now())[:19]
-        conn.execute('INSERT INTO stats (id,time_use) VALUES (?, ?)', (original_id, now))
-        location_info=get_ip.get(f'http://ip-api.com/csv/{request.remote_addr}?fields=country,countryCode,city,query').text
-        # locat=location_info.split(",")
-        # City=locat[2]
-        # Counrty=locat[1]
-        # User_ip=locat[3]
+        #conn.execute('INSERT INTO stats (id,time_use) VALUES (?, ?)', (original_id, now))
+        location_info=get_ip.get(f'http://ip-api.com/csv/94.19.244.198?fields=country,countryCode,city,query').text
+        locat=location_info.split(",")
+        if len(locat) < 3:
+            City = 'None'
+            Counrty = 'None'
+            User_ip = 'None'
+        else:
+            City = locat[2]
+            Counrty = locat[1]
+            User_ip = locat[3]
+        conn.execute('INSERT INTO stats (id,time_use,country,city,user_id) VALUES (?, ?, ?, ?, ?)', (original_id, now, Counrty, City, User_ip))
         # #request.remote_addr
         conn.commit()
         conn.close()
         return redirect(original_url)
     else:
-        return redirect(url_for('get_main'))
+        return render_template('404.html')
 
 
 # conn=get_db_connection()

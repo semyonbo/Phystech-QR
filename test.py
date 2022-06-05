@@ -73,6 +73,19 @@ def qr_gen_vecotr(inp, logo_type, logo_colour, back_type):
     svg2png(bytestring=stra, write_to='wow.png')
 
 
-qr_gen_vecotr(inp,'square','yellow','var1')
+#qr_gen_vecotr(inp,'square','yellow','var1')
 
 stat='ZKLP'
+
+import requests as get_ip
+location_info=get_ip.get(f'http://ip-api.com/csv/none?fields=country,countryCode,city,query').text
+locat=location_info.split(",")
+if len(locat)<3:
+    City='None'
+    Counrty='None'
+    User_ip='None'
+else:
+    City=locat[2]
+    Counrty=locat[1]
+    User_ip=locat[3]
+print(Counrty,City,User_ip)

@@ -1,20 +1,98 @@
 {% extends "index.html" %}
 {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="stats-back" style="background: repeat url({{ url_for('static', filename='img/font.svg') }}); background-size: 20%">
 
     <div class="stats-bigbox load">
-        <div class="stats-form-box">
+        <div class="stats-form-box" style="display: {{ post }};">
             <form  action="#" method="POST">
                 <label class="h1-text" style="text-align: center" for="stats_code_inp">Введите код!</label>
                 <input type="text" class="stat-inp" id="stats_code_inp" name="stats_code_inp" required>
-                <button class="button_main" type="submit"> <span>Отправить</span> </button>
+                <button class="button_main sup" type="submit"> <span>Отправить</span> </button>
             </form>
-            <h2 style="visibility: {{ vis }}">Всего переходов по ссылке: {{ all_clicks }}</h2>
-            <h2 style="visibility: {{ vis }}">За последний день: {{ daily }}</h2>
-            <h2 style="visibility: {{ vis }}">За последнюю неделю: {{ weekly }}</h2>
-            <h2 style="visibility: {{ vis }}">ВЗа последний месяц: {{ mounthly }}</h2>
+
+        </div>
+        <div class="stats-box" style="display: {{ get }}">
+            <div class="back_but_box">
+                <button onclick="window.location.href='/stats';" class=" btn btn__secondary back_but"><p>&laquo; Назад</p></button>
+            </div>
+            <div class="stats-text">
+                <h1>Всего переходов по ссылке: <span class="count"> {{ all_clicks }}</span></h1>
+                <h2>за последний день: <span class="count"> {{ daily }}</span></h2>
+                <h2>за последнюю неделю: <span class="count"> {{ weekly }}</span></h2>
+                <h2>за последний месяц: <span class="count">{{ mounthly }}</span></h2>
+            </div>
+            <div style="width: 95%; background-color: black; height: 2px"/>
+            <div class="cool_stats">
+                <div class="tab-box">
+                    <div class="tab">
+                        <div class="tbl-header">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Город</th>
+                                    <th>Страна</th>
+                                    <th>Сканирования</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="tbl-content">
+                            <table>
+                                <tbody>
+                                {% for row in data %}
+                                <tr>
+                                    {% for cell in row %}
+                                    <td> {{cell}} </td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <canvas id="lineChart" class="graph"></canvas>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    $(window).on("load resize ", function() {
+        var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+        $('.tbl-header').css({'padding-right':scrollWidth});
+    }).resize();
+</script>
+<script>
+    var ctx=document.getElementById("lineChart").getContext("2d")
+    var lineChart = new Chart(ctx,{
+        type: "line",
+        data:{
+            labels: {{ labels | safe }},
+            datasets:[{
+                    label:"Количество сканирований",
+                    data: {{ values | safe}},
+                    fill: false,
+                    borderColor: 'rgb(253, 209, 5)',
+                    backgroundColor: 'rgb(253, 221, 81)',
+                    lineTension: 0.5,
+                }]
+        },
+        options: {
+            responsive: false
+        }
+    });
 
+    $('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 2000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+</script>
 {% endblock %}
