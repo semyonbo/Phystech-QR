@@ -58,7 +58,7 @@
 
   }
 }
-@media (min-width: 1401px){
+@media (min-width: 960px){
   :root{
       --h1-text-size: 4vw;
       --big-box-width: 60vw;
