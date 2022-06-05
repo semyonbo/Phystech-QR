@@ -147,7 +147,7 @@ def url_redirect(link):
                      (str(dat.datetime.now())[:19], original_id))
         now=str(dat.datetime.now())[:19]
         #conn.execute('INSERT INTO stats (id,time_use) VALUES (?, ?)', (original_id, now))
-        location_info=get_ip.get(f'http://ip-api.com/csv/94.19.244.198?fields=country,countryCode,city,query').text
+        location_info=get_ip.get(f'http://ip-api.com/csv/{request.remote_addr}?fields=country,countryCode,city,query').text
         locat=location_info.split(",")
         if len(locat) < 3:
             City = 'None'
@@ -158,7 +158,6 @@ def url_redirect(link):
             Counrty = locat[1]
             User_ip = locat[3]
         conn.execute('INSERT INTO stats (id,time_use,country,city,user_id) VALUES (?, ?, ?, ?, ?)', (original_id, now, Counrty, City, User_ip))
-        # #request.remote_addr
         conn.commit()
         conn.close()
         return redirect(original_url)
