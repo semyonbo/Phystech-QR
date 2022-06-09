@@ -137,8 +137,12 @@ def get_my_ip():
     else:
         ip = request.headers.getlist("X-Forwarded-For")[0]
     location_info = get_ip.get(
-        f'http://ip-api.com/csv/{str(ip)}?fields=country,countryCode,city,query')
-    return jsonify({'location': location_info.text}), 200
+        f'http://ip-api.com/csv/{str(ip)}?fields=countryCode,city,query')
+    location_info=location_info.text.split(',')
+
+    return jsonify({'country': location_info[0],
+                    'city': location_info[1],
+                    'ip': location_info[2][:-2]}), 200
 
 
 @app.route('/<link>')
