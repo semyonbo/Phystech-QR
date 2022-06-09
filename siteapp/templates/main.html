@@ -1,39 +1,46 @@
 {% extends "index.html" %}
 {% block content %}
-<div class="mainpg-back" style="background: repeat url({{ url_for('static', filename='img/font.svg') }}); background-size: 20%">
+    <div class="mainpg-back"
+         style="background: repeat url({{ url_for('static', filename='img/font.svg') }}); background-size: 20%">
 
-    <div class="mainpg-box load">
-        <div class="mainpg-bigbutton">
-            <div class="mainpg-box-case">
-                <h1 class="h1-text"> Создай QR-код в стиле Физтеха прямо сейчас! </h1>
-            </div>
-            <div class="mainbutton_case">
-                <button onclick="window.location.href='/code';" class="button_main"><span>Создать QR </span></button>
-            </div>
-        </div>
-    </div>
-    <div class="mainpg-cards load">
-        <div class="tg-card">
-            <div class="h2-textbox">
-                <h2 class="h2-text"> Наш генератор так же доступен в Telegram! </h2>
-            </div>
-            <div class="mainbutton_case second">
-                <button onclick="window.location.href='https://t.me/itmo_qrcode_bot';" class="button_main sub" ><span>Телеграм-Бот </span></button>
+        <div class="mainpg-box load">
+            <div class="mainpg-bigbutton">
+                <div class="mainpg-box-case">
+                    <h1 class="h1-text"> Создай QR-код в стиле Физтеха прямо сейчас! </h1>
+                </div>
+                <div class="mainbutton_case">
+                    <button onclick="window.location.href='/code';" class="button_main"><span>Создать QR </span>
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="contact-card">
-            <div class="h2-textbox">
-                <h2 class="h2-text"> Что-то не работает или у Вас есть предложение? </h2>
+        <div class="mainpg-cards load">
+            <div class="tg-card">
+                <div class="h2-textbox">
+                    <h2 class="h2-text"> Наш генератор так же доступен в Telegram! </h2>
+                </div>
+                <div class="mainbutton_case second">
+                    <button onclick="window.location.href='https://t.me/itmo_qrcode_bot';" class="button_main sub">
+                        <span>Телеграм-Бот </span></button>
+                </div>
+                <div class="h2-textbox">
+                    <h2 class="h2-text" style="font-size: 1.5rem"> Временно не работает( </h2>
+                </div>
+            </div>
+            <div class="contact-card">
+                <div class="h2-textbox">
+                    <h2 class="h2-text"> Что-то не работает или у Вас есть предложение? </h2>
                     <p class="p-text"> Напишите нам в tg:</p>
-                    <p class="p-text" style="text-align: right"> @SoSimon </br> @dmitriidmitri</p>
+                    <a href="https://t.me/sosimon" class="p-text" style="text-align: right;">@SoSimon </a>
+                    <a href="https://t.me/dmitriidmitri" class="p-text" style="text-align: right;">@dmitriidmitri </a>
+                    <a class="p-text" style="text-align: right;">@rellard🌙</a>
+                </div>
             </div>
         </div>
+{#        <div class="mainpg-cards load">#}
+{#            <div class="mainpg-bigbutton single">#}
+{##}
+{#            </div>#}
+{#        </div>#}
     </div>
-    <div class="mainpg-cards load">
-        <div class="mainpg-bigbutton single">
-
-        </div>
-    </div>
-
-</div>
 {% endblock %}

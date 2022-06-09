@@ -9,11 +9,11 @@ from hashids import Hashids
 from generator import qr_gen_vecotr
 import requests as get_ip
 
-
 app = Flask(__name__)
 Bootstrap(app)
 app.config['SECRET_KEY'] = 'ILOVW_kAn6e_W3sT_BuT_h6Ate_P8ySicZ'
 hashids = Hashids(min_length=4, salt=app.config['SECRET_KEY'])
+
 
 def make_code(inp, enable_back, back_type, enable_logo, logo_type, logo_colour, code_type, stats_code):
     if enable_back is None:
@@ -22,7 +22,8 @@ def make_code(inp, enable_back, back_type, enable_logo, logo_type, logo_colour, 
         logo_type = None
     if logo_type == 'round':
         logo_colour = None
-    return  qr_gen_vecotr(inp, logo_type, logo_colour, back_type, code_type, stats_code)
+    return qr_gen_vecotr(inp, logo_type, logo_colour, back_type, code_type, stats_code)
+
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
@@ -32,7 +33,6 @@ def get_db_connection():
 
 @app.route('/main', methods=['GET'])
 def get_main():
-
     return render_template('main.html')
 
 
@@ -40,7 +40,7 @@ def get_main():
 def get_code():
     global short_url, inp
     short_url = None
-    stats_code=None
+    stats_code = None
     conn = get_db_connection()
     if request.method == 'POST':
         form_type = request.form.get('inp_radio')
@@ -52,9 +52,9 @@ def get_code():
                 conn.close()
                 url_id = url_data.lastrowid
                 hashid = hashids.encode(url_id)
-                stats_code=hashid
+                stats_code = hashid
                 short_url = request.host_url + hashid
-                inp=short_url
+                inp = short_url
         if form_type == '2':
             wifi_name = request.form.get('wifi_name_inp')
             wifi_pass = request.form.get('wifi_pass_inp')
@@ -69,17 +69,24 @@ def get_code():
         elif form_type == '5':
             geo = request.form.get('geo_inp')
             inp = 'geo:' + geo.split(' ')[0] + '' + geo.split(' ')[1] + ',100'
-        imag = make_code(inp, request.form.get('code_back_enable'), request.form.get('back_type'), request.form.get('logo'), request.form.get('logo_form'), request.form.get('color'), 'rastr', stats_code)
+        imag = make_code(inp, request.form.get('code_back_enable'), request.form.get('back_type'),
+                         request.form.get('logo'), request.form.get('logo_form'), request.form.get('color'), 'rastr',
+                         stats_code)
         imag.convert("RGBA")
         data = io.BytesIO()
-        svg_str=make_code(inp, request.form.get('code_back_enable'), request.form.get('back_type'), request.form.get('logo'), request.form.get('logo_form'), request.form.get('color'), 'vector', stats_code)
+        svg_str = make_code(inp, request.form.get('code_back_enable'), request.form.get('back_type'),
+                            request.form.get('logo'), request.form.get('logo_form'), request.form.get('color'),
+                            'vector', stats_code)
         imag.save(data, 'png')
         encoded_img_data = b64encode(data.getvalue())
-        encoded_svg_data=base64.b64encode(svg_str.encode('utf-8'))
+        encoded_svg_data = base64.b64encode(svg_str.encode('utf-8'))
         if short_url is not None:
-            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none', shorten_url=short_url, svg_data=encoded_svg_data.decode('utf-8'), stats_code=stats_code, stats_hidden='')
+            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none',
+                                   shorten_url=short_url, svg_data=encoded_svg_data.decode('utf-8'),
+                                   stats_code=stats_code, stats_hidden='')
         else:
-            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none', svg_data=encoded_svg_data.decode('utf-8'), stats_hidden='none')
+            return render_template('code.html', hidden='', img_data=encoded_img_data.decode('utf-8'), disp='none',
+                                   svg_data=encoded_svg_data.decode('utf-8'), stats_hidden='none')
     else:
         return render_template('code.html', hidden='none', disp='')
 
@@ -96,30 +103,39 @@ def get_stats():
                                      ' WHERE id = (?)', (link_id,)
                                      ).fetchone()
             clicks = int(link_data['clicks'])
-            daily_timedelta=str(dat.datetime.now() - dat.timedelta(days=1))[:19]
-            weekly_timedelta=str(dat.datetime.now() - dat.timedelta(days=7))[:19]
-            mounthly_timedelta=str(dat.datetime.now() - dat.timedelta(days=30))[:19]
-            daily = conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))', (link_id, daily_timedelta)).fetchone()[0]
+            daily_timedelta = str(dat.datetime.now() - dat.timedelta(days=1))[:19]
+            weekly_timedelta = str(dat.datetime.now() - dat.timedelta(days=7))[:19]
+            mounthly_timedelta = str(dat.datetime.now() - dat.timedelta(days=30))[:19]
+            daily = conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))',
+                                 (link_id, daily_timedelta)).fetchone()[0]
             weekly = conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))',
-                                 (link_id, weekly_timedelta)).fetchone()[0]
+                                  (link_id, weekly_timedelta)).fetchone()[0]
             mounthly = conn.execute('SELECT COUNT(*) FROM stats WHERE id =(?) and DATETIME(time_use) >= DATETIME((?))',
-                                 (link_id, mounthly_timedelta)).fetchone()[0]
+                                    (link_id, mounthly_timedelta)).fetchone()[0]
 
-            cities=conn.execute('SELECT DISTINCT(city) FROM stats WHERE id=(?)', (link_id,)).fetchall()
-            data=[]
+            cities = conn.execute('SELECT DISTINCT(city) FROM stats WHERE id=(?)', (link_id,)).fetchall()
+            data = []
             for city in cities:
-                nu=conn.execute('SELECT COUNT(*) FROM stats WHERE id=(?) and city=(?)', (link_id,city[0])).fetchone()[0]
-                country=conn.execute('SELECT country FROM stats WHERE id=(?) and city=(?)', (link_id,city[0])).fetchone()[0]
-                data.append([city[0],country,nu])
-            dates=conn.execute('SELECT DISTINCT DATE(time_use) FROM stats WHERE id=(?) and DATETIME(time_use) >= DATETIME(?)', (link_id, mounthly_timedelta)).fetchall()
-            plot_data=[]
+                nu = \
+                    conn.execute('SELECT COUNT(*) FROM stats WHERE id=(?) and city=(?)', (link_id, city[0])).fetchone()[
+                        0]
+                country = \
+                    conn.execute('SELECT country FROM stats WHERE id=(?) and city=(?)', (link_id, city[0])).fetchone()[
+                        0]
+                data.append([city[0], country, nu])
+            dates = conn.execute(
+                'SELECT DISTINCT DATE(time_use) FROM stats WHERE id=(?) and DATETIME(time_use) >= DATETIME(?)',
+                (link_id, mounthly_timedelta)).fetchall()
+            plot_data = []
             for date in dates:
-                numb=conn.execute('SELECT COUNT(*) FROM stats WHERE id=(?) and DATE(time_use)=(?)', (link_id, date[0])).fetchone()[0]
-                plot_data.append([date[0],numb])
+                numb = conn.execute('SELECT COUNT(*) FROM stats WHERE id=(?) and DATE(time_use)=(?)',
+                                    (link_id, date[0])).fetchone()[0]
+                plot_data.append([date[0], numb])
             labels = [row[0] for row in plot_data]
             values = [row[1] for row in plot_data]
             conn.close()
-            return render_template('stats.html', all_clicks=clicks, daily=daily, weekly=weekly, mounthly=mounthly, data=data, labels=labels, values=values, get='', post='none')
+            return render_template('stats.html', all_clicks=clicks, daily=daily, weekly=weekly, mounthly=mounthly,
+                                   data=data, labels=labels, values=values, get='', post='none')
         else:
             return render_template('stats_error.html')
     else:
@@ -146,7 +162,7 @@ def url_redirect(link):
                      (clicks + 1, original_id))
         conn.execute('UPDATE urls SET last_use = ? WHERE id = ?',
                      (str(dat.datetime.now())[:19], original_id))
-        now=str(dat.datetime.now())[:19]
+        now = str(dat.datetime.now())[:19]
         if not request.headers.getlist("X-Forwarded-For"):
             ip = request.remote_addr
         else:
@@ -162,18 +178,10 @@ def url_redirect(link):
             City = location_info[1]
             Counrty = location_info[0]
             User_ip = location_info[2]
-        conn.execute('INSERT INTO stats (id,time_use,country,city,user_id) VALUES (?, ?, ?, ?, ?)', (original_id, now, Counrty, City, User_ip))
+        conn.execute('INSERT INTO stats (id,time_use,country,city,user_id) VALUES (?, ?, ?, ?, ?)',
+                     (original_id, now, Counrty, City, User_ip))
         conn.commit()
         conn.close()
         return redirect(original_url)
     else:
         return render_template('404.html')
-
-
-# conn=get_db_connection()
-# cur=conn.cursor()
-# cur.execute("SELECT * FROM urls")
-# rows = cur.fetchall()
-# conn.close()
-# for row in rows:
-#     print(tuple(row))

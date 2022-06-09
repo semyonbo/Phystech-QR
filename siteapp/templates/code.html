@@ -1,50 +1,56 @@
 {% extends "index.html" %}
 
 {% block content %}
-<div class="code-blank" style="background: repeat url({{ url_for('static', filename='img/font.svg') }}); background-size: 20%">
-        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=d785b28b-95e2-4091-b750-7b0403fb6abc" type="text/javascript"></script>
-        <script src="{{url_for('static', filename='js/map.js')}}"></script>
-        <script src="{{url_for('static', filename='js/color_style.js')}}"></script>
+    <div class="code-blank"
+         style="background: repeat url({{ url_for('static', filename='img/font.svg') }}); background-size: 20%">
+        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=d785b28b-95e2-4091-b750-7b0403fb6abc"
+                type="text/javascript"></script>
+        <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/color_style.js') }}"></script>
         <div class="code-box load">
 
             <div class="column">
                 <div class="column-item">
                     <div class="get_code" style="display: {{ hidden }}">
                         <div class="back_but_box">
-                            <button onclick="window.location.href='/code';" class=" btn btn__secondary back_but"><p>&laquo; Назад</p></button>
+                            <button onclick="window.location.href='/code';" class=" btn btn__secondary back_but"><p>
+                                &laquo; Назад</p></button>
                         </div>
                         <img class="code" src="data:image/png;base64,{{ img_data }}" alt="QR Code">
                         <a href="{{ shorten_url }}">{{ shorten_url }}</a>
                     </div>
                     <div class="get_form" style="display: {{ disp }}">
                         <h1 class="h1-code">Выберите тип QR-кода</h1>
-                        <form  action="#" method="POST" id="main_form">
+                        <form action="#" method="POST" id="main_form">
                             <div class="box-for-segmented-control">
                                 <div class="segmented-control">
-                                <input  id="link" type="radio" autocomplete="off" name="inp_radio" value="1" checked/>
-                                <label for="link" class= "segmented-control__1">
-                                    <p>Ссылка</p></label>
-                                <input id="wifi" type="radio" autocomplete="off" name="inp_radio" value="2" />
-                                <label for="wifi" class= "segmented-control__2">
-                                    <p>Wi-Fi</p></label>
-                                <input id="contact" type="radio" autocomplete="off" name="inp_radio" value="3" />
-                                <label for="contact" class= "segmented-control__3">
-                                    <p>Контакт</p></label>
-                                <input id="text" type="radio" autocomplete="off" name="inp_radio" value="4" />
-                                <label for="text" class= "segmented-control__4">
-                                    <p>Текст</p></label>
-                                <input id="geo" type="radio" autocomplete="off" name="inp_radio" value="5" />
-                                <label for="geo" class= "segmented-control__5">
-                                    <p>Гео-<br/>позиция</p></label>
-                                <div class="segmented-control__color"></div>
-                            </div>
+                                    <input id="link" type="radio" autocomplete="off" name="inp_radio" value="1"
+                                           checked/>
+                                    <label for="link" class="segmented-control__1">
+                                        <p>Ссылка</p></label>
+                                    <input id="wifi" type="radio" autocomplete="off" name="inp_radio" value="2"/>
+                                    <label for="wifi" class="segmented-control__2">
+                                        <p>Wi-Fi</p></label>
+                                    <input id="contact" type="radio" autocomplete="off" name="inp_radio" value="3"/>
+                                    <label for="contact" class="segmented-control__3">
+                                        <p>Контакт</p></label>
+                                    <input id="text" type="radio" autocomplete="off" name="inp_radio" value="4"/>
+                                    <label for="text" class="segmented-control__4">
+                                        <p>Текст</p></label>
+                                    <input id="geo" type="radio" autocomplete="off" name="inp_radio" value="5"/>
+                                    <label for="geo" class="segmented-control__5">
+                                        <p>Гео-<br/>позиция</p></label>
+                                    <div class="segmented-control__color"></div>
+                                </div>
                             </div>
                             <div id="link_form">
                                 <label for="link_inp">Введите ссылку<br/></label>
-                                <input class="form__input" type="url" maxlength="600" placeholder="https://mylink.com" id="link_inp" name="link_inp">
+                                <input class="form__input" type="url" maxlength="600" placeholder="https://mylink.com"
+                                       id="link_inp" name="link_inp">
                                 <div class="switch" style="justify-content: center">
                                     <div class="switch__1">
-                                        <input id="stats_option" name="stats_option" form="main_form" autocomplete="off" type="checkbox">
+                                        <input id="stats_option" name="stats_option" form="main_form" autocomplete="off"
+                                               type="checkbox">
                                         <label for="stats_option"></label>
                                     </div>
                                     <p class="p-code">Сбор статистики</p>
@@ -52,27 +58,34 @@
                             </div>
                             <div id="wifi_form" style="display: none">
                                 <label for="wifi_name_inp">Введите имя сети Wi-Fi (WPA/WPA2)<br/></label>
-                                <input type="text" class="form__input" maxlength="600" placeholder="my-home-wifi" id="wifi_name_inp" name="wifi_name_inp"><br>
+                                <input type="text" class="form__input" maxlength="600" placeholder="my-home-wifi"
+                                       id="wifi_name_inp" name="wifi_name_inp"><br>
                                 <label for="wifi_pass_inp">Введите пароль к вашей сети WiFi<br/></label>
-                                <input type="password" class="form__input" maxlength="600" placeholder="reAllyHardPa22" id="wifi_pass_inp" name="wifi_pass_inp">
+                                <input type="password" class="form__input" maxlength="600" placeholder="reAllyHardPa22"
+                                       id="wifi_pass_inp" name="wifi_pass_inp">
                             </div>
                             <div id="contact_form" style="display: none">
                                 <label for="name_inp">Введите имя контакта<br/></label>
-                                <input type="text" class="form__input" maxlength="600" placeholder="Andrew" id="name_inp" name="name_inp"><br>
+                                <input type="text" class="form__input" maxlength="600" placeholder="Andrew"
+                                       id="name_inp" name="name_inp"><br>
                                 <label for="phone_inp">Введите номер телефона<br/></label>
-                                <input type="tel" class="form__input" maxlength="600" placeholder="+7 920 831 54 37" id="phone_inp" name="phone_inp"><br>
+                                <input type="tel" class="form__input" maxlength="600" placeholder="+7 920 831 54 37"
+                                       id="phone_inp" name="phone_inp"><br>
                                 <label for="email_inp">Введите Email<br/></label>
-                                <input type="email" class="form__input" maxlength="600" placeholder="andrew@niuitmo.ru" id="email_inp" name="email_inp">
+                                <input type="email" class="form__input" maxlength="600" placeholder="andrew@niuitmo.ru"
+                                       id="email_inp" name="email_inp">
                             </div>
                             <div id="text_form" style="display: none">
                                 <label for="text_inp">Введите текст<br/></label>
-                                <input type="text" class="form__input" maxlength="600" placeholder="I love physics" id="text_inp" name="text_inp"><br>
+                                <input type="text" class="form__input" maxlength="600" placeholder="I love physics"
+                                       id="text_inp" name="text_inp"><br>
                             </div>
                             <div id="geo_form" style="display: none">
-                                 <label for="geo_inp">Введите координаты<br/></label>
-                                <input type="text" class="form__input" maxlength="600" placeholder="59.927301, 30.338456" id="geo_inp" name="geo_inp"><br>
+                                <label for="geo_inp">Введите координаты<br/></label>
+                                <input type="text" class="form__input" maxlength="600"
+                                       placeholder="59.927301, 30.338456" id="geo_inp" name="geo_inp"><br>
                                 <div style="display: flex; justify-content: center">
-                                    <div id="map" ></div>
+                                    <div id="map"></div>
                                 </div>
                             </div>
                         </form>
@@ -85,30 +98,35 @@
                             <div class="line"></div>
                             <div class="switch">
                                 <div class="switch__1">
-                                    <input id="code_back_enable" name="code_back_enable" form="main_form" autocomplete="off" type="checkbox" value="on">
+                                    <input id="code_back_enable" name="code_back_enable" form="main_form"
+                                           autocomplete="off" type="checkbox" value="on">
                                     <label for="code_back_enable"></label>
                                 </div>
                                 <p class="p-code">Использовать фон</p>
                             </div>
                             <div class="box-for-segmented-control">
                                 <div class="segmented-control sub" id="back_style" style="display: none">
-                                <input  id="variant_1" type="radio" autocomplete="off" form="main_form" name="back_type" value="var1" checked/>
-                                <label for="variant_1" class= "segmented-control__1">
-                                    <p>Вариант 1</p></label>
-                                <input id="variant_2" type="radio" autocomplete="off" form="main_form" name="back_type" value="var2"/>
-                                <label for="variant_2" class= "segmented-control__2">
-                                    <p>Вариант 2</p></label>
-                                <input id="variant_3" type="radio" autocomplete="off" form="main_form" name="back_type" value="var3" />
-                                <label for="variant_3" class= "segmented-control__3">
-                                    <p>Вариант 3</p></label>
-                                <div class="segmented-control__color"></div>
-                            </div>
+                                    <input id="variant_1" type="radio" autocomplete="off" form="main_form"
+                                           name="back_type" value="var1" checked/>
+                                    <label for="variant_1" class="segmented-control__1">
+                                        <p>Вариант 1</p></label>
+                                    <input id="variant_2" type="radio" autocomplete="off" form="main_form"
+                                           name="back_type" value="var2"/>
+                                    <label for="variant_2" class="segmented-control__2">
+                                        <p>Вариант 2</p></label>
+                                    <input id="variant_3" type="radio" autocomplete="off" form="main_form"
+                                           name="back_type" value="var3"/>
+                                    <label for="variant_3" class="segmented-control__3">
+                                        <p>Вариант 3</p></label>
+                                    <div class="segmented-control__color"></div>
+                                </div>
                             </div>
                             <h1 class="h1-code">Настройки логотипа</h1>
                             <div class="line"></div>
                             <div class="switch">
                                 <div class="switch__1">
-                                    <input id="enable_logo" name="logo" form="main_form" autocomplete="off" type="checkbox" value="on" >
+                                    <input id="enable_logo" name="logo" form="main_form" autocomplete="off"
+                                           type="checkbox" value="on">
                                     <label for="enable_logo"></label>
                                 </div>
                                 <p class="p-code">Использовать логотип</p>
@@ -116,16 +134,19 @@
                             <div id="logo_options" style="display: none">
                                 <div class="radio">
                                     <div class="radio__1">
-                                        <input id="square_logo" type="radio" form="main_form" autocomplete="off" name="logo_form" value="round" checked>
+                                        <input id="square_logo" type="radio" form="main_form" autocomplete="off"
+                                               name="logo_form" value="round" checked>
                                         <label for="square_logo"></label>
                                         <p class="p-code">Круглый логотип</p>
                                     </div>
                                     <div class="radio__1">
-                                        <input id="round_logo" type="radio" form="main_form" autocomplete="off" name="logo_form" value="square">
+                                        <input id="round_logo" type="radio" form="main_form" autocomplete="off"
+                                               name="logo_form" value="square">
                                         <label for="round_logo"></label>
                                         <p class="p-code">Квадратный логотип</p>
                                         <div class="color_picker" id="color_picker">
-                                            <input type="radio" form="main_form" name="color" id="yellow" checked value="yellow" />
+                                            <input type="radio" form="main_form" name="color" id="yellow" checked
+                                                   value="yellow"/>
                                             <label for="yellow"><span class="yellow"></span></label>
                                             <input type="radio" form="main_form" name="color" id="black" value="black"/>
                                             <label for="black"><span class="black"></span></label>
@@ -136,17 +157,21 @@
                         </div>
                     </div>
                     <div class="get_code" style="display: {{ hidden }};">
-                        <div class="stats_box" style="display: {{stats_hidden}}">
+                        <div class="stats_box" style="display: {{ stats_hidden }}">
                             <h3 style="font-size: 2.5rem">Код, для сбора статистики:</h3>
                             <div class="stats_code_box">
                                 <div class="stats_code">
-                                    <h2 class="code_text">{{stats_code}}</h2>
+                                    <h2 class="code_text">{{ stats_code }}</h2>
                                 </div>
                             </div>
                         </div>
                         <div class="buttons_case">
-                            <button class="btn btn__primary" onclick="downloadBase64File('image/png', '{{ img_data }}', 'code'+'{{stats_code}}'+'.png')" ><p>Скачать PNG</p></button>
-                            <button class="btn btn__primary" onclick="downloadBase64File('image/svg+xml', '{{ svg_data }}', 'code'+'{{stats_code}}'+'.svg')"><p>Скачать SVG</p></button>
+                            <button class="btn btn__primary"
+                                    onclick="downloadBase64File('image/png', '{{ img_data }}', 'code'+'{{ stats_code }}'+'.png')">
+                                <p>Скачать PNG</p></button>
+                            <button class="btn btn__primary"
+                                    onclick="downloadBase64File('image/svg+xml', '{{ svg_data }}', 'code'+'{{ stats_code }}'+'.svg')">
+                                <p>Скачать SVG</p></button>
                         </div>
 
                     </div>
@@ -157,8 +182,8 @@
             </div>
         </div>
         <script>
-            $(document).ready ( function(){
-                document.querySelector('input[name="inp_radio"]:checked').value=1;
+            $(document).ready(function () {
+                document.querySelector('input[name="inp_radio"]:checked').value = 1;
                 document.getElementById('link_inp').setAttribute('required', '');
             });
 
@@ -173,36 +198,35 @@
             const checkbox1 = document.getElementById('code_back_enable')
             checkbox1.addEventListener('change', (event) => {
                 if (event.currentTarget.checked) {
-                    $('#back_style')[0].style.display= '';
+                    $('#back_style')[0].style.display = '';
                 } else {
-                    $('#back_style')[0].style.display= 'none';
+                    $('#back_style')[0].style.display = 'none';
                 }
             })
             const checkbox2 = document.getElementById('enable_logo')
             checkbox2.addEventListener('change', (event) => {
                 if (event.currentTarget.checked) {
-                    $('#logo_options')[0].style.display= '';
+                    $('#logo_options')[0].style.display = '';
                 } else {
-                    $('#logo_options')[0].style.display= 'none';
+                    $('#logo_options')[0].style.display = 'none';
                 }
             })
 
-            $('input[type=radio][name=logo_form]').change(function (){
+            $('input[type=radio][name=logo_form]').change(function () {
                 if (this.value === 'round') {
-                    $('#color_picker')[0].style.display= 'none';
-                }
-                else if (this.value === 'square'){
-                    $('#color_picker')[0].style.display= 'flex'
+                    $('#color_picker')[0].style.display = 'none';
+                } else if (this.value === 'square') {
+                    $('#color_picker')[0].style.display = 'flex'
                 }
             })
 
-            $('input[type=radio][name=inp_radio]').change(function() {
+            $('input[type=radio][name=inp_radio]').change(function () {
                 if (this.value) {
-                    $('#link_form')[0].style.display= 'none';
-                    $('#wifi_form')[0].style.display= 'none';
-                    $('#contact_form')[0].style.display= 'none';
-                    $('#text_form')[0].style.display= 'none';
-                    $('#geo_form')[0].style.display= 'none';
+                    $('#link_form')[0].style.display = 'none';
+                    $('#wifi_form')[0].style.display = 'none';
+                    $('#contact_form')[0].style.display = 'none';
+                    $('#text_form')[0].style.display = 'none';
+                    $('#geo_form')[0].style.display = 'none';
                     $('#link_inp').removeAttr('required');
                     $('#wifi_name_inp').removeAttr('required');
                     $('#name_inp').removeAttr('required');
@@ -210,27 +234,23 @@
                     $('#wifi_pass_inp').removeAttr('required');
                 }
                 if (this.value === '1') {
-                    $('#link_form')[0].style.display= '';
+                    $('#link_form')[0].style.display = '';
                     $('#link_inp').attr('required', '');
-                }
-                else if (this.value === '2') {
-                    $('#wifi_form')[0].style.display= '';
-                    $('#wifi_name_inp').attr('required','');
-                    $('#wifi_pass_inp').attr('required','');
-                }
-                else if (this.value === '3') {
-                    $('#contact_form')[0].style.display= '';
+                } else if (this.value === '2') {
+                    $('#wifi_form')[0].style.display = '';
+                    $('#wifi_name_inp').attr('required', '');
+                    $('#wifi_pass_inp').attr('required', '');
+                } else if (this.value === '3') {
+                    $('#contact_form')[0].style.display = '';
                     $('#name_inp').attr('required', '');
-                }
-                else if (this.value === '4') {
-                    $('#text_form')[0].style.display= '';
+                } else if (this.value === '4') {
+                    $('#text_form')[0].style.display = '';
                     $('#text_inp').attr('required', '');
-                }
-                else if (this.value === '5') {
-                    $('#geo_form')[0].style.display= '';
+                } else if (this.value === '5') {
+                    $('#geo_form')[0].style.display = '';
                     $('#geo_inp').attr('required', '');
                 }
             });
         </script>
-</div>
+    </div>
 {% endblock %}

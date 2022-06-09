@@ -1,101 +1,109 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:500');
 
-@media (max-width: 640px){
-  :root{
-      --h1-text-size: 10vw;
-      --big-box-width: 90vw;
-      --second-box-width: 90vw;
-      --h2-text-size: 8vw;
-      --big-button-margin: 6%;
-      --main-button-case-left: 0;
-      --main-button-width: 80vw;
-      --big-button-align: center;
-      --main-box-text-left: 6vw;
-      --second-button-case-top: 2%;
-      --second-button-case-bottom: 2%;
-      --second-box-top-margin: 3%;
-      --second-box-margin-bt: 0;
-      --second-button-width: 90%;
-      --second-button-height: 60px;
-  }
+@media (max-width: 640px) {
+    :root {
+        --h1-text-size: 10vw;
+        --big-box-width: 90vw;
+        --second-box-width: 90vw;
+        --h2-text-size: 8vw;
+        --big-button-margin: 6%;
+        --main-button-case-left: 0;
+        --main-button-width: 80vw;
+        --big-button-align: center;
+        --main-box-text-left: 6vw;
+        --second-button-case-top: 2%;
+        --second-button-case-bottom: 2%;
+        --second-box-top-margin: 3%;
+        --second-box-margin-bt: 0;
+        --second-button-width: 90%;
+        --second-button-height: 60px;
+    }
 }
-@media (min-width: 641px) and (max-width: 959px){
-  :root{
-      --h1-text-size: 8vw;
-      --big-box-width: 84vw;
-      --second-box-width: 84vw;
-      --h2-text-size: 6vw;
-      --big-button-margin: 6%;
-      --main-button-case-left: 0;
-      --main-button-width: 80vw;
-      --big-button-align: center;
-      --main-box-text-left: 6vw;
-      --second-button-case-top: 2%;
-      --second-button-case-bottom: 2%;
-      --second-box-top-margin: 3%;
-      --second-box-margin-bt: 0;
-      --second-button-width: 80vw;
-      --second-button-height: 70px;
-  }
-}
-@media (min-width: 960px) and (max-width: 1400px){
-  :root{
-      --h1-text-size: 6vw;
-      --big-box-width: 80vw;
-      --second-box-width: 80vw;
-      --h2-text-size: 5vw;
-      --big-button-margin: 6%;
-      --main-button-case-left: 0;
-      --main-button-width: 70vw;
-      --big-button-align: center;
-      --main-box-text-left: 5vw;
-      --second-button-case-top: 1%;
-      --second-button-case-bottom: 2%;
-      --second-box-top-margin: 3%;
-      --second-box-margin-bt: 0;
-      --second-button-width: 70vw;
-      --second-button-height: 80px;
 
-  }
+@media (min-width: 641px) and (max-width: 959px) {
+    :root {
+        --h1-text-size: 8vw;
+        --big-box-width: 84vw;
+        --second-box-width: 84vw;
+        --h2-text-size: 6vw;
+        --big-button-margin: 6%;
+        --main-button-case-left: 0;
+        --main-button-width: 80vw;
+        --big-button-align: center;
+        --main-box-text-left: 6vw;
+        --second-button-case-top: 2%;
+        --second-button-case-bottom: 2%;
+        --second-box-top-margin: 3%;
+        --second-box-margin-bt: 0;
+        --second-button-width: 80vw;
+        --second-button-height: 70px;
+    }
 }
-@media (min-width: 960px){
-  :root{
-      --h1-text-size: 4vw;
-      --big-box-width: 60vw;
-      --second-box-width: 29vw;
-      --h2-text-size: 2.5vw;
-      --big-button-margin: 2%;
-      --main-button-case-left: 3vw;
-      --main-button-width: 22vw;
-      --big-button-align: left;
-      --main-box-text-left: 3vw;
-      --second-button-case-top: 5vh;
-      --second-button-case-bottom: 0;
-      --second-box-top-margin: 1%;
-      --second-box-margin-bt: 1vw;
-      --second-button-width: 16vw;
-      --second-button-height: 60px;
-  }
+
+@media (min-width: 960px) and (max-width: 1400px) {
+    :root {
+        --h1-text-size: 6vw;
+        --big-box-width: 80vw;
+        --second-box-width: 80vw;
+        --h2-text-size: 5vw;
+        --big-button-margin: 6%;
+        --main-button-case-left: 0;
+        --main-button-width: 70vw;
+        --big-button-align: center;
+        --main-box-text-left: 5vw;
+        --second-button-case-top: 1%;
+        --second-button-case-bottom: 2%;
+        --second-box-top-margin: 3%;
+        --second-box-margin-bt: 0;
+        --second-button-width: 70vw;
+        --second-button-height: 80px;
+
+    }
 }
-.h1-text{
-    font-size:  var(--h1-text-size);
+
+@media (min-width: 960px) {
+    :root {
+        --h1-text-size: 4vw;
+        --big-box-width: 60vw;
+        --second-box-width: 29vw;
+        --h2-text-size: 2.5vw;
+        --big-button-margin: 2%;
+        --main-button-case-left: 3vw;
+        --main-button-width: 22vw;
+        --big-button-align: left;
+        --main-box-text-left: 3vw;
+        --second-button-case-top: 5vh;
+        --second-button-case-bottom: 0;
+        --second-box-top-margin: 1%;
+        --second-box-margin-bt: 1vw;
+        --second-button-width: 16vw;
+        --second-button-height: 60px;
+    }
+}
+
+.h1-text {
+    font-size: var(--h1-text-size);
     text-align: left;
 }
-.h2-text{
+
+.h2-text {
     font-size: var(--h2-text-size);
     text-align: left;
     padding-bottom: 4%;
 }
-.p-text{
+
+.p-text {
     text-align: left;
     font-size: xx-large;
-    padding-bottom: 20px;
+    padding-bottom: 5px;
 }
-.mainpg-box-case{
+
+.mainpg-box-case {
     padding-left: var(--main-box-text-left);
     padding-top: 2vh
 }
-.mainpg-box{
+
+.mainpg-box {
     width: 100%;
     height: 100%;
     display: flex;
@@ -103,18 +111,21 @@
     justify-content: center;
     overflow: auto;
 }
-.mainpg-bigbutton{
+
+.mainpg-bigbutton {
     margin-top: var(--big-button-margin);
     border-radius: 30px;
     width: var(--big-box-width);
     height: auto;
     background-color: white;
 }
-.mainpg-bigbutton.single{
+
+.mainpg-bigbutton.single {
     height: 80vh;
     margin-bottom: 2vh;
 }
-.mainpg-back{
+
+.mainpg-back {
     padding: 0;
     margin: 0;
     width: 100%;
@@ -122,7 +133,8 @@
     text-align: center;
 
 }
-.mainbutton_case{
+
+.mainbutton_case {
     display: flex;
     justify-content: var(--big-button-align);
     padding-left: var(--main-button-case-left);
@@ -130,7 +142,8 @@
     padding-bottom: 2%;
 
 }
-.button_main{
+
+.button_main {
     display: inline-block;
     border-radius: 15px;
     background-color: black;
@@ -146,6 +159,7 @@
     font-weight: lighter;
     border: 2px solid black;
 }
+
 .button_main span {
     color: white;
     cursor: pointer;
@@ -153,41 +167,49 @@
     position: relative;
     transition: 0.5s;
 }
+
 .button_main span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
 }
+
 .button_main:hover span {
     padding-right: 25px;
     color: black;
 }
-.button_main:hover{
+
+.button_main:hover {
     background-color: white;
 }
+
 .button_main:hover span:after {
-  opacity: 1;
-  right: 0;
+    opacity: 1;
+    right: 0;
 }
-.mainpg-cards{
+
+.mainpg-cards {
     display: flex;
     align-content: center;
     justify-content: center;
     overflow: auto;
     flex-wrap: wrap;
 }
-.button_main.sub{
+
+.button_main.sub {
     width: var(--second-button-width);
     height: var(--second-button-height);
 }
-.mainbutton_case.second{
+
+.mainbutton_case.second {
     padding-top: var(--second-button-case-top);
     padding-bottom: var(--second-button-case-bottom);
 }
-.tg-card{
+
+.tg-card {
     margin-top: var(--second-box-top-margin);
     border-radius: 30px;
     width: var(--second-box-width);
@@ -195,12 +217,17 @@
     margin-right: var(--second-box-margin-bt);
     background-color: white;
 }
-.h2-textbox{
+
+.h2-textbox {
     padding-left: var(--main-box-text-left);
     padding-top: 3vh;
     padding-right: var(--main-box-text-left);
+    display: flex;
+    justify-content: left;
+    flex-flow: column;
 }
-.contact-card{
+
+.contact-card {
     margin-top: var(--second-box-top-margin);
     border-radius: 30px;
     margin-left: var(--second-box-margin-bt);

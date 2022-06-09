@@ -3,40 +3,41 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-{% block metas %}
-{% endblock %}
-  <title>Phystech-QR</title>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/global.css') }}"/>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}"/>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/code.css') }}"/>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/stats.css') }}"/>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/error_stats.css') }}"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block metas %}
+    {% endblock %}
+    <title>Phystech-QR</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/global.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/code.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stats.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/error_stats.css') }}"/>
     <link rel="shortcut icon" href="{{ url_for('static', filename='/img/logophysics.ico') }}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script defer>
-        $(function(){
-        var current = location.pathname;
-        $('#nav li a').each(function(){
-            var $this = $(this);
-            if($this.attr('href').indexOf(current) !== -1){
-                $this.addClass('active');
+        $(function () {
+            var current = location.pathname;
+            $('#nav li a').each(function () {
+                var $this = $(this);
+                if ($this.attr('href').indexOf(current) !== -1) {
+                    $this.addClass('active');
                 }
             })
         })</script>
 </head>
 <body>
- <header>
-     <nav>
+<header>
+    <nav>
         <ul class="nav_links" id="nav">
             <li class="sub_nav"><a href="/code">Генератор</a></li>
-            <li class="main_logo"><a href="/main" style="border: none; padding: 0"><img src="{{url_for('static', filename='img/logo.svg')}}" style="width: 240px; height: auto"></a></li>
+            <li class="main_logo"><a href="/main" style="border: none; padding: 0"><img
+                    src="{{ url_for('static', filename='img/logo.svg') }}" style="width: 240px; height: auto"></a></li>
             <li class="sub_nav"><a href="/stats">Статистика</a></li>
         </ul>
-     </nav>
- </header>
-    {% block content %}
-    {% endblock %}
+    </nav>
+</header>
+{% block content %}
+{% endblock %}
 </body>

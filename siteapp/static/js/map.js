@@ -2,7 +2,7 @@ ymaps.ready(init);
 var myMap;
 var myPlacemark;
 
-function init () {
+function init() {
 
     myMap = new ymaps.Map("map", {
         center: [59.927301, 30.338456],
@@ -12,24 +12,22 @@ function init () {
     }, {
         yandexMapDisablePoiInteractivity: true,
         suppressMapOpenBlock: true,
-        suppressObsoleteBrowserNotifier:true,
+        suppressObsoleteBrowserNotifier: true,
         balloonMaxWidth: 200,
     });
     myMap.events.add('click', function (e) {
         if (!myMap.balloon.isOpen()) {
             var coords = e.get('coords');
             document.getElementById('geo_inp').value = [
-                    coords[0].toPrecision(6),
-                    coords[1].toPrecision(6)
-                    ].join(', ');
-        }
-        else {
+                coords[0].toPrecision(6),
+                coords[1].toPrecision(6)
+            ].join(', ');
+        } else {
             myMap.balloon.close();
         }
         if (myPlacemark) {
             myPlacemark.geometry.setCoordinates(coords);
-        }
-        else {
+        } else {
             myPlacemark = createPlacemark(coords);
             myMap.geoObjects.add(myPlacemark);
             myPlacemark.events.add('dragend', function () {
@@ -38,12 +36,12 @@ function init () {
         }
         getAddress(coords);
         myPlacemark.events.add('dragend', function () {
-                getAddress(myPlacemark.geometry.getCoordinates());
-                console.log(myPlacemark.geometry.getCoordinates());
-                document.getElementById('geo_inp').value = [
-                    myPlacemark.geometry.getCoordinates()[0].toPrecision(6),
-                    myPlacemark.geometry.getCoordinates()[1].toPrecision(6)
-                ].join(', ');
+            getAddress(myPlacemark.geometry.getCoordinates());
+            console.log(myPlacemark.geometry.getCoordinates());
+            document.getElementById('geo_inp').value = [
+                myPlacemark.geometry.getCoordinates()[0].toPrecision(6),
+                myPlacemark.geometry.getCoordinates()[1].toPrecision(6)
+            ].join(', ');
         });
     });
 
