@@ -130,20 +130,6 @@ def get_stats():
 def redirecting():
     return redirect(url_for('get_main'))
 
-@app.route("/get_my_ip", methods=["GET"])
-def get_my_ip():
-    if not request.headers.getlist("X-Forwarded-For"):
-        ip = request.remote_addr
-    else:
-        ip = request.headers.getlist("X-Forwarded-For")[0]
-    location_info = get_ip.get(
-        f'http://ip-api.com/csv/{str(ip)}?fields=countryCode,city,query')
-    location_info=location_info.text.split(',')
-
-    return jsonify({'country': location_info[0],
-                    'city': location_info[1],
-                    'ip': location_info[2][:-1]}), 200
-
 
 @app.route('/<link>')
 def url_redirect(link):
@@ -161,17 +147,21 @@ def url_redirect(link):
         conn.execute('UPDATE urls SET last_use = ? WHERE id = ?',
                      (str(dat.datetime.now())[:19], original_id))
         now=str(dat.datetime.now())[:19]
-        #conn.execute('INSERT INTO stats (id,time_use) VALUES (?, ?)', (original_id, now))
-        location_info=get_ip.get(f'http://ip-api.com/csv/{request.remote_addr}?fields=country,countryCode,city,query').text
-        locat=location_info.split(",")
-        if len(locat) < 3:
+        if not request.headers.getlist("X-Forwarded-For"):
+            ip = request.remote_addr
+        else:
+            ip = request.headers.getlist("X-Forwarded-For")[0]
+        location_info = get_ip.get(
+            f'http://ip-api.com/csv/{str(ip)}?fields=countryCode,city,query')
+        location_info = location_info.text.split(',')
+        if len(location_info) < 3:
             City = 'None'
             Counrty = 'None'
             User_ip = 'None'
         else:
-            City = locat[2]
-            Counrty = locat[1]
-            User_ip = locat[3]
+            City = location_info[1]
+            Counrty = location_info[0]
+            User_ip = location_info[2]
         conn.execute('INSERT INTO stats (id,time_use,country,city,user_id) VALUES (?, ?, ?, ?, ?)', (original_id, now, Counrty, City, User_ip))
         conn.commit()
         conn.close()
