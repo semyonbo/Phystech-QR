@@ -3,7 +3,7 @@ import io
 import sqlite3
 from base64 import b64encode
 import datetime as dat
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_bootstrap import Bootstrap
 from hashids import Hashids
 from generator import qr_gen_vecotr
@@ -32,6 +32,7 @@ def get_db_connection():
 
 @app.route('/main', methods=['GET'])
 def get_main():
+
     return render_template('main.html')
 
 
@@ -128,6 +129,10 @@ def get_stats():
 @app.route('/')
 def redirecting():
     return redirect(url_for('get_main'))
+
+@app.route("/get_my_ip", methods=["GET"])
+def get_my_ip():
+    return jsonify({'ip': request.remote_addr}), 200
 
 
 @app.route('/<link>')
