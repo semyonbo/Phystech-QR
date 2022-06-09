@@ -142,7 +142,7 @@ def get_my_ip():
 
     return jsonify({'country': location_info[0],
                     'city': location_info[1],
-                    'ip': location_info[2][:-2]}), 200
+                    'ip': location_info[2][:-1]}), 200
 
 
 @app.route('/<link>')
