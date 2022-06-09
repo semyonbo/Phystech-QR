@@ -132,8 +132,12 @@ def redirecting():
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
+    if not request.headers.getlist("X-Forwarded-For"):
+        ip = request.remote_addr
+    else:
+        ip = request.headers.getlist("X-Forwarded-For")[0]
     location_info = get_ip.get(
-        f'http://ip-api.com/csv/{str(request.remote_addr)}?fields=country,countryCode,city,query')
+        f'http://ip-api.com/csv/{str(ip)}?fields=country,countryCode,city,query')
     return jsonify({'location': location_info.text}), 200
 
 
