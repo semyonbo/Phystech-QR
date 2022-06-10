@@ -38,7 +38,6 @@ def get_main():
 
 @app.route('/code', methods=['GET', 'POST'])
 def get_code():
-    global short_url, inp
     short_url = None
     stats_code = None
     conn = get_db_connection()
